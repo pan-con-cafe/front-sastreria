@@ -1,0 +1,56 @@
+
+section {
+    padding-top: 80px; /* Ajusta esto según la altura de tu navbar */
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 20px;
+  }
+  
+  .image-container {
+    flex: 1;
+    text-align: center;
+  }
+  
+  .image-container img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+  
+  .reservation-form {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 600px;
+  }
+  
+  .reservation-form label {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .reservation-form input,
+  .reservation-form button {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .reservation-form button {
+    background-color: #4a47a3;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .reservation-form button:hover {
+    background-color: #36348f;
+  }
+  

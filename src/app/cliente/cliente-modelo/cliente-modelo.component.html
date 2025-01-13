@@ -1,0 +1,27 @@
+
+<app-navbar></app-navbar>
+<section class="modelos">
+  <h2>PARA ELLA</h2>
+  <div class="carousel">
+    <div class="arrow-left">⬅</div>
+    <div class="image-placeholder" *ngFor="let product of products">
+      <a [routerLink]="['/detalle', product.id]">
+        <img [src]="product.image" [alt]="product.title" />
+      </a>
+    </div>
+    <div class="arrow-right">➡</div>
+  </div>
+
+  <h2>PARA ÉL</h2>
+  <div class="carousel">
+    <div class="arrow-left">⬅</div>
+    <div class="image-placeholder"></div>
+    <div class="image-placeholder"></div>
+    <div class="image-placeholder"></div>
+    <div class="image-placeholder"></div>
+    <div class="image-placeholder"></div>
+    <div class="arrow-right">
+      
+    </div>
+  </div>
+</section>

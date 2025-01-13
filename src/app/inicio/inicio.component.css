@@ -1,0 +1,107 @@
+/* General Styles 
+body, html {
+    margin: 0;
+    padding: 0;
+}*/
+
+header {
+    text-align: center;
+    background: white;
+    padding: 20px;
+    padding-top: 0;
+    border-bottom: 1px solid #ddd;
+}
+
+header nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: inline;
+    justify-content: center;
+    gap: 20px;
+}
+
+header nav ul li {
+    display: inline;
+    margin: 0.6rem;
+    margin-top: 0;
+}
+
+header nav ul li a {
+    font-family: "Lexend Deca", serif;
+    font-weight: 370;
+    font-style: normal;
+    text-decoration: none;
+    color: black;
+}
+
+header a{
+    text-decoration: none;
+    color: black;
+}
+
+header h1 {
+    font-family: "Kaisei HarunoUmi", serif;
+    font-weight: 400;
+    font-size: 3.5rem;
+    margin: 0.8rem;
+    margin-top: 0;
+    letter-spacing: 2px;
+    display: inline;
+}
+
+header h2 {
+    font-family: "Lexend Tera", serif;
+    font-weight: 300;
+    font-size: 1rem;
+    margin: 0;
+    letter-spacing: 3px;
+}
+
+/* Hero Section */
+.hero {
+    position: relative;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: black;
+    overflow: hidden;
+}
+
+.hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.hero .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.4);
+    text-align: center;
+    padding: 0;
+    margin: 0;
+}
+
+.hero .overlay h3 {
+    font-family: "Kaisei HarunoUmi", serif;
+    font-size: 2rem;
+    margin-bottom: 10px;
+    font-weight: normal;
+}
+
+.hero .overlay p {
+    font-family: "Lexend Exa", serif;
+    font-weight: 200;
+    font-size: 1rem;
+    margin: 0;
+}

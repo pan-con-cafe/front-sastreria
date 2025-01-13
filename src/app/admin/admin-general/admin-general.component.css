@@ -1,0 +1,99 @@
+.admin-general-container {
+  display: flex;
+  flex-direction: column;
+  font-family: Arial, sans-serif;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f8f4f2;
+  padding: 10px 20px;
+  border-bottom: 2px solid #d3c3b8;
+}
+
+header .logo {
+  height: 50px;
+}
+
+header nav a {
+  margin: 0 15px;
+  text-decoration: none;
+  color: #8b5e54;
+  font-weight: bold;
+}
+
+header nav a.active-link {
+  text-decoration: underline;
+}
+
+.sidebar {
+  width: 200px;
+  background-color: #f3ece7;
+  padding: 20px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  height: 100vh;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar ul li {
+  margin-bottom: 15px;
+}
+
+.sidebar ul li a {
+  text-decoration: none;
+  color: #8b5e54;
+  font-weight: bold;
+}
+
+.sidebar ul li a.active-link {
+  text-decoration: underline;
+}
+
+.logout-button {
+  margin-top: 20px;
+  padding: 10px;
+  width: 100%;
+  background-color: #d3a58f;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.logout-button:hover {
+  background-color: #b07a6a;
+}
+
+main {
+  flex: 1;
+  padding: 20px;
+}
+
+.charts {
+  display: flex;
+  gap: 20px;
+}
+
+.chart {
+  flex: 1;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.chart h2 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.chart-image {
+  width: 100%;
+  height: auto;
+}
