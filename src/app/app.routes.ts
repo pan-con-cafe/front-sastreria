@@ -14,6 +14,7 @@ import { AdminLoginComponent } from './admin/admin-login/admin-login.component';
 import { AdminGeneralComponent } from './admin/admin-general/admin-general.component';
 import { NavbaradminComponent } from './admin/navbaradmin/navbaradmin.component';
 
+import { ChatbotComponent } from './cliente/chatbot/chatbot.component';
 
 
 
@@ -25,14 +26,14 @@ export const appRoutes: Routes = [
   { path: 'nosotros', component: ClienteNosotrosComponent },
   { path: 'reserva/:id', component: ClienteReservaComponent },
   { path: 'servicios', component: ClienteServiciosComponent },
-  { path: 'detalle/:id', component: ClienteDetalleComponent},
-  { path: 'inicio', component: InicioComponent},
-  { path: 'reservado', component: ClienteFinalComponent},
+  { path: 'detalle/:id', component: ClienteDetalleComponent },
+  { path: 'inicio', component: InicioComponent },
+  { path: 'reservado', component: ClienteFinalComponent },
 
-  { path: 'login', component: AdminLoginComponent},
-  { path: 'general', component: AdminGeneralComponent},
+  { path: 'login', component: AdminLoginComponent },
+  { path: 'general', component: AdminGeneralComponent },
   
-
+  { path: 'chatbot', component: ChatbotComponent },
 
 
   { path: '**', component: NotfoundComponent },
