@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { ChatbotComponent } from '../chatbot/chatbot.component';
 
 @Component({
   selector: 'app-cliente-modelo',
   standalone: true,
-  imports: [NavbarComponent, RouterLink, CommonModule],
+  imports: [NavbarComponent, RouterLink, CommonModule, ChatbotComponent],
   templateUrl: './cliente-modelo.component.html',
   styleUrl: './cliente-modelo.component.css'
 })
