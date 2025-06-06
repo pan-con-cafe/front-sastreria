@@ -28,7 +28,7 @@ export class ClienteReservaComponent implements OnInit{
       id: 1,
       image: 'https://www.bananarepublic.com.pe/media/catalog/product/b/r/br580570_br00_1_1.jpg?optimize=medium&bg-color=255,255,255&height=1305&width=960&canvas=960:1305',
       title: 'Producto 1',
-      description: 'Conjunto elegante de 3 piezas para mujer, traje de pantalón formal...',
+      description: 'Conjunto elegante de 2 piezas para mujer, traje de ...',
     },
     {
       id: 2,

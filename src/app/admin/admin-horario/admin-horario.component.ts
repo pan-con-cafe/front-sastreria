@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
+import { NavbaradminComponent } from '../navbaradmin/navbaradmin.component';
 
 @Component({
   selector: 'app-admin-horario',
   standalone: true,
-  imports: [],
+  imports: [NavbaradminComponent],
   templateUrl: './admin-horario.component.html',
   styleUrl: './admin-horario.component.css'
 })

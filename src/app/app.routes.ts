@@ -12,6 +12,9 @@ import { ClienteFinalComponent } from './cliente/cliente-final/cliente-final.com
 
 import { AdminLoginComponent } from './admin/admin-login/admin-login.component';
 import { AdminGeneralComponent } from './admin/admin-general/admin-general.component';
+import { AdminPedidosComponent } from './admin/admin-pedidos/admin-pedidos.component';
+import { AdminModelosComponent } from './admin/admin-modelos/admin-modelos.component';
+import { AdminHorarioComponent } from './admin/admin-horario/admin-horario.component';
 import { NavbaradminComponent } from './admin/navbaradmin/navbaradmin.component';
 
 import { ChatbotComponent } from './cliente/chatbot/chatbot.component';
@@ -32,6 +35,9 @@ export const appRoutes: Routes = [
 
   { path: 'login', component: AdminLoginComponent },
   { path: 'general', component: AdminGeneralComponent },
+  { path: 'pedidos', component: AdminPedidosComponent },
+  { path: 'modelos', component: AdminModelosComponent },
+  { path: 'horario', component: AdminHorarioComponent},
   
   { path: 'chatbot', component: ChatbotComponent },
 

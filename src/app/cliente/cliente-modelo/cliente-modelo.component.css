@@ -45,7 +45,11 @@ section {
   h2 {
     font-size: 1.5rem;
     margin-bottom: 20px;
-    text-align: center;
+    margin-left: 6.5rem;
+    text-align: left;
+    font-family: "Kaisei HarunoUmi", serif;
+    font-weight: 300;
+    text-decoration: underline;
   }
   
   /* Carousel */

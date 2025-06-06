@@ -1,15 +1,37 @@
 <app-navbar></app-navbar>
+
 <section id="cliente-detalle">
   <div class="back-link">
-    <a routerLink="/modelo">← Regresar</a>
+    <a routerLink="/modelo">← PARA ELLA</a>
   </div>
+
   <div *ngIf="product" class="product-container">
     <div class="product-image">
-      <img [src]="product.image" [alt]="product.title" />
+      <img [src]="selectedImage || product.image" [alt]="product.title" />
+
+      <div class="thumbnail-container">
+        <img
+          *ngFor="let thumb of product.thumbnails"
+          [src]="thumb"
+          [alt]="product.title"
+          (click)="selectedImage = thumb"
+        />
+      </div>
     </div>
+
     <div class="product-info">
       <h1>{{ product.title }}</h1>
       <p>{{ product.description }}</p>
+
+      <div>
+        <p>Incluye:</p>
+        <ul>
+          <li>Chaqueta</li>
+          <li>Pantalón</li>
+          <li>Chaleco</li>
+        </ul>
+      </div>
+
       <button class="buy-button" [routerLink]="['/reserva', product.id]">Lo quiero</button>
     </div>
   </div>
