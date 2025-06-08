@@ -1,0 +1,35 @@
+.cliente-final {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    text-align: center;
+  }
+  
+  h1 {
+    font-weight: 400;
+  }
+  .confirmation-message{
+    max-width: 600px;
+    padding: 20px;
+    font-family: "Lora", serif;
+    font-weight: 400;
+  }
+  
+  .navigate-button {
+    background-color: #2e3a8c;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-family: "Lora", serif;
+    font-weight: 400;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .navigate-button:hover {
+    background-color: #1f2972;
+  }
+  

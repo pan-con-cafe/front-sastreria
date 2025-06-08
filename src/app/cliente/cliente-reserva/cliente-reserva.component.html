@@ -1,0 +1,63 @@
+<app-navbar></app-navbar>
+
+<section id="cliente-reserva">
+  <div class="container">
+    <!-- Imagen del producto -->
+    <div class="image-container">
+      <img [src]="product?.image" [alt]="product?.title" />
+      <p>{{ product?.description }}</p>
+    </div>
+
+    <!-- Formulario de reserva -->
+    <form (ngSubmit)="submitReservation()" class="reservation-form">
+      <h2>Reserve su cita</h2>
+
+      <div class="input-group">
+        <div class="input-field">
+          <label for="dni">Ingrese su DNI</label>
+          <input type="text" id="dni" [(ngModel)]="reservation.dni" name="dni" required />
+        </div>
+        <div class="input-field">
+          <label for="fecha">Elija la fecha de su cita</label>
+          <input type="date" id="fecha" [(ngModel)]="reservation.fecha" name="fecha" required />
+        </div>
+      </div>
+
+      <div class="input-group">
+        <div class="input-field">
+          <label for="nombres">Nombres</label>
+          <input type="text" id="nombres" [(ngModel)]="reservation.nombres" name="nombres" required />
+        </div>
+        <div class="input-field">
+          <label for="apellidos">Apellidos</label>
+          <input type="text" id="apellidos" [(ngModel)]="reservation.apellidos" name="apellidos" required />
+        </div>
+      </div>
+
+      <div class="input-group">
+        <div class="input-field">
+          <label for="correo">Correo electrónico</label>
+          <input type="email" id="correo" [(ngModel)]="reservation.correo" name="correo" required />
+        </div>
+        <div class="input-field">
+          <label for="telefono">Número de teléfono</label>
+          <input type="tel" id="telefono" [(ngModel)]="reservation.telefono" name="telefono" required />
+        </div>
+      </div>
+
+      <p>Elija una de las opciones:</p>
+      <div class="radio-options">
+        <label>
+          <input type="radio" name="opcion1" [(ngModel)]="reservation.opcion" value="sastre" required />
+          Que el sastre compre la tela que crea conveniente
+        </label>
+        <label>
+          <input type="radio" name="opcion2" [(ngModel)]="reservation.opcion" value="cliente" required />
+          Yo compraré la tela que crea conveniente
+        </label>
+      </div>
+
+      <button type="submit" class="submit-button">Reservar</button>
+    </form>
+  </div>
+</section>
