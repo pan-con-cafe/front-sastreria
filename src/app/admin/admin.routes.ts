@@ -24,6 +24,7 @@ export const ADMIN_ROUTES: Routes = [
 import { Routes } from '@angular/router';
 import { AdminBienvenidaComponent } from './admin-bienvenida/admin-bienvenida.component';
 import { PerfilComponent } from './admin-general/perfil/perfil.component';
+import { InicioComponent } from '../inicio/inicio.component';
 
 
 export const ADMIN_ROUTES: Routes = [
@@ -151,8 +152,6 @@ export const ADMIN_ROUTES: Routes = [
   },
 
   {
-    path: '',
-    redirectTo: 'general',
-    pathMatch: 'full',
-  }
+    path: 'inicio', component: InicioComponent,
+  },
 ];

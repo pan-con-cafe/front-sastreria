@@ -4,21 +4,18 @@ import { ClienteDetalleComponent } from './cliente-detalle/cliente-detalle.compo
 import { ClienteFinalComponent } from './cliente-final/cliente-final.component';
 
 export const CLIENTE_ROUTES: Routes = [
+  
+  {
+    path: '',
+    loadComponent: () =>
+      import('../inicio/inicio.component').then(m => m.InicioComponent),
+    redirectTo: 'inicio',
+  },
   {
     path: '',
     loadComponent: () =>
       import('./cliente-home.component').then(m => m.ClienteHomeComponent),
     children: [
-      /*{
-        path: '',
-        redirectTo: 'inicio',
-        pathMatch: 'full'
-      },*/
-      {
-        path: '',
-        loadComponent: () =>
-          import('../inicio/inicio.component').then(m => m.InicioComponent),
-      },
       {
         path: 'contacto',
         loadComponent: () =>
@@ -50,13 +47,10 @@ export const CLIENTE_ROUTES: Routes = [
           import('./cliente-servicios/cliente-servicios.component').then(m => m.ClienteServiciosComponent),
       },
       {
-        path: 'final',
+        path: 'reservado',
         loadComponent: () =>
           import('./cliente-final/cliente-final.component').then(m => m.ClienteFinalComponent),
       },
     ]
   },
-  { path: 'reserva/:id', component: ClienteReservaComponent },
-  { path: 'detalle/:id', component: ClienteDetalleComponent },
-  { path: 'reservado', component: ClienteFinalComponent },
 ];

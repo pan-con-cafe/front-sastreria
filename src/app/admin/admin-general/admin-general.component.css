@@ -1,81 +1,72 @@
 
-section {
-  padding-top: 80px; /* Ajusta esto según la altura de tu navbar */
-}
+  section {
+    padding-top: 80px; /* Ajusta esto según la altura de tu navbar */
+  }
 
-.admin-general-container {
-  display: flex;
-  flex-direction: column;
-}
+  .admin-general-container {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+  }
 
-.sidebar {
-  width: 200px;
-  background-color: #DCC8C2;
-  padding: 20px;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-  height: 100vh;
-}
+  .sidebar {
+    width: 200px;
+    background-color: #DCC8C2;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    height: 100vh;
+  }
 
-.sidebar ul {
-  list-style: none;
-  padding: 0;
-}
+  .sidebar ul {
+    list-style: none;
+    padding: 0;
+  }
 
-.sidebar ul li {
-  margin-bottom: 15px;
-}
+  .sidebar ul li {
+    margin-bottom: 15px;
+  }
 
-.sidebar ul li a {
-  text-decoration: none;
-  color: #000000;
-  font-family: "Jura", sans-serif;
-  font-weight: 400;
-}
+  .sidebar ul li a {
+    text-decoration: none;
+    color: #000000;
+    font-family: "Jura", sans-serif;
+    font-weight: 400;
+    font-size: 19px;
+  }
 
-.sidebar ul li a.active-link {
-  text-decoration: underline;
-}
+  .sidebar ul li a.active-link {
+    text-decoration: underline;
+  }
 
-.logout-button {
-  margin-top: 20px;
-  padding: 10px;
-  width: 100%;
-  background-color: #d3a58f;
-  color: white;
-  border: none;
-  cursor: pointer;
-  font-family: "Jura", sans-serif;
-  font-weight: 400;
-}
+  .sidebar ul li a:hover {
+    text-decoration: underline;
+  }
 
-.logout-button:hover {
-  background-color: #b07a6a;
-}
+  .logout-button {
+    margin-top: 20px;
+    padding: 10px;
+    width: 100%;
+    background-color: #d3a58f;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-family: "Jura", sans-serif;
+    font-weight: 400;
+  }
 
-main {
-  flex: 1;
-  padding: 20px;
-}
+  .logout-button:hover {
+    background-color: #b07a6a;
+  }
 
-.charts {
-  display: flex;
-  gap: 20px;
-}
+  main {
+    flex: 1;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
-.chart {
-  flex: 1;
-  background-color: #f9f9f9;
-  border: 1px solid #ddd;
-  padding: 20px;
-  border-radius: 5px;
-}
-
-.chart h2 {
-  font-size: 18px;
-  margin-bottom: 10px;
-}
-
-.chart-image {
-  width: 100%;
-  height: auto;
-}
+  .vineta {
+    width: 16px;
+    height: 16px;
+  }

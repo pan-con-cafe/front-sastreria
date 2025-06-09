@@ -61,12 +61,6 @@ section {
     margin-bottom: 40px;
   }
   
-  .arrow-left,
-  .arrow-right {
-    font-size: 2rem;
-    cursor: pointer;
-  }
-  
   .image-placeholder {
     width: 150px;
     height: 200px;

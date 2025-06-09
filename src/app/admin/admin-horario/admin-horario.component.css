@@ -3,9 +3,10 @@ section {
   padding-top: 80px; /* Ajusta esto según la altura de tu navbar */
 }
 
-.admin-general-container {
+.admin-horario-container {
   display: flex;
-  flex-direction: column;
+  flex-direction: row; /* CAMBIO CLAVE */
+  height: 100vh; /* Ocupar altura completa de la ventana */
 }
 
 .sidebar {
@@ -30,9 +31,14 @@ section {
   color: #000000;
   font-family: "Jura", sans-serif;
   font-weight: 400;
+  font-size: 19px;
 }
 
 .sidebar ul li a.active-link {
+  text-decoration: underline;
+}
+
+.sidebar ul li a:hover {
   text-decoration: underline;
 }
 
@@ -55,27 +61,12 @@ section {
 main {
   flex: 1;
   padding: 20px;
-}
-
-.charts {
   display: flex;
-  gap: 20px;
+  justify-content: center;
+  align-items: center;
 }
 
-.chart {
-  flex: 1;
-  background-color: #f9f9f9;
-  border: 1px solid #ddd;
-  padding: 20px;
-  border-radius: 5px;
-}
-
-.chart h2 {
-  font-size: 18px;
-  margin-bottom: 10px;
-}
-
-.chart-image {
-  width: 100%;
-  height: auto;
+.vineta {
+  width: 16px;
+  height: 16px;
 }

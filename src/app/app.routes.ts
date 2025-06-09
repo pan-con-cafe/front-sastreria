@@ -16,6 +16,15 @@ import { NotfoundComponent } from './cliente/notfound/notfound.component';
 
 export const appRoutes: Routes = [
 
+  { path: '', redirectTo: 'inicio', pathMatch: 'full', },
+
+  {
+    path: 'inicio',
+    loadComponent: () =>
+      import('./inicio/inicio.component').then(m => m.InicioComponent),
+  },  
+
+
   //modulo cliente
   { path: '', loadChildren: () => import('./cliente/cliente.routes').then(m => m.CLIENTE_ROUTES), },
 
