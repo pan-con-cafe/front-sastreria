@@ -1,46 +1,31 @@
 import { Routes } from '@angular/router';
-import { ClienteContactoComponent } from './cliente/cliente-contacto/cliente-contacto.component';
-import { ClienteModeloComponent } from './cliente/cliente-modelo/cliente-modelo.component';
-import { ClienteNosotrosComponent } from './cliente/cliente-nosotros/cliente-nosotros.component';
+import { provideRouter } from '@angular/router';
+
 import { ClienteReservaComponent } from './cliente/cliente-reserva/cliente-reserva.component';
-import { ClienteServiciosComponent } from './cliente/cliente-servicios/cliente-servicios.component';
 import { ClienteDetalleComponent } from './cliente/cliente-detalle/cliente-detalle.component';
-import { InicioComponent } from './inicio/inicio.component';
-import { NotfoundComponent } from './cliente/notfound/notfound.component';
-import { NavbarComponent } from './cliente/navbar/navbar.component';
 import { ClienteFinalComponent } from './cliente/cliente-final/cliente-final.component';
 
 import { AdminLoginComponent } from './admin/admin-login/admin-login.component';
-import { AdminGeneralComponent } from './admin/admin-general/admin-general.component';
-import { AdminPedidosComponent } from './admin/admin-pedidos/admin-pedidos.component';
-import { AdminModelosComponent } from './admin/admin-modelos/admin-modelos.component';
-import { AdminHorarioComponent } from './admin/admin-horario/admin-horario.component';
-import { NavbaradminComponent } from './admin/navbaradmin/navbaradmin.component';
+import { AdminBienvenidaComponent } from './admin/admin-bienvenida/admin-bienvenida.component';
 
 import { ChatbotComponent } from './cliente/chatbot/chatbot.component';
 
+import { NotfoundComponent } from './cliente/notfound/notfound.component';
 
 
 
 export const appRoutes: Routes = [
-  { path: '', redirectTo: '/inicio', pathMatch: 'full' },
-  { path: 'contacto', component: ClienteContactoComponent },
-  { path: 'modelo', component: ClienteModeloComponent },
-  { path: 'nosotros', component: ClienteNosotrosComponent },
-  { path: 'reserva/:id', component: ClienteReservaComponent },
-  { path: 'servicios', component: ClienteServiciosComponent },
-  { path: 'detalle/:id', component: ClienteDetalleComponent },
-  { path: 'inicio', component: InicioComponent },
-  { path: 'reservado', component: ClienteFinalComponent },
 
+  //modulo cliente
+  { path: '', loadChildren: () => import('./cliente/cliente.routes').then(m => m.CLIENTE_ROUTES), },
+
+  //modulo administrador
+  { path: 'admin', loadChildren: () => import('./admin/admin.routes').then(m => m.ADMIN_ROUTES) },
+
+  //login y chatbot
   { path: 'login', component: AdminLoginComponent },
-  { path: 'general', component: AdminGeneralComponent },
-  { path: 'pedidos', component: AdminPedidosComponent },
-  { path: 'modelos', component: AdminModelosComponent },
-  { path: 'horario', component: AdminHorarioComponent},
-  
   { path: 'chatbot', component: ChatbotComponent },
 
-
+  // no encontrado
   { path: '**', component: NotfoundComponent },
 ];

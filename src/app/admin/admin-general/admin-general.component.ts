@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink, RouterModule } from '@angular/router';
 import { NavbaradminComponent } from '../navbaradmin/navbaradmin.component';
+import { AdminBienvenidaComponent } from '../admin-bienvenida/admin-bienvenida.component';
 
 @Component({
   selector: 'app-admin-general',
   standalone: true,
-  imports: [NavbaradminComponent],
+  imports: [NavbaradminComponent, RouterModule, RouterLink, AdminBienvenidaComponent],
   templateUrl: './admin-general.component.html',
-  styleUrl: './admin-general.component.css'
+  styleUrls: ['./admin-general.component.css']
 })
 export class AdminGeneralComponent {
   constructor(private router: Router) {}

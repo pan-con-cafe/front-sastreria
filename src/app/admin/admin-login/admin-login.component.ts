@@ -30,7 +30,7 @@ export class AdminLoginComponent {
       this.adminCredentials.password === validPassword
     ) {
       this.errorMessage = null;
-      this.router.navigate(['general']); // Redirige a admin-general
+      this.router.navigate(['admin/general']); // Redirige a admin-general
     } else {
       this.errorMessage = 'Credenciales incorrectas. Intente nuevamente.';
     }

@@ -1,1 +1,30 @@
 <app-navbaradmin></app-navbaradmin>
+
+<section>
+  <div class="admin-general-container">
+    <div class="sidebar">
+      <ul>
+        <li>
+          <a routerLink="categorias" routerLinkActive="active-link">
+            CATEGORIAS
+          </a>
+        </li>
+        <li>
+          <a routerLink="anadir-modelo" routerLinkActive="active-link">
+            AÑADIR MODELO
+          </a>
+        </li>
+        <li>
+          <a routerLink="ver-modelo" routerLinkActive="active-link">
+            VER MODELO
+          </a>
+        </li>
+      </ul>
+      <button class="logout-button" (click)="logout()">CERRAR SESIÓN</button>
+    </div>
+
+    <main>
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</section>

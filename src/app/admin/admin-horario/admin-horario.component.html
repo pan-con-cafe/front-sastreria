@@ -1,1 +1,19 @@
+
 <app-navbaradmin></app-navbaradmin>
+
+<section>
+  <div class="admin-general-container">
+    <div class="sidebar">
+      <ul>
+        <li>
+          <a routerLink="ver-horario" routerLinkActive="active-link">VER HORARIO</a>
+        </li>
+      </ul>
+      <button class="logout-button" (click)="logout()">CERRAR SESIÓN</button>
+    </div>
+
+    <main>
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</section>

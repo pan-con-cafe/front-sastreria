@@ -3,40 +3,14 @@ section {
   padding-top: 80px; /* Ajusta esto según la altura de tu navbar */
 }
 
-
 .admin-general-container {
   display: flex;
   flex-direction: column;
-  font-family: Arial, sans-serif;
-}
-
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #f8f4f2;
-  padding: 10px 20px;
-  border-bottom: 2px solid #d3c3b8;
-}
-
-header .logo {
-  height: 50px;
-}
-
-header nav a {
-  margin: 0 15px;
-  text-decoration: none;
-  color: #8b5e54;
-  font-weight: bold;
-}
-
-header nav a.active-link {
-  text-decoration: underline;
 }
 
 .sidebar {
   width: 200px;
-  background-color: #f3ece7;
+  background-color: #DCC8C2;
   padding: 20px;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
   height: 100vh;
@@ -53,8 +27,9 @@ header nav a.active-link {
 
 .sidebar ul li a {
   text-decoration: none;
-  color: #8b5e54;
-  font-weight: bold;
+  color: #000000;
+  font-family: "Jura", sans-serif;
+  font-weight: 400;
 }
 
 .sidebar ul li a.active-link {
@@ -69,7 +44,8 @@ header nav a.active-link {
   color: white;
   border: none;
   cursor: pointer;
-  font-weight: bold;
+  font-family: "Jura", sans-serif;
+  font-weight: 400;
 }
 
 .logout-button:hover {
