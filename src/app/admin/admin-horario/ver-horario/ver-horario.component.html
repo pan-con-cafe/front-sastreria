@@ -1,1 +1,16 @@
-<p>ver-horario works!</p>
+<section class="horario-container">
+  <h2>Horario de atención:</h2>
+
+  <div class="horario-grid">
+    <div *ngFor="let dia of dias; let i = index">
+      <div class="dia-header">{{ dia }}</div>
+      <div *ngFor="let hora of horario[i]" class="hora-input">
+        <input [value]="hora" readonly />
+      </div>
+    </div>
+  </div>
+
+  <div class="boton-editar">
+    <button routerLink="/admin/horario/editar-horario">Editar</button>
+  </div>
+</section>

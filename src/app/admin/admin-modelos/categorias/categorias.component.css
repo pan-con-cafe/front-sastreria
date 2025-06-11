@@ -1,0 +1,77 @@
+.categorias-container {
+  padding: 40px;
+  font-family: "Jura", sans-serif;
+  color: #5c5c5c;
+  margin: 0 auto;    /* Centramos el contenedor */
+}
+
+.titulo {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.categoria-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.categoria-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f1e7e4;
+  padding: 16px 24px;
+  border-radius: 9999px;
+  font-size: 16px;
+  color: #5c5c5c;
+  font-weight: 500;
+  width: 800px; /* Ocupa todo el ancho disponible */
+  box-shadow: none;
+  transition: background-color 0.3s ease;
+}
+
+.categoria-item:hover {
+  background-color: #e4d4cc;
+}
+
+.icono-editar {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  color: #5c5c5c;
+}
+
+.icono-editar:hover {
+  color: #8f5d50;
+}
+
+.icono {
+  width: 16px;
+  height: 16px;
+}
+
+.boton-container {
+  margin-top: 24px;
+  display: flex;
+  justify-content: center;
+}
+
+.boton-anadir {
+  background-color: #b07a6a;
+  color: white;
+  padding: 10px 24px;
+  border-radius: 9999px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  font-family: "Jura", sans-serif;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.boton-anadir:hover {
+  background-color: #8f5d50;
+}

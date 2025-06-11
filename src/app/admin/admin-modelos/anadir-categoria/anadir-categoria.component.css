@@ -1,0 +1,80 @@
+.form-container {
+  padding: 1.5rem;
+}
+
+.titulo {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.input {
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  border: none;
+  background-color: #eeeeee;
+  outline: none;
+  max-width: 250px;
+  margin-top: 0.25rem;
+}
+
+.modelos {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 300px;
+}
+
+.boton-icono {
+  background-color: #cfaea2;
+  border: none;
+  border-radius: 9999px;
+  width: 32px;
+  height: 32px;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.icono-mas {
+  position: relative;
+  top: -1px;
+}
+
+.lista-modelos {
+  margin-bottom: 1rem;
+  margin-top: -1rem;
+  padding-left: 1.5rem;
+}
+
+.boton-container {
+  margin-top: 1.5rem;
+}
+
+.boton-guardar {
+  background-color: #cfaea2;
+  color: white;
+  padding: 0.5rem 1.5rem;
+  border-radius: 9999px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.boton-guardar:hover {
+  background-color: #b79588;
+}
+
+.mensaje-error {
+  color: #9b4b4b;
+  margin-top: 1rem;
+  font-size: 0.875rem;
+}

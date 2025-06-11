@@ -1,0 +1,29 @@
+.contenedor {
+  padding: 2rem;
+}
+
+.tarjeta {
+  background: #f0e7e5;
+  padding: 1.2rem;
+  margin-bottom: 1rem;
+  border-radius: 1rem;
+}
+
+.contenido {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.derecha {
+  text-align: right;
+}
+
+.derecha button {
+  background-color: #d1b1a9;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 1rem;
+  cursor: pointer;
+  font-weight: 500;
+}

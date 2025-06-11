@@ -1,0 +1,60 @@
+.horario-container {
+  padding: 40px;
+  font-family: "Jura", sans-serif;
+  color: #5c5c5c;
+}
+
+h2 {
+  margin-bottom: 20px;
+}
+
+.horario-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr); /* 6 días */
+  gap: 10px;
+  text-align: center;
+}
+
+.dia-header {
+  background-color: #e4d4cc;
+  padding: 10px 0;
+  font-weight: bold;
+  border-radius: 12px;
+}
+
+.hora-input input {
+  width: 100%;
+  padding: 8px 0;
+  border: none;
+  background-color: #f1e7e4;
+  border-radius: 12px;
+  text-align: center;
+  color: #5c5c5c;
+  font-family: inherit;
+  font-size: 14px;
+}
+
+.hora-input input:read-only {
+  cursor: default;
+}
+
+.boton-editar {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+.boton-editar button {
+  background-color: #b07a6a;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-family: "Jura", sans-serif;
+  font-size: 16px;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.boton-editar button:hover {
+  background-color: #8f5d50;
+}

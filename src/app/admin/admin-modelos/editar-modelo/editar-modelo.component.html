@@ -1,1 +1,35 @@
-<p>editar-modelo works!</p>
+<div class="editar-modelo-container">
+  <h2>Editar modelo:</h2>
+
+  <div class="editar-grid">
+    <div class="imagenes-section">
+      <!-- Imagen principal -->
+      <div class="imagen-principal">
+        <img src="assets/placeholder.svg" alt="Principal" />
+        <span class="icono-eliminar">🛑</span>
+      </div>
+
+      <!-- Imágenes adicionales -->
+      <div class="imagenes-secundarias">
+        <div class="imagen-secundaria">
+          <img [src]="" alt="Secundaria" />
+          <span class="icono-eliminar">🛑</span>
+        </div>
+
+        <div class="imagen-secundaria agregar">
+          <span class="icono-agregar">➕</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="formulario-section">
+      <label>Nombre:</label>
+      <input type="text" placeholder="Nombre del modelo" />
+
+      <label>Descripción:</label>
+      <textarea placeholder="Descripción breve"></textarea>
+    </div>
+  </div>
+
+  <button class="btn-guardar">Guardar</button>
+</div>

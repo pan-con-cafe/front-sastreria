@@ -1,1 +1,29 @@
-<p>editar-categoria works!</p>
+<div class="form-container">
+  <div class="header">
+    <h2>Editar categoría:</h2>
+    <button class="btn-eliminar" (click)="eliminarCategoria()">Eliminar categoría</button>
+  </div>
+
+  <div class="form-group">
+    <label for="nombre">Nombre:</label>
+    <input id="nombre" [(ngModel)]="nombreCategoria" class="input" />
+  </div>
+
+  <div class="form-group">
+    <label>Modelos seleccionados:</label>
+    <div class="modelos-container">
+      <div
+        class="modelo"
+        *ngFor="let modelo of modelosSeleccionados; let i = index"
+      >
+        <button class="icono-eliminar" (click)="eliminarModelo(i)">🚫</button>
+        <div class="imagen-modelo"></div>
+      </div>
+      <button class="btn-agregar" (click)="agregarModelo()">+</button>
+    </div>
+  </div>
+
+  <div class="boton-container">
+    <button class="btn-guardar" (click)="guardarCambios()">Guardar</button>
+  </div>
+</div>

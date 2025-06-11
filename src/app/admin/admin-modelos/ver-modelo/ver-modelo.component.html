@@ -1,1 +1,16 @@
-<p>ver-modelo works!</p>
+<section>
+  <div class="ver-modelo-container">
+    <h2>Todos los modelos:</h2>
+    <button class="btn-anadir-modelo" routerLink="/admin/modelos/anadir-modelo">Añadir Modelo</button>
+
+    <div class="modelos-grid">
+      <div class="modelo-card" *ngFor="let modelo of modelos">
+        <div class="modelo-img">
+          <img [src]="modelo.imagen" alt="modelo" />
+          <button class="edit-icon" routerLink="/admin/modelos/editar-modelo">✏️</button>
+        </div>
+        <p class="modelo-nombre">{{ modelo.nombre }}</p>
+      </div>
+    </div>
+  </div>
+</section>

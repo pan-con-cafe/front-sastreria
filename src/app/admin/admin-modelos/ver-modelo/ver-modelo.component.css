@@ -1,0 +1,66 @@
+
+.ver-modelo-container {
+  width: 800px;
+  box-sizing: border-box;
+
+  h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .btn-anadir-modelo {
+    background-color: #c39a8e;
+    color: white;
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 20px;
+    margin-bottom: 1rem;
+    float: right;
+    cursor: pointer;
+    font-size: 1rem;
+  }
+
+  .modelos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 2rem;
+    clear: both;
+  }
+
+  .modelo-card {
+    text-align: center;
+
+    .modelo-img {
+      background-color: #e3e3e3;
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 12px;
+
+      img {
+        width: 60%;
+        height: auto;
+      }
+
+      .edit-icon {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        font-size: 1.1rem;
+        cursor: pointer;
+        background: none;
+        border: none;
+      }
+    }
+
+    .modelo-nombre {
+      margin-top: 0.5rem;
+      border-top: 1px dashed #000;
+      padding-top: 0.4rem;
+      font-size: 0.9rem;
+    }
+  }
+}

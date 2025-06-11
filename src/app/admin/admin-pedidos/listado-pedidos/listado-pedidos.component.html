@@ -1,1 +1,16 @@
-<p>listado-pedidos works!</p>
+<div class="contenedor">
+  <h2>Lista de pedidos:</h2>
+
+  <div class="tarjeta" *ngFor="let pedido of [1, 2, 3]">
+    <div class="contenido">
+      <div>
+        <strong>Nombre Del Cliente</strong>
+        <p>Pequeño detalle del modelo pedido por el cliente</p>
+      </div>
+      <div class="derecha">
+        <span>00/11/2222</span>
+        <button routerLink="/admin/pedidos/ver-pedido">Ver Detalle</button>
+      </div>
+    </div>
+  </div>
+</div>
