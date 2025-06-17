@@ -1,11 +1,6 @@
 .perfil-container {
   width: 100%;
-  max-width: 900px;
-  padding: 20px;
-  font-family: "Libre Franklin", sans-serif;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+  font-family: "libre Franklin", serif;
 }
 
 .perfil-header {
@@ -17,17 +12,12 @@
 
 .perfil-header h2 {
   font-size: 24px;
-  font-weight: 500;
-}
-
-.edit-icon {
-  cursor: pointer;
-  font-size: 18px;
+  font-weight: 300;
 }
 
 .perfil-content {
   display: flex;
-  justify-content: space-between;
+
   gap: 40px;
 }
 
@@ -40,7 +30,7 @@
 
 .form-group label {
   display: block;
-  font-weight: 500;
+  font-weight: 300;
   margin-bottom: 4px;
 }
 
@@ -51,6 +41,7 @@
   border: none;
   background-color: #e0e0e0;
   font-family: "Libre Franklin", sans-serif;
+  font-weight: 300;
 }
 
 .perfil-logo {
@@ -79,24 +70,40 @@
   margin-top: 10px;
   font-size: 12px;
   color: #555;
-  font-style: italic;
+  font-weight: 300;
+  text-align: left;
 }
 
 .guardar-btn-container {
   display: flex;
-  justify-content: flex-end;
   margin-top: 20px;
+  justify-content: space-between;
 }
 
 .guardar-btn {
-  padding: 10px 24px;
+  margin-right: 40px;
+  padding: 10px 15px;
   background-color: #d3a58f;
   color: white;
   border: none;
-  border-radius: 10px;
+  border-radius: 30px;
   cursor: pointer;
-  font-family: "Libre Franklin", sans-serif;
+  font-family: "Lexend Deca", sans-serif;
   font-weight: 500;
+  font-size: 1.3rem;
+}
+
+.cancelar {
+  margin-left: 40px;
+  padding: 10px 15px;
+  background-color: #e0e0e0;
+  color: #818181;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-family: "Lexend Deca", sans-serif;
+  font-weight: 500;
+  font-size: 1.3rem;
 }
 
 .guardar-btn:hover {

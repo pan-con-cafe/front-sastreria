@@ -61,9 +61,15 @@ section {
 main {
   flex: 1;
   padding: 20px;
-  display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: normal;
+}
+
+main .welcome {
+  flex: 1;
+  padding: 20px;
+  justify-content: center;
+  align-items: normal;
 }
 
 .vineta {

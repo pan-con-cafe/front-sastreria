@@ -1,7 +1,11 @@
 .contenedor {
-  padding: 2rem;
+  padding: 1.5rem;
+  font-family: "Libre Franklin", serfi;
 }
 
+.contenedor h2{
+  font-weight: 300;
+}
 .tarjeta {
   background: #f0e7e5;
   padding: 1.2rem;
@@ -16,14 +20,25 @@
 }
 
 .derecha {
+  flex-direction: row ;
   text-align: right;
+}
+
+p{
+  font-weight: 500;
+}
+
+.descripcion{
+  font-weight: 300;
 }
 
 .derecha button {
   background-color: #d1b1a9;
+  color: white;
   border: none;
   padding: 0.5rem 1rem;
   border-radius: 1rem;
   cursor: pointer;
   font-weight: 500;
+  font-family: "Lexend Deca", serif;
 }

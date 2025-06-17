@@ -42,31 +42,31 @@
     text-decoration: underline;
   }
 
-  .logout-button {
-    margin-top: 20px;
-    padding: 10px;
-    width: 100%;
-    background-color: #d3a58f;
-    color: white;
-    border: none;
-    cursor: pointer;
-    font-family: "Jura", sans-serif;
-    font-weight: 400;
-  }
+.logout-button {
+  margin-top: 20px;
+  padding: 10px;
+  width: 100%;
+  background-color: #d3a58f;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-family: "Jura", sans-serif;
+  font-weight: 400;
+}
 
-  .logout-button:hover {
-    background-color: #b07a6a;
-  }
+.logout-button:hover {
+  background-color: #b07a6a;
+}
 
-  main {
-    flex: 1;
-    padding: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+main {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-  .vineta {
-    width: 16px;
-    height: 16px;
-  }
+.vineta {
+  width: 16px;
+  height: 16px;
+}

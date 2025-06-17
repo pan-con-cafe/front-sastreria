@@ -1,11 +1,18 @@
 .contenedor {
   padding: 2rem;
+  font-family: "Libre Franklin", serif;
+  font-weight: 300;
 }
 
 .encabezado {
   display: flex;
   justify-content: space-between;
   margin: 1rem 0;
+  font-weight: 500;
+}
+
+h2{
+  font-weight: 300;
 }
 
 .detalle {

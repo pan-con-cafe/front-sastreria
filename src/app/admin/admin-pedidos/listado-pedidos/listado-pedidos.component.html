@@ -4,11 +4,11 @@
   <div class="tarjeta" *ngFor="let pedido of [1, 2, 3]">
     <div class="contenido">
       <div>
-        <strong>Nombre Del Cliente</strong>
-        <p>Pequeño detalle del modelo pedido por el cliente</p>
+        <p>Nombre Del Cliente</p>
+        <p class="descripcion">Pequeño detalle del modelo pedido por el cliente</p>
       </div>
       <div class="derecha">
-        <span>00/11/2222</span>
+        <p class="date">00/11/2222</p>
         <button routerLink="/admin/pedidos/ver-pedido">Ver Detalle</button>
       </div>
     </div>

@@ -1,6 +1,5 @@
 .perfil-container {
-  width: 100%;
-  max-width: 900px;
+  align-items: normal;
   padding: 20px;
   font-family: "Libre Franklin", sans-serif;
 }
@@ -14,12 +13,12 @@
 
 .perfil-header h2 {
   font-size: 24px;
-  font-weight: 500;
+  font-weight: 300;
 }
 
 .edit-icon {
   cursor: pointer;
-  font-size: 18px;
+  width: 22px;
 }
 
 .perfil-content {
@@ -37,7 +36,7 @@
 
 .form-group label {
   display: block;
-  font-weight: 500;
+  font-weight: 300;
   margin-bottom: 4px;
 }
 
@@ -48,6 +47,7 @@
   border: none;
   background-color: #e0e0e0;
   font-family: "Libre Franklin", sans-serif;
+  font-weight: 00;
 }
 
 .perfil-logo {
