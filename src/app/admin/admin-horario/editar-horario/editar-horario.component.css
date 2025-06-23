@@ -1,13 +1,12 @@
 .horario-container {
-  padding: 40px;
-  font-family: "Jura", sans-serif;
-  color: #5c5c5c;
+  font-family: "Libre Franklin", sans-serif;
+  color: #000000;
+  width: 1000px;
 }
 
 h2 {
   margin-bottom: 20px;
-  text-align: center;
-  color: gray;
+  font-weight: 300;
 }
 
 .horario-grid {
@@ -20,7 +19,8 @@ h2 {
 .dia-header {
   background-color: #e4d4cc;
   padding: 10px 0;
-  font-weight: bold;
+  font-weight: 300;
+  font-size: 1.3rem;
   border-radius: 12px;
 }
 
@@ -31,28 +31,49 @@ h2 {
   background-color: #f1e7e4;
   border-radius: 12px;
   text-align: center;
-  color: #5c5c5c;
-  font-family: inherit;
-  font-size: 14px;
-}
-
-.boton-editar {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-}
-
-.boton-editar button {
-  background-color: #b07a6a;
-  color: white;
-  border: none;
-  padding: 10px 20px;
+  color: #000000;
   font-family: "Jura", sans-serif;
-  font-size: 16px;
-  border-radius: 12px;
-  cursor: pointer;
+  font-weight: 400;
+  font-size: 1.2rem;
+  margin-top: 8px;
 }
 
-.boton-editar button:hover {
-  background-color: #8f5d50;
+.boton-container {
+  display: flex;
+  margin-top: 2rem;
+  justify-content: right;
+}
+
+.btn-guardar {
+  background-color: #d3a58f;
+  color: white;
+  padding: 8px 20px;
+  border-radius: 30px;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  font-family: "Lexend Deca", serif;
+  font-size: 1.2rem;
+  margin-left: 15px;
+}
+
+.btn-guardar:hover {
+  background-color: #b07a6a;
+}
+
+.btn-cancelar {
+  background-color: #e0e0e0;
+  color: #818181;
+  padding: 8px 20px;
+  border-radius: 30px;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  font-family: "Lexend Deca", serif;
+  font-size: 1.2rem;
+}
+
+.btn-cancelar:hover {
+  background-color: #c6c6c6;
+  color: white;
 }

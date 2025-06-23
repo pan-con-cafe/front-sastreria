@@ -1,10 +1,11 @@
 .form-container {
-  padding: 1.5rem;
+  font-family: "Libre Franklin", serif;
+  width: 1000px;
 }
 
 .titulo {
-  font-size: 1.25rem;
-  font-weight: 600;
+  font-size: 25px;
+  font-weight: 400;
   margin-bottom: 1rem;
 }
 
@@ -12,6 +13,8 @@
   margin-bottom: 1.5rem;
   display: flex;
   flex-direction: column;
+  font-weight: 300;
+  font-size: 17px;
 }
 
 .input {
@@ -22,6 +25,9 @@
   outline: none;
   max-width: 250px;
   margin-top: 0.25rem;
+  font-weight: 300;
+  font-family: "Libre Franklin", serif;
+  font-size: 16px;
 }
 
 .modelos {
@@ -45,32 +51,56 @@
 
 .icono-mas {
   position: relative;
-  top: -1px;
+  top: 1px;
 }
 
 .lista-modelos {
   margin-bottom: 1rem;
   margin-top: -1rem;
   padding-left: 1.5rem;
+  font-weight: 300;
+  font-family: "Libre Franklin", serif;
+  font-size: 16px;
 }
 
 .boton-container {
   margin-top: 1.5rem;
+  display: flex;
+  justify-content: right;
 }
 
 .boton-guardar {
-  background-color: #cfaea2;
+  background-color: #d3a58f;
   color: white;
-  padding: 0.5rem 1.5rem;
-  border-radius: 9999px;
-  font-weight: 600;
+  padding: 8px 20px;
+  border-radius: 30px;
+  font-weight: 500;
   border: none;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  font-family: "Lexend Deca", serif;
+  font-size: 1.2rem;
+  margin-left: 15px;
 }
 
 .boton-guardar:hover {
-  background-color: #b79588;
+  background-color: #b07a6a;
+}
+
+.btn-cancelar {
+  background-color: #e0e0e0;
+  color: #818181;
+  padding: 8px 20px;
+  border-radius: 30px;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  font-family: "Lexend Deca", serif;
+  font-size: 1.2rem;
+}
+
+.btn-cancelar:hover {
+  background-color: #c6c6c6;
+  color: white;
 }
 
 .mensaje-error {

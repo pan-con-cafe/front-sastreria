@@ -1,14 +1,18 @@
 .anadir-modelo-container {
-  padding: 2rem;
+  font-family: "Libre Franklin", serif;
+  width: 1000px;  
 
   h2 {
     font-size: 1.2rem;
     margin-bottom: 1.5rem;
+    font-weight: 400;
   }
 
   .formulario {
     display: flex;
     gap: 2rem;
+    font-weight: 300;
+    font-family: "Libre Franklin", serif;
 
     .columna {
       flex: 1;
@@ -23,6 +27,8 @@
         border-radius: 10px;
         border: none;
         background-color: #e3e3e3;
+        font-weight: 300;
+        font-family: "Libre Franklin", serif;
       }
 
       textarea {
@@ -53,14 +59,44 @@
     }
   }
 
+  .boton-container {
+  display: flex;
+  margin-top: 2rem;
+  justify-content: right;
+}
+
   .btn-guardar {
-    margin-top: 2rem;
-    padding: 0.5rem 1.5rem;
-    background-color: #c39a8e;
-    color: white;
-    border: none;
-    border-radius: 20px;
-    cursor: pointer;
-    display: block;
-  }
+  background-color: #d3a58f;
+  color: white;
+  padding: 8px 20px;
+  border-radius: 30px;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  font-family: "Lexend Deca", serif;
+  font-size: 1.2rem;
+  margin-left: 15px;
+}
+
+.btn-guardar:hover {
+  background-color: #b07a6a;
+}
+
+.btn-cancelar {
+  background-color: #e0e0e0;
+  color: #818181;
+  padding: 8px 20px;
+  border-radius: 30px;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  font-family: "Lexend Deca", serif;
+  font-size: 1.2rem;
+}
+
+.btn-cancelar:hover {
+  background-color: #c6c6c6;
+  color: white;
+}
+
 }

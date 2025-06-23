@@ -7,7 +7,9 @@
       <div class="modelo-card" *ngFor="let modelo of modelos">
         <div class="modelo-img">
           <img [src]="modelo.imagen" alt="modelo" />
-          <button class="edit-icon" routerLink="/admin/modelos/editar-modelo">✏️</button>
+          <button class="edit-icon" routerLink="/admin/modelos/editar-modelo">
+            <img src="/edit.png" alt="editar">
+          </button>
         </div>
         <p class="modelo-nombre">{{ modelo.nombre }}</p>
       </div>

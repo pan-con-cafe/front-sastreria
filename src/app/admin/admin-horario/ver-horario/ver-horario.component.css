@@ -1,11 +1,12 @@
 .horario-container {
-  padding: 40px;
-  font-family: "Jura", sans-serif;
-  color: #5c5c5c;
+  font-family: "Libre Franklin", serif;
+  color: #000000;
+  width: 1000px;
 }
 
 h2 {
   margin-bottom: 20px;
+  font-weight: 300;
 }
 
 .horario-grid {
@@ -18,7 +19,8 @@ h2 {
 .dia-header {
   background-color: #e4d4cc;
   padding: 10px 0;
-  font-weight: bold;
+  font-weight: 300;
+  font-size: 1.3rem;
   border-radius: 12px;
 }
 
@@ -29,9 +31,11 @@ h2 {
   background-color: #f1e7e4;
   border-radius: 12px;
   text-align: center;
-  color: #5c5c5c;
-  font-family: inherit;
-  font-size: 14px;
+  color: #000000;
+  font-family: "Jura", sans-serif;
+  font-weight: 400;
+  font-size: 1.3rem;
+  margin-top: 8px;
 }
 
 .hora-input input:read-only {
@@ -49,9 +53,10 @@ h2 {
   color: white;
   border: none;
   padding: 10px 20px;
-  font-family: "Jura", sans-serif;
-  font-size: 16px;
-  border-radius: 12px;
+  font-family: "Lexend Deca", serif;
+  font-weight: 500;
+  font-size: 1.3rem;
+  border-radius: 20px;
   cursor: pointer;
 }
 

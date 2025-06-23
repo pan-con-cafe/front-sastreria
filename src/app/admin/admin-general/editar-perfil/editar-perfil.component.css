@@ -1,6 +1,8 @@
 .perfil-container {
-  width: 100%;
-  font-family: "libre Franklin", serif;
+  font-family: "Libre Franklin", sans-serif;
+  margin: 0 auto;
+  width: 1000px;
+  justify-content: left;
 }
 
 .perfil-header {
@@ -17,8 +19,9 @@
 
 .perfil-content {
   display: flex;
-
-  gap: 40px;
+  justify-content: space-between;
+  gap: 70px;
+  width: 80%;
 }
 
 .perfil-form {
@@ -26,6 +29,7 @@
   display: flex;
   flex-direction: column;
   gap: 15px;
+  width: 40%;
 }
 
 .form-group label {
@@ -74,15 +78,15 @@
   text-align: left;
 }
 
-.guardar-btn-container {
+.btn-container {
   display: flex;
   margin-top: 20px;
-  justify-content: space-between;
+  justify-content: right;
 }
 
 .guardar-btn {
-  margin-right: 40px;
-  padding: 10px 15px;
+  margin-left: 15px;
+  padding: 8px 20px;
   background-color: #d3a58f;
   color: white;
   border: none;
@@ -90,12 +94,11 @@
   cursor: pointer;
   font-family: "Lexend Deca", sans-serif;
   font-weight: 500;
-  font-size: 1.3rem;
+  font-size: 1.2rem;
 }
 
 .cancelar {
-  margin-left: 40px;
-  padding: 10px 15px;
+  padding: 8px 20px;
   background-color: #e0e0e0;
   color: #818181;
   border: none;
@@ -108,4 +111,9 @@
 
 .guardar-btn:hover {
   background-color: #b07a6a;
+}
+
+.cancelar:hover {
+  background-color: #c6c6c6;
+  color: white;
 }
