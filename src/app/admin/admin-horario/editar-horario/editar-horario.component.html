@@ -5,13 +5,22 @@
     <div *ngFor="let dia of dias; let i = index">
       <div class="dia-header">{{ dia }}</div>
       <div *ngFor="let hora of horario[i]; let j = index" class="hora-input">
-        <input type="time" [(ngModel)]="horario[i][j]" />
+        <input type="time" [(ngModel)]="horario[i][j]" (input)="onCambios()" />
       </div>
     </div>
   </div>
 
   <div class="boton-container">
-    <button class="btn-cancelar" routerLink="/admin/horario/ver-horario">Cancelar</button>
+    <button class="btn-cancelar" (click)="cancelar()">Cancelar</button>
     <button class="btn-guardar" (click)="guardarHorario()">Guardar</button>
   </div>
+
+  <p class="mensaje-exito" *ngIf="mensajeExito">Cambios guardados correctamente.</p>
+  
 </section>
+
+<app-confirmacion-salida
+  *ngIf="mostrarModal"
+  (confirmar)="confirmarSalida()"
+  (cancelar)="cerrarModal()"
+></app-confirmacion-salida>

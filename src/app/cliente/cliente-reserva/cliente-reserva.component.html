@@ -9,55 +9,83 @@
     </div>
 
     <!-- Formulario de reserva -->
-    <form (ngSubmit)="submitReservation()" class="reservation-form">
+    <form #reservaForm="ngForm" (ngSubmit)="submitReservation()" class="reservation-form" novalidate>
       <h2>Reserve su cita</h2>
 
       <div class="input-group">
         <div class="input-field">
           <label for="dni">Ingrese su DNI</label>
-          <input type="text" id="dni" [(ngModel)]="reservation.dni" name="dni" required />
+          <input type="text" id="dni" name="dni" [(ngModel)]="reservation.dni"
+            required minlength="8" maxlength="8" pattern="[0-9]*" #dniRef="ngModel" />
+          <small class="error" *ngIf="dniRef.invalid && dniRef.touched">
+            <span *ngIf="dniRef.errors?.['required']">El DNI es obligatorio.</span>
+            <span *ngIf="dniRef.errors?.['minlength'] || dniRef.errors?.['maxlength']">Debe tener 8 dígitos.</span>
+            <span *ngIf="dniRef.errors?.['pattern']">Solo números.</span>
+          </small>
         </div>
+
         <div class="input-field">
           <label for="fecha">Elija la fecha de su cita</label>
-          <input type="date" id="fecha" [(ngModel)]="reservation.fecha" name="fecha" required />
+          <input type="date" id="fecha" name="fecha" [(ngModel)]="reservation.fecha" required #fechaRef="ngModel" />
+          <small class="error" *ngIf="fechaRef.invalid && fechaRef.touched">La fecha es obligatoria.</small>
         </div>
       </div>
 
       <div class="input-group">
         <div class="input-field">
           <label for="nombres">Nombres</label>
-          <input type="text" id="nombres" [(ngModel)]="reservation.nombres" name="nombres" required />
+          <input type="text" id="nombres" name="nombres" [(ngModel)]="reservation.nombres" required minlength="2" #nombresRef="ngModel" />
+          <small class="error" *ngIf="nombresRef.invalid && nombresRef.touched">
+            <span *ngIf="nombresRef.errors?.['required']">Campo obligatorio.</span>
+            <span *ngIf="nombresRef.errors?.['minlength']">Mínimo 2 caracteres.</span>
+          </small>
         </div>
+
         <div class="input-field">
           <label for="apellidos">Apellidos</label>
-          <input type="text" id="apellidos" [(ngModel)]="reservation.apellidos" name="apellidos" required />
+          <input type="text" id="apellidos" name="apellidos" [(ngModel)]="reservation.apellidos" required minlength="2" #apellidosRef="ngModel" />
+          <small class="error" *ngIf="apellidosRef.invalid && apellidosRef.touched">
+            <span *ngIf="apellidosRef.errors?.['required']">Campo obligatorio.</span>
+            <span *ngIf="apellidosRef.errors?.['minlength']">Mínimo 2 caracteres.</span>
+          </small>
         </div>
       </div>
 
       <div class="input-group">
         <div class="input-field">
           <label for="correo">Correo electrónico</label>
-          <input type="email" id="correo" [(ngModel)]="reservation.correo" name="correo" required />
+          <input type="email" id="correo" name="correo" [(ngModel)]="reservation.correo" required email #correoRef="ngModel" />
+          <small class="error" *ngIf="correoRef.invalid && correoRef.touched">
+            <span *ngIf="correoRef.errors?.['required']">Campo obligatorio.</span>
+            <span *ngIf="correoRef.errors?.['email']">Formato inválido.</span>
+          </small>
         </div>
+
         <div class="input-field">
           <label for="telefono">Número de teléfono</label>
-          <input type="tel" id="telefono" [(ngModel)]="reservation.telefono" name="telefono" required />
+          <input type="tel" id="telefono" name="telefono" [(ngModel)]="reservation.telefono" required pattern="[0-9]{9}" #telefonoRef="ngModel" />
+          <small class="error" *ngIf="telefonoRef.invalid && telefonoRef.touched">
+            <span *ngIf="telefonoRef.errors?.['required']">Campo obligatorio.</span>
+            <span *ngIf="telefonoRef.errors?.['pattern']">Debe tener 9 dígitos numéricos.</span>
+          </small>
         </div>
       </div>
 
       <p>Elija una de las opciones:</p>
       <div class="radio-options">
         <label>
-          <input type="radio" name="opcion1" [(ngModel)]="reservation.opcion" value="sastre" required />
+          <input type="radio" name="opcion" [(ngModel)]="reservation.opcion" value="sastre" required #opcionRef="ngModel" />
           Que el sastre compre la tela que crea conveniente
         </label>
         <label>
-          <input type="radio" name="opcion2" [(ngModel)]="reservation.opcion" value="cliente" required />
+          <input type="radio" name="opcion" [(ngModel)]="reservation.opcion" value="cliente" required />
           Yo compraré la tela que crea conveniente
         </label>
+        <small class="error" *ngIf="opcionRef.invalid && opcionRef.touched">Debe seleccionar una opción.</small>
       </div>
 
-      <button type="submit" class="submit-button">Reservar</button>
+      <button type="submit" class="submit-button" [disabled]="reservaForm.invalid">Reservar</button>
     </form>
+
   </div>
 </section>

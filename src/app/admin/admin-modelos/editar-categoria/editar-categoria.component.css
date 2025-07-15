@@ -72,33 +72,43 @@ h2 {
   background-position: center;
 }
 
-.icono-eliminar {
+.icono-eliminar{
+  top: -10px;
+  left: -10px;
   position: absolute;
-  top: -8px;
-  left: -8px;
-  background-color: #9b4b4b;
-  color: white;
-  border: none;
-  border-radius: 50%;
   width: 20px;
   height: 20px;
-  font-size: 0.75rem;
   cursor: pointer;
-  display: flex;
   justify-content: center;
   align-items: center;
+  border: none;
+  border-radius: 50%;
+}
+
+.img-eliminar{
+  width: 20px;
+  height: 20px;
+  top: -2px;
+  left: -2px;
+  position: absolute;
 }
 
 .btn-agregar {
-  background-color: #cfaea2;
-  color: white;
   border: none;
+  background-color: #cfaea2;
   border-radius: 50%;
   width: 32px;
   height: 32px;
-  font-size: 1.2rem;
-  font-weight: bold;
   cursor: pointer;
+}
+
+.img-add{
+  
+  width: 32px;
+  height: 32px;
+  position: relative;
+  left: -6px;
+  top: -1px;
 }
 
 .boton-container {
@@ -139,4 +149,25 @@ h2 {
 .btn-cancelar:hover {
   background-color: #c6c6c6;
   color: white;
+}
+
+.mensaje-exito {
+  color: green;
+  font-weight: 400;
+  margin-top: 1rem;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  font-family: "Lexend Deca", serif;
+  background-color: #e7f9e7;
+  border: 1px solid #a5d6a7;
+  padding: 0.8rem 1.2rem;
+  border-radius: 10px;
+  max-width: 400px;
+}
+
+.error {
+  color: red;
+  font-size: 0.85rem;
+  margin-top: 0.3rem;
 }

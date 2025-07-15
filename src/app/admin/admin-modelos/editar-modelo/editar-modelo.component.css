@@ -1,113 +1,127 @@
 .editar-modelo-container {
   font-family: "Libre Franklin", serif;
   width: 1000px;
-  
-
-  h2 {
-    font-size: 1.2rem;
-    margin-bottom: 1.5rem;
-    font-weight: 400;
-  }
-
-  .editar-grid {
-    display: flex;
-    flex-direction: row;
-
-    .imagenes-section {
-      flex: 1;
-      font-weight: 300;
-
-      .imagen-principal {
-        position: relative;
-        background-color: #e3e3e3;
-        width: 70%;
-        aspect-ratio: 1 / 1;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-
-        .icono-eliminar {
-          position: absolute;
-          top: 8px;
-          right: 8px;
-          font-size: 1.2rem;
-          cursor: pointer;
-        }
-      }
-
-      .imagenes-secundarias {
-        display: flex;
-        gap: 0.5rem;
-        margin-top: 0.5rem;
-
-        .imagen-secundaria {
-          position: relative;
-          background-color: #e3e3e3;
-          width: 80px;
-          height: 80px;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-
-          .icono-eliminar {
-            position: absolute;
-            top: 2px;
-            right: 2px;
-            font-size: 0.9rem;
-            cursor: pointer;
-          }
-
-          &.agregar {
-            background-color: #e6f4e6;
-            cursor: pointer;
-
-            .icono-agregar {
-              color: green;
-              font-size: 1.2rem;
-            }
-          }
-        }
-      }
-    }
-
-    .formulario-section {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-
-      label {
-        font-weight: 300;
-      }
-
-      input,
-      textarea {
-        font-weight: 300;
-        font-family: "Libre Franklin", serif;
-        padding: 0.6rem;
-        border: none;
-        border-radius: 10px;
-        background-color: #e3e3e3;
-      }
-
-      textarea {
-        resize: none;
-        height: 100px;
-      }
-    }
-  }
-
-
-  .boton-container {
-  display: flex;
-  margin-top: 2rem;
-  justify-content: right;
 }
 
-  .btn-guardar {
-  background-color: #d3a58f;
-  color: white;
+.editar-modelo-container h2 {
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+  font-weight: 400;
+}
+
+.editar-grid {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+}
+
+.imagenes-section {
+  flex: 1;
+  font-weight: 300;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.imagen-principal {
+  width: 300px;
+  height: 300px;
+  background-color: #e3e3e3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.imagen-principal img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+}
+
+.miniaturas {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.miniatura {
+  width: 80px;
+  height: 80px;
+  background-color: #f0f0f0;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+.miniatura img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.icono-eliminar {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  background-color: white;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  box-shadow: 0 0 2px #00000066;
+}
+
+.miniatura.agregar {
+  background-color: #e6f4e6;
+  color: green;
+  font-size: 1.5rem;
+}
+
+.icono-agregar {
+  font-size: 1.5rem;
+}
+
+.formulario-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.formulario-section label {
+  font-weight: 300;
+}
+
+.formulario-section input,
+.formulario-section textarea {
+  font-weight: 300;
+  font-family: "Libre Franklin", serif;
+  padding: 0.6rem;
+  border: none;
+  border-radius: 10px;
+  background-color: #e3e3e3;
+}
+
+.formulario-section textarea {
+  resize: none;
+  height: 100px;
+}
+
+.boton-container {
+  display: flex;
+  margin-top: 2rem;
+  justify-content: flex-end;
+  gap: 15px;
+}
+
+.btn-guardar,
+.btn-cancelar {
   padding: 8px 20px;
   border-radius: 30px;
   font-weight: 500;
@@ -115,7 +129,11 @@
   cursor: pointer;
   font-family: "Lexend Deca", serif;
   font-size: 1.2rem;
-  margin-left: 15px;
+}
+
+.btn-guardar {
+  background-color: #d3a58f;
+  color: white;
 }
 
 .btn-guardar:hover {
@@ -125,13 +143,6 @@
 .btn-cancelar {
   background-color: #e0e0e0;
   color: #818181;
-  padding: 8px 20px;
-  border-radius: 30px;
-  font-weight: 500;
-  border: none;
-  cursor: pointer;
-  font-family: "Lexend Deca", serif;
-  font-size: 1.2rem;
 }
 
 .btn-cancelar:hover {
@@ -139,4 +150,23 @@
   color: white;
 }
 
+.mensaje-exito {
+  color: green;
+  font-weight: 400;
+  margin-top: 1rem;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  font-family: "Lexend Deca", serif;
+  background-color: #e7f9e7;
+  border: 1px solid #a5d6a7;
+  padding: 0.8rem 1.2rem;
+  border-radius: 10px;
+  max-width: 400px;
+}
+
+.error {
+  color: red;
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
 }

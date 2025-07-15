@@ -3,37 +3,113 @@
     <h2>Información de la sastrería</h2>
   </div>
 
-  <div class="perfil-content">
-    <div class="perfil-form">
-      <div class="form-group">
-        <label for="nombre">Nombre:</label>
-        <input id="nombre" type="text" placeholder="Nombre de la sastrería">
+  <form #formPerfil="ngForm" (ngSubmit)="guardarCambios()" novalidate>
+    <div class="perfil-content">
+      <div class="perfil-form">
+        <div class="form-group">
+          <label for="nombre">Nombre:</label>
+          <input
+            id="nombre"
+            type="text"
+            name="nombre"
+            placeholder="Nombre de la sastrería"
+            required
+            minlength="3"
+            [(ngModel)]="perfil.nombre"
+            #nombreRef="ngModel"
+            (input)="onCambios()"
+          />
+          <div class="error" *ngIf="nombreRef.invalid && nombreRef.touched">
+            <small *ngIf="nombreRef.errors?.['required']">El nombre es obligatorio.</small>
+            <small *ngIf="nombreRef.errors?.['minlength']">Debe tener al menos 3 caracteres.</small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="telefono">Número de teléfono:</label>
+          <input
+            id="telefono"
+            type="tel"
+            name="telefono"
+            placeholder="Número de teléfono"
+            required
+            pattern="^[0-9]{9,}$"
+            [(ngModel)]="perfil.telefono"
+            #telefonoRef="ngModel"
+            (input)="onCambios()"
+          />
+          <div class="error" *ngIf="telefonoRef.invalid && telefonoRef.touched">
+            <small *ngIf="telefonoRef.errors?.['required']">El teléfono es obligatorio.</small>
+            <small *ngIf="telefonoRef.errors?.['pattern']">Debe contener solo números (mín. 9 dígitos).</small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="direccion">Dirección:</label>
+          <input
+            id="direccion"
+            type="text"
+            name="direccion"
+            placeholder="Dirección"
+            required
+            [(ngModel)]="perfil.direccion"
+            #direccionRef="ngModel"
+            (input)="onCambios()"
+          />
+          <div class="error" *ngIf="direccionRef.invalid && direccionRef.touched">
+            <small>La dirección es obligatoria.</small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="descripcion">Descripción:</label>
+          <input
+            id="descripcion"
+            type="text"
+            name="descripcion"
+            placeholder="Descripción"
+            [(ngModel)]="perfil.descripcion"
+            (input)="onCambios()"
+          />
+        </div>
       </div>
-      <div class="form-group">
-        <label for="telefono">Número de teléfono:</label>
-        <input id="telefono" type="text" placeholder="Número de teléfono">
-      </div>
-      <div class="form-group">
-        <label for="direccion">Dirección:</label>
-        <input id="direccion" type="text" placeholder="Dirección">
-      </div>
-      <div class="form-group">
-        <label for="descripcion">Descripción:</label>
-        <input id="descripcion" type="text" placeholder="Descripción">
+
+      <div class="perfil-logo">
+        <label>Logo de la sastrería:</label>
+        <div
+          class="logo-placeholder"
+          (click)="logoInput.click()"
+          (dragover)="onDragOver($event)"
+          (dragleave)="onDragLeave($event)"
+          (drop)="onDrop($event)"
+          [class.drag-over]="isDragOver"
+        >
+          <img *ngIf="logoPreview" [src]="logoPreview" alt="Logo actual" />
+          <img *ngIf="!logoPreview" src="/image.png" alt="Logo actual" />
+          <input
+            type="file"
+            #logoInput
+            accept="image/*"
+            (change)="onFileSelected($event)"
+            style="display: none"
+          />
+        </div>
+
+        <p class="logo-hint">Arrastre una imagen o haga click para escoger una</p>
       </div>
     </div>
 
-    <div class="perfil-logo">
-      <label>Logo de la sastrería:</label>
-      <div class="logo-placeholder">
-        <img src="/placeholder-logo.png" alt="Logo actual">
-      </div>
-      <p class="logo-hint">Arrastre una imagen o haga click para escoger una</p>
+    <div class="btn-container">
+      <button type="button" class="cancelar" (click)="cancelar()">Cancelar</button>
+      <button type="submit" class="guardar-btn" [disabled]="formPerfil.invalid">Guardar</button>
     </div>
-  </div>
+  </form>
 
-  <div class="btn-container">
-    <button class="cancelar" routerLink="/admin/general/perfil" routerLinkActive="active" >Cancelar</button>
-    <button class="guardar-btn">Guardar</button>
-  </div>
+  <p class="mensaje-exito" *ngIf="mensajeExito">Cambios guardados correctamente.</p>
+
+  <app-confirmacion-salida
+    *ngIf="mostrarModal"
+    (confirmar)="confirmarSalida()"
+    (cancelar)="cerrarModal()"
+  ></app-confirmacion-salida>
 </div>

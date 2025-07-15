@@ -1,38 +1,83 @@
 <div class="editar-modelo-container">
   <h2>Editar modelo:</h2>
 
-  <div class="editar-grid">
-    <div class="imagenes-section">
-      <!-- Imagen principal -->
-      <div class="imagen-principal">
-        <img src="assets/placeholder.svg" alt="Principal" />
-        <span class="icono-eliminar">🛑</span>
-      </div>
-
-      <!-- Imágenes adicionales -->
-      <div class="imagenes-secundarias">
-        <div class="imagen-secundaria">
-          <img [src]="" alt="Secundaria" />
-          <span class="icono-eliminar">🛑</span>
+  <form #formModelo="ngForm" (ngSubmit)="guardarCambios()" novalidate>
+    <div class="editar-grid">
+      <!-- Sección imágenes -->
+      <div class="imagenes-section">
+        <div class="imagen-principal">
+          <img [src]="imagenPrincipal || 'assets/placeholder.svg'" alt="Principal" />
         </div>
 
-        <div class="imagen-secundaria agregar">
-          <span class="icono-agregar">➕</span>
+        <div class="miniaturas">
+          <div *ngFor="let img of imagenes; let i = index"
+               class="miniatura"
+               (click)="cambiarPrincipal(i)">
+            <img [src]="img" alt="Miniatura" />
+            <span class="icono-eliminar" (click)="eliminarImagen(i, $event)">X</span>
+          </div>
+
+          <div class="miniatura agregar" *ngIf="imagenes.length < 4" (click)="seleccionarImagen()">
+            <span class="icono-agregar">➕</span>
+          </div>
+        </div>
+
+        <input type="file"
+               #inputImagen
+               hidden
+               accept="image/*"
+               (change)="cargarImagen($event)"
+               (input)="onCambios()" />
+      </div>
+
+      <!-- Formulario -->
+      <div class="formulario-section">
+        <label>Nombre:</label>
+        <input type="text"
+               name="nombre"
+               [(ngModel)]="nombre"
+               required
+               minlength="3"
+               #nombreRef="ngModel"
+               placeholder="Nombre del modelo"
+               (input)="onCambios()" />
+        <div class="error" *ngIf="nombreRef.invalid && nombreRef.touched">
+          <small *ngIf="nombreRef.errors?.['required']">El nombre es obligatorio.</small>
+          <small *ngIf="nombreRef.errors?.['minlength']">Mínimo 3 caracteres.</small>
+        </div>
+
+        <label>Descripción:</label>
+        <textarea name="descripcion"
+                  [(ngModel)]="descripcion"
+                  required
+                  minlength="10"
+                  #descripcionRef="ngModel"
+                  placeholder="Descripción breve"
+                  (input)="onCambios()"></textarea>
+        <div class="error" *ngIf="descripcionRef.invalid && descripcionRef.touched">
+          <small *ngIf="descripcionRef.errors?.['required']">La descripción es obligatoria.</small>
+          <small *ngIf="descripcionRef.errors?.['minlength']">Mínimo 10 caracteres.</small>
         </div>
       </div>
     </div>
 
-    <div class="formulario-section">
-      <label>Nombre:</label>
-      <input type="text" placeholder="Nombre del modelo" />
-
-      <label>Descripción:</label>
-      <textarea placeholder="Descripción breve"></textarea>
+    <!-- Botones y validación final -->
+    <div class="boton-container">
+      <button type="button" class="btn-cancelar" (click)="cancelar()">Cancelar</button>
+      <button type="submit"
+              class="btn-guardar"
+              [disabled]="formModelo.invalid">
+        Guardar
+      </button>
     </div>
-  </div>
+    <p class="error" *ngIf="intentoGuardar && imagenes.length === 0">Debe añadir al menos una imagen.</p>
+  </form>
 
-  <div class="boton-container">
-    <button class="btn-cancelar" routerLink="/admin/modelos/ver-modelo">Cancelar</button>
-    <button class="btn-guardar">Guardar</button>
-  </div>
+  <p class="mensaje-exito" *ngIf="mensajeExito">Cambios guardados correctamente.</p>
 </div>
+
+<app-confirmacion-salida
+  *ngIf="mostrarModal"
+  (confirmar)="confirmarSalida()"
+  (cancelar)="cerrarModal()"
+></app-confirmacion-salida>

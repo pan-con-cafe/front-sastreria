@@ -1,26 +1,51 @@
-<div class="form-container">
-  <h2 class="titulo">Añadir categoría:</h2>
+<form #formCategoria="ngForm" (ngSubmit)="guardarCategoria()" novalidate>
+  <div class="form-container">
+    <h2 class="titulo">Añadir categoría:</h2>
 
-  <div class="form-group">
-    <label for="nombre">Nombre:</label>
-    <input id="nombre" [(ngModel)]="nombreCategoria" placeholder="Inserte un nombre" class="input" />
+    <div class="form-group">
+      <label for="nombre">Nombre:</label>
+      <input
+        id="nombre"
+        name="nombre"
+        class="input"
+        type="text"
+        placeholder="Inserte un nombre"
+        [(ngModel)]="nombreCategoria"
+        required
+        minlength="3"
+        #nombreRef="ngModel"
+        (input)="onCambios()"
+      />
+      <div class="error" *ngIf="nombreRef.invalid && nombreRef.touched">
+        <small *ngIf="nombreRef.errors?.['required']">El nombre es obligatorio.</small>
+        <small *ngIf="nombreRef.errors?.['minlength']">Debe tener al menos 3 caracteres.</small>
+      </div>
+    </div>
+
+    <div class="form-group modelos">
+      <label>Modelos seleccionados:</label>
+      <button type="button" class="boton-icono" (click)="agregarModelo()">
+        <span class="icono-mas">+</span>
+      </button>
+    </div>
+
+    <ul class="lista-modelos" *ngIf="modelosSeleccionados.length > 0">
+      <li *ngFor="let modelo of modelosSeleccionados">{{ modelo }}</li>
+    </ul>
+
+    <div class="boton-container">
+      <button type="button" class="btn-cancelar" (click)="cancelar()">Cancelar</button>
+      <button type="submit" class="boton-guardar" [disabled]="formCategoria.invalid || modelosSeleccionados.length === 0">Guardar</button>
+    </div>
+
+    <p class="mensaje-error" *ngIf="mensajeError">{{ mensajeError }}</p>
   </div>
+</form>
 
-  <div class="form-group modelos">
-    <label>Modelos seleccionados:</label>
-    <button class="boton-icono" (click)="agregarModelo()">
-      <span class="icono-mas">+</span>
-    </button>
-  </div>
+<p class="mensaje-exito" *ngIf="mensajeExito">Cambios guardados correctamente.</p>
 
-  <ul class="lista-modelos" *ngIf="modelosSeleccionados.length > 0">
-    <li *ngFor="let modelo of modelosSeleccionados">{{ modelo }}</li>
-  </ul>
-
-  <div class="boton-container">
-    <button class="btn-cancelar" routerLink="/admin/modelos/categorias">Cancelar</button>
-    <button class="boton-guardar" (click)="guardarCategoria()">Guardar</button>
-  </div>
-
-  <p class="mensaje-error" *ngIf="mensajeError">{{ mensajeError }}</p>
-</div>
+<app-confirmacion-salida
+  *ngIf="mostrarModal"
+  (confirmar)="confirmarSalida()"
+  (cancelar)="cerrarModal()"
+></app-confirmacion-salida>

@@ -4,46 +4,36 @@
 
   <h2>LOS MÁS POPULARES</h2>
   <div class="carousel">
-    <div class="arrow-left">
-      <img src="/arrow-left.png" alt="logo" style="height: 30px; width: 30px;"/>
+    <div class="arrow-left" (click)="scrollLeft('populares')">
+      <img src="/arrow-left.png" alt="izquierda" style="width: 30px; height: 30px;"/>
     </div>
-    <div class="image-placeholder" *ngFor="let product of products">
-      <a [routerLink]="['/detalle', product.id]">
-        <img [src]="product.image" [alt]="product.title" />
-      </a>
+    <div class="carousel-inner" #populares>
+      <div class="image-placeholder" *ngFor="let product of products">
+        <a [routerLink]="['/detalle', product.id]">
+          <img [src]="product.image" [alt]="product.title" />
+        </a>
+      </div>
     </div>
-    <div class="arrow-right">
-      <img src="/arrow-right (1).png" alt="logo" style="height: 30px; width: 30px;"/>
+    <div class="arrow-right" (click)="scrollRight('populares')">
+      <img src="/arrow-right (1).png" alt="derecha" style="width: 30px; height: 30px;"/>
     </div>
   </div>
+
 
   <h2>PARA ELLA</h2>
   <div class="carousel">
-    <div class="arrow-left">
-      <img src="/arrow-left.png" alt="logo" style="height: 30px; width: 30px;"/>
+    <div class="arrow-left" (click)="scrollLeft('paraElla')">
+      <img src="/arrow-left.png" alt="izquierda" style="width: 30px; height: 30px;"/>
     </div>
-    <div class="image-placeholder" *ngFor="let product of products">
-      <a [routerLink]="['/detalle', product.id]">
-        <img [src]="product.image" [alt]="product.title" />
-      </a>
+    <div class="carousel-inner" #paraElla>
+      <div class="image-placeholder" *ngFor="let product of products">
+        <a [routerLink]="['/detalle', product.id]">
+          <img [src]="product.image" [alt]="product.title" />
+        </a>
+      </div>
     </div>
-    <div class="arrow-right">
-      <img src="/arrow-right (1).png" alt="logo" style="height: 30px; width: 30px;"/>
-    </div>
-  </div>
-
-  <h2>PARA ÉL</h2>
-  <div class="carousel">
-    <div class="arrow-left">
-      <img src="/arrow-left.png" alt="logo" style="height: 30px; width: 30px;"/>
-    </div>
-    <div class="image-placeholder"></div>
-    <div class="image-placeholder"></div>
-    <div class="image-placeholder"></div>
-    <div class="image-placeholder"></div>
-    <div class="image-placeholder"></div>
-    <div class="arrow-right">
-      <img src="/arrow-right (1).png" alt="logo" style="height: 30px; width: 30px;"/>
+    <div class="arrow-right" (click)="scrollRight('paraElla')">
+      <img src="/arrow-right (1).png" alt="derecha" style="width: 30px; height: 30px;"/>
     </div>
   </div>
 </section>

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
@@ -62,4 +62,30 @@ export class ClienteModeloComponent {
       description: 'Descripción del Producto 8',
     },
   ];
+
+  @ViewChild('populares') populares!: ElementRef;
+  @ViewChild('paraElla') paraElla!: ElementRef;
+
+  private refs: Record<string, ElementRef> = {};
+
+  ngAfterViewInit(): void {
+    this.refs = {
+      populares: this.populares,
+      paraElla: this.paraElla,
+    };
+  }
+
+  scrollLeft(refName: string): void {
+    const element = this.refs[refName]?.nativeElement;
+    if (element) {
+      element.scrollBy({ left: -300, behavior: 'smooth' });
+    }
+  }
+
+  scrollRight(refName: string): void {
+    const element = this.refs[refName]?.nativeElement;
+    if (element) {
+      element.scrollBy({ left: 300, behavior: 'smooth' });
+    }
+  }
 }

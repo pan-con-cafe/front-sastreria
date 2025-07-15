@@ -108,3 +108,24 @@
   margin-top: 1rem;
   font-size: 0.875rem;
 }
+
+.mensaje-exito {
+  color: green;
+  font-weight: 400;
+  margin-top: 1rem;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  font-family: "Lexend Deca", serif;
+  background-color: #e7f9e7;
+  border: 1px solid #a5d6a7;
+  padding: 0.8rem 1.2rem;
+  border-radius: 10px;
+  max-width: 400px;
+}
+
+.error {
+  color: red;
+  font-size: 0.85rem;
+  margin-top: 0.3rem;
+}

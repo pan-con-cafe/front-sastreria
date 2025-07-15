@@ -1,30 +1,62 @@
-<div class="form-container">
-  <div class="header">
-    <h2>Editar categoría:</h2>
-    <button class="btn-eliminar" (click)="eliminarCategoria()">Eliminar categoría</button>
-  </div>
+<form #formCategoria="ngForm" (ngSubmit)="guardarCambios()" novalidate>
+  <div class="form-container">
+    <div class="header">
+      <h2>Editar categoría:</h2>
+      <button type="button" class="btn-eliminar" (click)="confirmarEliminacion()">Eliminar categoría</button>
+    </div>
 
-  <div class="form-group">
-    <label for="nombre">Nombre:</label>
-    <input id="nombre" [(ngModel)]="nombreCategoria" class="input" />
-  </div>
-
-  <div class="form-group">
-    <label>Modelos seleccionados:</label>
-    <div class="modelos-container">
-      <div
-        class="modelo"
-        *ngFor="let modelo of modelosSeleccionados; let i = index"
-      >
-        <button class="icono-eliminar" (click)="eliminarModelo(i)">🚫</button>
-        <div class="imagen-modelo"></div>
+    <div class="form-group">
+      <label for="nombre">Nombre:</label>
+      <input
+        id="nombre"
+        name="nombre"
+        class="input"
+        type="text"
+        required
+        minlength="3"
+        [(ngModel)]="nombreCategoria"
+        #nombreRef="ngModel"
+        (input)="onCambios()"
+      />
+      <div class="error" *ngIf="nombreRef.invalid && nombreRef.touched">
+        <small *ngIf="nombreRef.errors?.['required']">El nombre es obligatorio.</small>
+        <small *ngIf="nombreRef.errors?.['minlength']">Debe tener al menos 3 caracteres.</small>
       </div>
-      <button class="btn-agregar" (click)="agregarModelo()">+</button>
+    </div>
+
+    <div class="form-group">
+      <label>Modelos seleccionados:</label>
+      <div class="modelos-container">
+        <div class="modelo" *ngFor="let modelo of modelosSeleccionados; let i = index">
+          <button type="button" class="icono-eliminar" (click)="eliminarModelo(i)">
+            <img src="/remove.png" alt="quitar" class="img-eliminar">
+          </button>
+          <div class="imagen-modelo"></div>
+        </div>
+        <button type="button" class="btn-agregar" (click)="agregarModelo()">
+          <img src="add.png" alt="añadir" class="img-add">
+        </button>
+      </div>
+    </div>
+
+    <div class="boton-container">
+      <button type="button" class="btn-cancelar" (click)="cancelar()">Cancelar</button>
+      <button type="submit" class="btn-guardar" [disabled]="formCategoria.invalid">Guardar</button>
     </div>
   </div>
+</form>
 
-  <div class="boton-container">
-    <button class="btn-cancelar" routerLink="/admin/modelos/categorias">Cancelar</button>
-    <button class="btn-guardar" (click)="guardarCambios()">Guardar</button>
-  </div>
-</div>
+<p class="mensaje-exito" *ngIf="mensajeExito">Cambios guardados correctamente.</p>
+
+<app-confirmacion-salida
+  *ngIf="mostrarModal"
+  (confirmar)="confirmarSalida()"
+  (cancelar)="cerrarModal()"
+></app-confirmacion-salida>
+
+<app-confirmacion-salida
+  *ngIf="mostrarModalEliminar"
+  [mensaje]="'¿Estás seguro de que deseas eliminar esta categoría?'"
+  (confirmar)="eliminarCategoria()"
+  (cancelar)="cerrarModalEliminar()"
+></app-confirmacion-salida>

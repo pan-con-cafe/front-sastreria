@@ -1,73 +1,118 @@
 .anadir-modelo-container {
   font-family: "Libre Franklin", serif;
-  width: 1000px;  
-
-  h2 {
-    font-size: 1.2rem;
-    margin-bottom: 1.5rem;
-    font-weight: 400;
-  }
-
-  .formulario {
-    display: flex;
-    gap: 2rem;
-    font-weight: 300;
-    font-family: "Libre Franklin", serif;
-
-    .columna {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-
-      input,
-      textarea,
-      select {
-        padding: 0.6rem;
-        border-radius: 10px;
-        border: none;
-        background-color: #e3e3e3;
-        font-weight: 300;
-        font-family: "Libre Franklin", serif;
-      }
-
-      textarea {
-        resize: none;
-        height: 100px;
-      }
-    }
-
-    .imagenes {
-      flex: 1;
-      text-align: center;
-
-      .imagen-placeholder {
-        margin: 1rem auto;
-        width: 150px;
-        height: 150px;
-        background-color: #f5f5f5;
-        border: 2px dashed #c39a8e;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-
-      .info {
-        font-size: 0.85rem;
-        color: #333;
-      }
-    }
-  }
-
-  .boton-container {
-  display: flex;
-  margin-top: 2rem;
-  justify-content: right;
+  width: 1000px;
 }
 
-  .btn-guardar {
-  background-color: #d3a58f;
+.anadir-modelo-container h2 {
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+  font-weight: 400;
+}
+
+.formulario {
+  display: flex;
+  gap: 2rem;
+  font-weight: 300;
+  font-family: "Libre Franklin", serif;
+}
+
+.columna {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.columna input,
+.columna textarea,
+.columna select {
+  padding: 0.6rem;
+  border-radius: 10px;
+  border: none;
+  background-color: #e3e3e3;
+  font-weight: 300;
+  font-family: "Libre Franklin", serif;
+}
+
+.columna textarea {
+  resize: none;
+  height: 100px;
+}
+
+.imagenes {
+  flex: 1;
+  text-align: center;
+}
+
+.imagen-placeholder {
+  margin: 1rem auto;
+  width: 200px;
+  height: 200px;
+  background-color: #f5f5f5;
+  border: 2px solid #aaa;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  overflow: auto;
+  padding: 5px;
+}
+
+.imagen-placeholder.drag-over {
+  border: 2px dashed #b07a6a;
+  background-color: #fdf6f3;
+}
+
+.img-contenedor {
+  position: relative;
+}
+
+.img-contenedor img {
+  width: 90px;
+  height: 90px;
+  object-fit: cover;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.img-contenedor .eliminar {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background-color: rgba(255, 0, 0, 0.8);
   color: white;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 0.7rem;
+  cursor: pointer;
+}
+
+.info {
+  font-size: 0.85rem;
+  color: #333;
+}
+
+.error {
+  color: red;
+  font-size: 0.85rem;
+  margin-top: 5px;
+}
+
+.boton-fila {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 2rem;
+}
+
+.boton-container {
+  display: flex;
+  gap: 15px;
+}
+
+.btn-guardar,
+.btn-cancelar {
   padding: 8px 20px;
   border-radius: 30px;
   font-weight: 500;
@@ -75,7 +120,11 @@
   cursor: pointer;
   font-family: "Lexend Deca", serif;
   font-size: 1.2rem;
-  margin-left: 15px;
+}
+
+.btn-guardar {
+  background-color: #d3a58f;
+  color: white;
 }
 
 .btn-guardar:hover {
@@ -85,13 +134,6 @@
 .btn-cancelar {
   background-color: #e0e0e0;
   color: #818181;
-  padding: 8px 20px;
-  border-radius: 30px;
-  font-weight: 500;
-  border: none;
-  cursor: pointer;
-  font-family: "Lexend Deca", serif;
-  font-size: 1.2rem;
 }
 
 .btn-cancelar:hover {
@@ -99,4 +141,43 @@
   color: white;
 }
 
+.fondo-ampliado {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99;
+}
+
+.fondo-ampliado img {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 10px;
+  box-shadow: 0 0 10px black;
+}
+
+.mensaje-exito {
+  color: green;
+  font-weight: 400;
+  margin-top: 1rem;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  font-family: "Lexend Deca", serif;
+  background-color: #e7f9e7;
+  border: 1px solid #a5d6a7;
+  padding: 0.8rem 1.2rem;
+  border-radius: 10px;
+  max-width: 400px;
+}
+
+.error {
+  color: red;
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
 }

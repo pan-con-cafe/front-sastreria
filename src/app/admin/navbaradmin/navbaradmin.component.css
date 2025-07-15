@@ -53,7 +53,7 @@
     font-weight: 340;
   }
   
-  .nav-links .active {
+  .nav-links li.active a {
     color: #B18678;
     text-decoration: underline;
   }

@@ -3,9 +3,17 @@
     <a routerLink="/inicio"><img src="/logo.svg" alt="logo" /></a>
   </div>
   <ul class="nav-links">
-    <li><a routerLink="/admin/general" routerLinkActive="active">GENERAL</a></li>
-    <li><a routerLink="/admin/pedidos" routerLinkActive="active">PEDIDOS</a></li>
-    <li><a routerLink="/admin/modelos" routerLinkActive="active">MODELOS</a></li>
-    <li><a routerLink="/admin/horario" routerLinkActive="active">HORARIO</a></li>
+    <li routerLinkActive="active" [routerLinkActiveOptions]="{ exact: false }">
+      <a routerLink="/admin/general">GENERAL</a>
+    </li>
+    <li routerLinkActive="active" [routerLinkActiveOptions]="{ exact: false }">
+      <a routerLink="/admin/pedidos">PEDIDOS</a>
+    </li>
+    <li routerLinkActive="active" [routerLinkActiveOptions]="{ exact: false }">
+      <a routerLink="/admin/modelos">MODELOS</a>
+    </li>
+    <li routerLinkActive="active" [routerLinkActiveOptions]="{ exact: false }">
+      <a routerLink="/admin/horario">HORARIO</a>
+    </li>
   </ul>
 </nav>

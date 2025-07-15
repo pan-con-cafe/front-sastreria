@@ -4,11 +4,12 @@ import { ActivatedRoute} from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-cliente-reserva',
   standalone: true,
-  imports: [NavbarComponent, FormsModule],
+  imports: [NavbarComponent, FormsModule, NgIf],
   templateUrl: './cliente-reserva.component.html',
   styleUrl: './cliente-reserva.component.css'
 })
@@ -86,22 +87,8 @@ export class ClienteReservaComponent implements OnInit{
   }
 
   submitReservation(): void {
-    const { dni, fecha, nombres, apellidos, correo, telefono, opcion } = this.reservation;
-  
-    if (
-      dni.trim() === '' ||
-      fecha.trim() === '' ||
-      nombres.trim() === '' ||
-      apellidos.trim() === '' ||
-      correo.trim() === '' ||
-      telefono.trim() === '' ||
-      opcion.trim() === ''
-    ) {
-      alert('Por favor, complete todos los campos y seleccione una opción antes de reservar.');
-      return;
-    }
-  
-    // Redirige al componente cliente-final
-    this.router.navigate(['/reservado']);
-  }
+  // Si el formulario es válido, navegar
+  this.router.navigate(['/reservado']);
+}
+
 }
