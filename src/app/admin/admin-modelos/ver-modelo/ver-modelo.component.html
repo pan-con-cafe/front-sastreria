@@ -7,7 +7,7 @@
       <div class="modelo-card" *ngFor="let modelo of modelos">
         <div class="modelo-img">
           <img [src]="modelo.imagen" alt="modelo" />
-          <button class="edit-icon" routerLink="/admin/modelos/editar-modelo">
+          <button class="edit-icon" [routerLink]="['/admin/modelos/editar-modelo', modelo.idModelo]">
             <img src="/edit.png" alt="editar">
           </button>
         </div>

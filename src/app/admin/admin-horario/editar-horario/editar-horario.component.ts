@@ -1,8 +1,10 @@
 import { CommonModule, NgIf } from '@angular/common';
-import { Component, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterLink, Router } from '@angular/router';
+import { RouterLink, ActivatedRoute, Router } from '@angular/router';
 import { ConfirmacionSalidaComponent } from '../../../shared/confirmacion-salida/confirmacion-salida.component';
+import { HorarioService } from '../services/horario.service';
+import { Horario } from '../models/horario.model';
 
 @Component({
   selector: 'app-editar-horario',
@@ -11,62 +13,76 @@ import { ConfirmacionSalidaComponent } from '../../../shared/confirmacion-salida
   templateUrl: './editar-horario.component.html',
   styleUrl: './editar-horario.component.css'
 })
-export class EditarHorarioComponent {
-  dias = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
-  horario: string[][] = [];
-  cambiosPendientes = false;
-  mostrarModal = false;
-  mensajeExito = false;
+export class EditarHorarioComponent implements OnInit {
+  dias: string[] = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
+  horario: string[][] = [[], [], [], [], [], [], []];
+  dataHorarios: Horario[] = [];
+  mensajeExito: boolean = false;
+  mostrarModal: boolean = false;
+  cambiosPendientes: boolean = false;
+
+  constructor(private horarioService: HorarioService, private router: Router) {}
 
   ngOnInit(): void {
-    const horarioGuardado = localStorage.getItem('horario');
-    if (horarioGuardado) {
-      this.horario = JSON.parse(horarioGuardado);
-    } else {
-      // Inicializar con valores por defecto
-      this.horario = Array.from({ length: 6 }, () => Array(5).fill('00:00'));
-    }
+    this.horarioService.getHorarios().subscribe({
+      next: (data) => {
+        this.dataHorarios = data;
+        this.dias.forEach((dia, index) => {
+          const encontrado = data.find(h => h.dia === dia);
+          if (encontrado) {
+            this.horario[index] = [encontrado.horaInicio, encontrado.horaFin];
+          } else {
+            this.horario[index] = ['08:00', '18:00']; // Valores por defecto si no hay en BD
+          }
+        });
+      },
+      error: (err) => console.error('Error al cargar horario', err)
+    });
   }
 
-  guardarHorario(): void {
-    localStorage.setItem('horario', JSON.stringify(this.horario));
-
-    this.mensajeExito = true;
-    this.cambiosPendientes = false; // si usas esta lógica
-
-    setTimeout(() => {
-      this.mensajeExito = false;
-    }, 10000); // 10 segundos visible
-  }
-
-  onCambios() {
+  onCambios(): void {
     this.cambiosPendientes = true;
   }
 
-  cancelar() {
+  guardarHorario(): void {
+    const peticiones = this.dias.map((dia, index) => {
+      const horarioExistente = this.dataHorarios.find(h => h.dia === dia);
+      const horarioNuevo: Horario = {
+        idHorario: horarioExistente?.idHorario ?? 0,
+        dia,
+        horaInicio: this.horario[index][0],
+        horaFin: this.horario[index][1],
+        estado: true
+      };
+      if (horarioExistente) {
+        return this.horarioService.updateHorario(horarioExistente.idHorario, horarioNuevo);
+      } else {
+        return this.horarioService.createHorario(horarioNuevo);
+      }
+    });
+
+    Promise.all(peticiones.map(p => p.toPromise()))
+      .then(() => {
+        this.mensajeExito = true;
+        this.cambiosPendientes = false;
+        setTimeout(() => this.router.navigate(['/admin/horario']), 1500);
+      })
+      .catch(err => console.error('Error al guardar horario', err));
+  }
+
+  cancelar(): void {
     if (this.cambiosPendientes) {
       this.mostrarModal = true;
     } else {
-      this.router.navigate(['/admin/horario/ver-horario']); // Cambia esta ruta si tu vista destino es diferente
+      this.router.navigate(['/admin/horario']);
     }
   }
 
-  confirmarSalida() {
+  confirmarSalida(): void {
+    this.router.navigate(['/admin/horario']);
+  }
+
+  cerrarModal(): void {
     this.mostrarModal = false;
-    this.router.navigate(['/admin/horario/ver-horario']);
   }
-
-  cerrarModal() {
-    this.mostrarModal = false;
-  }
-
-  @HostListener('window:beforeunload', ['$event'])
-  manejarCierreNavegador(event: BeforeUnloadEvent) {
-    if (this.cambiosPendientes) {
-      event.preventDefault();
-      event.returnValue = true;
-    }
-  }
-  constructor(private router: Router) {}
-
 }

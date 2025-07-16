@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router, RouterLink, RouterModule } from '@angular/router';
 import { NavbaradminComponent } from '../navbaradmin/navbaradmin.component';
 import { AdminBienvenidaComponent } from '../admin-bienvenida/admin-bienvenida.component';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-admin-general',
@@ -11,9 +12,10 @@ import { AdminBienvenidaComponent } from '../admin-bienvenida/admin-bienvenida.c
   styleUrls: ['./admin-general.component.css']
 })
 export class AdminGeneralComponent {
-  constructor(private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
-  logout() {
-    this.router.navigate(['/login']); 
+  onLogout(): void {
+    this.authService.logout();
+    this.router.navigate(['/login']);
   }
 }

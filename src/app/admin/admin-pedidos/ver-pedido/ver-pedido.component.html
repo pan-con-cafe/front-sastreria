@@ -1,31 +1,23 @@
 <div class="contenedor">
-
   <div class="back-link">
     <a routerLink="/admin/pedidos/listado-pedidos">
-      <img src="/back.png" alt="Volver" style="width: 15x; height: 15px;"> Volver
+      <img src="/back.png" alt="Volver" style="width: 15px; height: 15px;"> Volver
     </a>
   </div>
 
   <h2>Detalle del pedido:</h2>
 
   <div class="encabezado">
-    <p>Nombre Del Cliente</p>
-    <p>00/11/2222</p>
+    <p>ID Pedido: {{ pedido.idPedido }}</p>
+    <p>{{ pedido.fechaEntrega | date: 'dd/MM/yyyy' }}</p>
   </div>
 
   <p class="detalle">
-    Mayor detalle del pedido del cliente, incluye el modelo a confeccionar, la tela usada, la fecha de entrega establecida y las correcciones de las pruebas hechas en posteriores citas.
+    {{ pedido.detalle }}
   </p>
 
   <div class="cita">
-    <p>Cita 1:</p>
-    <pre>---------------------------------------------------------------------------------------</pre>
-    <pre>---------------------------------------------------------------------------------------</pre>
-    <pre>-----------------------------------------------</pre>
-  </div>
-
-  <div class="cita">
-    <p>Cita 2:</p>
+    <p>Citas (muestra estática de prueba):</p>
     <pre>---------------------------------------------------------------------------------------</pre>
     <pre>---------------------------------------------------------------------------------------</pre>
     <pre>-----------------------------------------------</pre>

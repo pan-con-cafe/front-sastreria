@@ -6,8 +6,8 @@
       *ngFor="let categoria of categorias"
       class="categoria-item"
     >
-      <span>{{ categoria }}</span>
-      <button *ngIf="categoria !== 'Ver todos'" class="icono-editar" routerLink="/admin/modelos/editar-categoria">
+      <span>{{ categoria.nombre }}</span>
+      <button class="icono-editar" [routerLink]="['/admin/modelos/editar-categoria', categoria.idCategoria]">
         <img src="/edit.png" alt="editar" class="icono">
       </button>
     </div>

@@ -3,6 +3,7 @@ import { Component, HostListener } from '@angular/core';
 import { ConfirmacionSalidaComponent } from '../../../shared/confirmacion-salida/confirmacion-salida.component';
 import { FormsModule } from '@angular/forms';
 import { RouterLink, Router } from '@angular/router';
+import { CategoriaService } from '../services/categoria.service'; 
 
 
 @Component({
@@ -16,60 +17,56 @@ import { RouterLink, Router } from '@angular/router';
 export class AnadirCategoriaComponent {
   nombreCategoria: string = '';
   modelosSeleccionados: string[] = [];
+  mensajeExito: boolean = false;
   mensajeError: string = '';
-  cambiosPendientes = false;
-  mostrarModal = false;
-  mensajeExito = false;
+  mostrarModal: boolean = false;
+  cambiosPendientes: boolean = false;
 
+  constructor(private categoriaService: CategoriaService, private router: Router) {}
 
-  guardarCategoria() {
-    if (this.modelosSeleccionados.length === 0) {
-      this.mensajeError = 'Es necesario que añada algunos modelos antes de guardar';
-      return;
-    }
-
-    // Aquí podrías llamar a un servicio para guardar la categoría
-    this.mensajeExito = true;
-    this.cambiosPendientes = false; // si usas esta lógica
-
-    setTimeout(() => {
-      this.mensajeExito = false;
-    }, 10000); // 10 segundos visible
-  }
-
-  agregarModelo() {
-    // Aquí puedes abrir un modal o selector. Por ahora agregamos un modelo ficticio
-    this.modelosSeleccionados.push('Modelo nuevo');
-  }
-
-  onCambios() {
+  onCambios(): void {
     this.cambiosPendientes = true;
   }
 
-  cancelar() {
+  agregarModelo(): void {
+    this.modelosSeleccionados.push('Modelo ' + (this.modelosSeleccionados.length + 1));
+    this.cambiosPendientes = true;
+  }
+
+  guardarCategoria(): void {
+    if (this.nombreCategoria.trim() === '') {
+      this.mensajeError = 'El nombre es obligatorio.';
+      return;
+    }
+    const nuevaCategoria = {
+      idCategoria: 0,
+      nombre: this.nombreCategoria,
+      descripcion: 'Sin descripción por ahora',
+      estado: true
+    };
+
+    this.categoriaService.createCategoria(nuevaCategoria).subscribe({
+      next: () => {
+        this.mensajeExito = true;
+        setTimeout(() => this.router.navigate(['/admin/modelos/categorias']), 1500);
+      },
+      error: (err) => console.error('Error al añadir categoría', err)
+    });
+  }
+
+  cancelar(): void {
     if (this.cambiosPendientes) {
       this.mostrarModal = true;
     } else {
-      this.router.navigate(['/admin/modelos/categorias']); // Cambia esta ruta si tu vista destino es diferente
+      this.router.navigate(['/admin/modelos/categorias']);
     }
   }
 
-  confirmarSalida() {
-    this.mostrarModal = false;
+  confirmarSalida(): void {
     this.router.navigate(['/admin/modelos/categorias']);
   }
 
-  cerrarModal() {
+  cerrarModal(): void {
     this.mostrarModal = false;
   }
-
-  @HostListener('window:beforeunload', ['$event'])
-  manejarCierreNavegador(event: BeforeUnloadEvent) {
-    if (this.cambiosPendientes) {
-      event.preventDefault();
-      event.returnValue = true;
-    }
-  }
-
-  constructor(private router: Router) {}
 }

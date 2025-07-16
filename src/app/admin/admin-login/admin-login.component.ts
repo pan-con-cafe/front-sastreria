@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { Router } from '@angular/router';
-import { CommonModule } from '@angular/common'; 
+import { CommonModule } from '@angular/common';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-admin-login',
@@ -12,27 +13,27 @@ import { CommonModule } from '@angular/common';
   styleUrl: './admin-login.component.css'
 })
 export class AdminLoginComponent {
-  adminCredentials = {
-    email: '',
-    password: '',
-  };
+  correo: string = '';
+  contrasenia: string = '';
 
   errorMessage: string | null = null;
 
-  constructor(private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
-  onSubmit() {
-    const validEmail = 'pancito@prueba.com';
-    const validPassword = 'pancito';
+  onLogin(): void {
+    this.authService.login({ correo: this.correo, contrasenia: this.contrasenia })
+      .subscribe({
+        next: () => {
+          this.router.navigate(['/admin/general']); // cambia la ruta a donde quieras ir al iniciar sesión
+        },
+        error: () => {
+          this.errorMessage = 'Credenciales incorrectas. Intente nuevamente.';
+        }
+      });
+  }
 
-    if (
-      this.adminCredentials.email === validEmail &&
-      this.adminCredentials.password === validPassword
-    ) {
-      this.errorMessage = null;
-      this.router.navigate(['admin/general']); // Redirige a admin-general
-    } else {
-      this.errorMessage = 'Credenciales incorrectas. Intente nuevamente.';
-    }
+  onLogout(): void {
+    this.authService.logout();
+    this.router.navigate(['/login']);
   }
 }

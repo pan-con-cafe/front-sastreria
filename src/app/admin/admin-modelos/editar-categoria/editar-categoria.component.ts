@@ -1,9 +1,11 @@
 import { CommonModule, NgIf } from '@angular/common';
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { ConfirmacionSalidaComponent } from '../../../shared/confirmacion-salida/confirmacion-salida.component';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CategoriaService } from '../services/categoria.service';
+import { Categoria } from '../models/categoria.model';
 
 @Component({
   selector: 'app-editar-categoria',
@@ -12,78 +14,89 @@ import { Router } from '@angular/router';
   templateUrl: './editar-categoria.component.html',
   styleUrl: './editar-categoria.component.css'
 })
-export class EditarCategoriaComponent {
+export class EditarCategoriaComponent implements OnInit {
   nombreCategoria: string = '';
-  modelosSeleccionados: string[] = ['modelo1', 'modelo2', 'modelo3', 'modelo4', 'modelo5'];
-  cambiosPendientes = false;
-  mostrarModal = false;
-  mostrarModalEliminar = false;  // Para controlar el modal
-  mensajeExito = false;
+  modelosSeleccionados: string[] = [];
+  mensajeExito: boolean = false;
+  mostrarModal: boolean = false;
+  mostrarModalEliminar: boolean = false;
+  cambiosPendientes: boolean = false;
+  idCategoria!: number;
 
+  constructor(private categoriaService: CategoriaService, private router: Router, private route: ActivatedRoute) {}
 
-  guardarCambios() {
-    console.log('Cambios guardados:', this.nombreCategoria, this.modelosSeleccionados);
-    this.mensajeExito = true;
-    this.cambiosPendientes = false; // si usas esta lógica
-
-    setTimeout(() => {
-      this.mensajeExito = false;
-    }, 10000); // 10 segundos visible
+  ngOnInit(): void {
+    this.idCategoria = this.route.snapshot.params['id'];
+    this.categoriaService.getCategoriaById(this.idCategoria).subscribe({
+      next: (categoria) => {
+        this.nombreCategoria = categoria.nombre;
+      },
+      error: (err) => console.error('Error al cargar la categoría', err)
+    });
   }
 
-  eliminarModelo(index: number) {
-    this.modelosSeleccionados.splice(index, 1);
-  }
-
-  agregarModelo() {
-    // Simulación de adición
-    this.modelosSeleccionados.push('modelo nuevo');
-  }
-
-  onCambios() {
+  onCambios(): void {
     this.cambiosPendientes = true;
   }
 
-  cancelar() {
+  agregarModelo(): void {
+    this.modelosSeleccionados.push('Modelo ' + (this.modelosSeleccionados.length + 1));
+    this.cambiosPendientes = true;
+  }
+
+  eliminarModelo(index: number): void {
+    this.modelosSeleccionados.splice(index, 1);
+    this.cambiosPendientes = true;
+  }
+
+  guardarCambios(): void {
+    const categoriaActualizada: Categoria = {
+      idCategoria: this.idCategoria,
+      nombre: this.nombreCategoria,
+      descripcion: 'Sin descripción por ahora',
+      estado: true
+    };
+
+    this.categoriaService.updateCategoria(this.idCategoria, categoriaActualizada).subscribe({
+      next: () => {
+        this.mensajeExito = true;
+        this.cambiosPendientes = false;
+        setTimeout(() => this.router.navigate(['/admin/modelos/categorias']), 1500);
+      },
+      error: (err) => console.error('Error al actualizar categoría', err)
+    });
+  }
+
+  cancelar(): void {
     if (this.cambiosPendientes) {
       this.mostrarModal = true;
     } else {
-      this.router.navigate(['/admin/modelos/categorias']); // Cambia esta ruta si tu vista destino es diferente
+      this.router.navigate(['/admin/modelos/categorias']);
     }
   }
 
-  confirmarSalida() {
-    this.mostrarModal = false;
+  confirmarSalida(): void {
     this.router.navigate(['/admin/modelos/categorias']);
   }
 
-  cerrarModal() {
+  cerrarModal(): void {
     this.mostrarModal = false;
   }
 
-  @HostListener('window:beforeunload', ['$event'])
-  manejarCierreNavegador(event: BeforeUnloadEvent) {
-    if (this.cambiosPendientes) {
-      event.preventDefault();
-      event.returnValue = true;
-    }
-  }
-
-  confirmarEliminacion() {
+  confirmarEliminacion(): void {
     this.mostrarModalEliminar = true;
   }
 
-  cerrarModalEliminar() {
-    this.mostrarModalEliminar = false;
+  eliminarCategoria(): void {
+    this.categoriaService.deleteCategoria(this.idCategoria).subscribe({
+      next: () => {
+        this.router.navigate(['/admin/modelos/categorias']);
+      },
+      error: (err) => console.error('Error al eliminar categoría', err)
+    });
   }
 
-  eliminarCategoria() {
-    // Aquí va la lógica real para eliminar la categoría
-    console.log('Categoría eliminada');
+  cerrarModalEliminar(): void {
     this.mostrarModalEliminar = false;
   }
-
-
-  constructor(private router: Router) {}
-
 }

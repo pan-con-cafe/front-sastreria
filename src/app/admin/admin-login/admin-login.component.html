@@ -2,28 +2,14 @@
     <img src="/logo.PNG" alt="Estilo Sastrería Logo" class="logo">
     <h2>Inicie sesión como administrador</h2>
   
-    <form (ngSubmit)="onSubmit()" class="login-form">
+    <form class="login-form">
       <label for="email">Correo electrónico:</label>
-      <input
-        type="email"
-        id="email"
-        [(ngModel)]="adminCredentials.email"
-        name="email"
-        required
-        class="input-field"
-      >
+      <input type="email" [(ngModel)]="correo" placeholder="Correo">
   
       <label for="password">Contraseña:</label>
-      <input
-        type="password"
-        id="password"
-        [(ngModel)]="adminCredentials.password"
-        name="password"
-        required
-        class="input-field"
-      >
+      <input type="password" [(ngModel)]="contrasenia" placeholder="Contraseña">
   
-      <button type="submit" class="login-button">Iniciar sesión</button>
+      <button (click)="onLogin()">Iniciar Sesión</button>
     </form>
   
     <div *ngIf="errorMessage" class="error-message">

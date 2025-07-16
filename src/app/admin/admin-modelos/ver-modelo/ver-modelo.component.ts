@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 
@@ -10,14 +11,19 @@ import { RouterLink } from '@angular/router';
   templateUrl: './ver-modelo.component.html',
   styleUrl: './ver-modelo.component.css'
 })
-export class VerModeloComponent {
-  modelos = [
-    { id: 1, nombre: 'Modelo A', imagen: 'assets/placeholder.svg' },
-    { id: 2, nombre: 'Modelo B', imagen: 'assets/placeholder.svg' },
-    { id: 3, nombre: 'Modelo C', imagen: 'assets/placeholder.svg' },
-    { id: 4, nombre: 'Modelo D', imagen: 'assets/placeholder.svg' },
-    { id: 5, nombre: 'Modelo E', imagen: 'assets/placeholder.svg' },
-    // puedes continuar con más datos simulados
-  ];
+export class VerModeloComponent implements OnInit {
+  modelos: any[] = [];
 
+  constructor(private http: HttpClient) {}
+
+  ngOnInit() {
+    this.http.get<any[]>('https://localhost:7057/api/Modelo').subscribe({
+      next: (data) => {
+        this.modelos = data.map(m => ({
+          ...m,
+          imagen: 'https://localhost:7057/Uploads/' + (m.imagenes[0] || 'placeholder.jpg')
+        }));
+      }
+    });
+  }
 }

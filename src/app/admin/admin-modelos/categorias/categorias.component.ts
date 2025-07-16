@@ -1,5 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { CategoriaService } from '../services/categoria.service';
+import { Categoria } from '../models/categoria.model';
+import { Router } from '@angular/router';
 import { RouterLink } from '@angular/router';
 
 @Component({
@@ -9,13 +12,17 @@ import { RouterLink } from '@angular/router';
   templateUrl: './categorias.component.html',
   styleUrl: './categorias.component.css'
 })
-export class CategoriasComponent {
-  categorias: string[] = [
-    'Para damas',
-    'Para caballeros',
-    'Para niños',
-    'Los más populares',
-    'Lo nuevo',
-    'Ver todos'
-  ];
+export class CategoriasComponent implements OnInit {
+  categorias: Categoria[] = [];
+
+  constructor(private categoriaService: CategoriaService, private router: Router) {}
+
+  ngOnInit(): void {
+    this.categoriaService.getCategorias().subscribe({
+      next: (data) => {
+        this.categorias = data;
+      },
+      error: (err) => console.error('Error al cargar categorías', err)
+    });
+  }
 }

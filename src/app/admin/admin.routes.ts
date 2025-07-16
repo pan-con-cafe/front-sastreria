@@ -1,35 +1,15 @@
-// src/app/admin/admin.routes.ts
-/*import { Routes } from '@angular/router';
-import { AdminGeneralComponent } from './admin-general/admin-general.component';
-import { AdminPedidosComponent } from './admin-pedidos/admin-pedidos.component';
-import { AdminModelosComponent } from './admin-modelos/admin-modelos.component';
-import { AdminHorarioComponent } from './admin-horario/admin-horario.component';
-import { AdminBienvenidaComponent } from './admin-bienvenida/admin-bienvenida.component';
-
-export const ADMIN_ROUTES: Routes = [
-  {
-    path: '',
-    component: AdminGeneralComponent,
-    children: [
-      { path: 'inicio', component: AdminBienvenidaComponent },
-      { path: 'general', component: AdminGeneralComponent },
-      { path: 'pedidos', component: AdminPedidosComponent },
-      { path: 'modelos', component: AdminModelosComponent },
-      { path: 'horario', component: AdminHorarioComponent },
-      { path: '', redirectTo: 'inicio', pathMatch: 'full' }
-    ]
-  }
-];*/
-
 import { Routes } from '@angular/router';
 import { AdminBienvenidaComponent } from './admin-bienvenida/admin-bienvenida.component';
 import { PerfilComponent } from './admin-general/perfil/perfil.component';
 import { InicioComponent } from '../inicio/inicio.component';
+import { AuthGuard } from '../auth.guard'; // Ajusta la ruta si es necesario
+
 
 
 export const ADMIN_ROUTES: Routes = [
   {
     path: 'general',
+    canActivate: [AuthGuard],
     loadComponent: () =>
       import('./admin-general/admin-general.component').then(m => m.AdminGeneralComponent),
     children: [
@@ -58,6 +38,7 @@ export const ADMIN_ROUTES: Routes = [
 
   {
     path: 'pedidos',
+    canActivate: [AuthGuard],
     loadComponent: () =>
       import('./admin-pedidos/admin-pedidos.component').then(m => m.AdminPedidosComponent),
     children: [
@@ -81,6 +62,7 @@ export const ADMIN_ROUTES: Routes = [
 
   {
     path: 'modelos',
+    canActivate: [AuthGuard],
     loadComponent: () =>
       import('./admin-modelos/admin-modelos.component').then(m => m.AdminModelosComponent),
     children: [
@@ -115,7 +97,7 @@ export const ADMIN_ROUTES: Routes = [
       },
 
       {
-        path: 'editar-categoria',
+        path: 'editar-categoria/:id',
         loadComponent: () =>
           import('./admin-modelos/editar-categoria/editar-categoria.component').then(m => m.EditarCategoriaComponent),
       },
@@ -130,6 +112,7 @@ export const ADMIN_ROUTES: Routes = [
 
   {
     path: 'horario',
+    canActivate: [AuthGuard],
     loadComponent: () =>
       import('./admin-horario/admin-horario.component').then(m => m.AdminHorarioComponent),
     children: [

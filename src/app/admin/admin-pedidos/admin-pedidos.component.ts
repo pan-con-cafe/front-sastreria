@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavbaradminComponent } from '../navbaradmin/navbaradmin.component';
 import { Router, RouterModule } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-admin-pedidos',
@@ -10,10 +11,11 @@ import { Router, RouterModule } from '@angular/router';
   styleUrl: './admin-pedidos.component.css'
 })
 export class AdminPedidosComponent {
-  constructor(private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
-  logout() {
-    this.router.navigate(['/login']); 
+  onLogout(): void {
+    this.authService.logout();
+    this.router.navigate(['/login']);
   }
 
 }

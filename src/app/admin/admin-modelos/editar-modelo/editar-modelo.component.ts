@@ -1,7 +1,9 @@
-import { Component, ElementRef, ViewChild, HostListener } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, HostListener } from '@angular/core';
 import { CommonModule, NgIf } from '@angular/common';
 import { RouterLink, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 import { ConfirmacionSalidaComponent } from '../../../shared/confirmacion-salida/confirmacion-salida.component';
 
 
@@ -12,52 +14,90 @@ import { ConfirmacionSalidaComponent } from '../../../shared/confirmacion-salida
   templateUrl: './editar-modelo.component.html',
   styleUrl: './editar-modelo.component.css'
 })
-export class EditarModeloComponent {
-
+export class EditarModeloComponent implements OnInit {
+  modeloId = '';
+  nombre = '';
+  descripcion = '';
+  categoria1 = '';
+  categorias: any[] = [];
   imagenes: string[] = [];
-  imagenPrincipal: string | null = null;
-  cambiosPendientes = false;
-  mostrarModal = false;
-  mensajeExito = false;
-  nombre: string = '';
-  descripcion: string = '';
+  imagenPrincipal = '';
   intentoGuardar = false;
-
-
+  mensajeExito = false;
+  mostrarModal = false;
+  cambiosPendientes = false;
   @ViewChild('inputImagen') inputImagen!: ElementRef<HTMLInputElement>;
+
+  constructor(private route: ActivatedRoute, private http: HttpClient) {}
+
+  ngOnInit() {
+    this.modeloId = this.route.snapshot.paramMap.get('id') || '';
+    this.http.get<any>('https://localhost:7057/api/Modelo/' + this.modeloId).subscribe({
+      next: (data) => {
+        this.nombre = data.nombre;
+        this.descripcion = data.descripcion;
+        this.categoria1 = data.idCategoria;
+        this.imagenes = data.imagenes.map((img: string) => 'https://localhost:7057/Uploads/' + img);
+        this.imagenPrincipal = this.imagenes[0];
+      }
+    });
+
+    this.http.get<any[]>('https://localhost:7057/api/Categoria').subscribe({
+      next: (data) => this.categorias = data
+    });
+  }
 
   seleccionarImagen() {
     this.inputImagen.nativeElement.click();
   }
 
-  cargarImagen(event: Event) {
-    const files = (event.target as HTMLInputElement).files;
-    if (files && files.length > 0 && this.imagenes.length < 4) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        const result = reader.result as string;
-        this.imagenes.push(result);
-        if (!this.imagenPrincipal) {
-          this.imagenPrincipal = result;
-        }
-      };
-      reader.readAsDataURL(files[0]);
-    }
+  cargarImagen(event: any) {
+    const file = event.target.files[0];
+    if (!file || this.imagenes.length >= 4) return;
+    const reader = new FileReader();
+    reader.onload = e => {
+      this.imagenes.push(e.target?.result as string);
+      this.imagenPrincipal = this.imagenes[0];
+    };
+    reader.readAsDataURL(file);
+    this.cambiosPendientes = true;
+  }
+
+  eliminarImagen(index: number, event: Event) {
+    event.stopPropagation();
+    this.imagenes.splice(index, 1);
+    this.imagenPrincipal = this.imagenes[0] || '';
+    this.cambiosPendientes = true;
   }
 
   cambiarPrincipal(index: number) {
-    this.imagenPrincipal = this.imagenes[index];
+    const selected = this.imagenes[index];
+    this.imagenPrincipal = selected;
+    this.cambiosPendientes = true;
   }
 
-  eliminarImagen(index: number, event: MouseEvent) {
-    event.stopPropagation();
-    const eliminado = this.imagenes.splice(index, 1)[0];
-    if (this.imagenPrincipal === eliminado) {
-      this.imagenPrincipal = this.imagenes[0] || null;
+  guardarCambios() {
+    if (!this.nombre || !this.descripcion || !this.categoria1 || this.imagenes.length === 0) {
+      this.intentoGuardar = true;
+      return;
     }
+    const body = {
+      idModelo: this.modeloId,
+      nombre: this.nombre,
+      descripcion: this.descripcion,
+      idCategoria: this.categoria1,
+      imagenes: this.imagenes.map(img => img.replace('https://localhost:7057/Uploads/', ''))
+    };
+    this.http.put('https://localhost:7057/api/Modelo/' + this.modeloId, body).subscribe({
+      next: () => {
+        this.mensajeExito = true;
+        this.cambiosPendientes = false;
+      }
+    });
   }
 
   onCambios() {
+    this.intentoGuardar = false;
     this.cambiosPendientes = true;
   }
 
@@ -65,42 +105,16 @@ export class EditarModeloComponent {
     if (this.cambiosPendientes) {
       this.mostrarModal = true;
     } else {
-      this.router.navigate(['/admin/modelos/ver-modelo']); // Cambia esta ruta si tu vista destino es diferente
+      history.back();
     }
   }
 
   confirmarSalida() {
     this.mostrarModal = false;
-    this.router.navigate(['/admin/modelos/ver-modelo']);
+    history.back();
   }
 
   cerrarModal() {
     this.mostrarModal = false;
   }
-
-  @HostListener('window:beforeunload', ['$event'])
-  manejarCierreNavegador(event: BeforeUnloadEvent) {
-    if (this.cambiosPendientes) {
-      event.preventDefault();
-      event.returnValue = true;
-    }
-  }
-
-  guardarCambios() {
-    this.intentoGuardar = true;
-
-    // Validar manualmente en caso quieras controlar en código también
-    if (!this.nombre || !this.descripcion || this.imagenes.length === 0) {
-      return;
-    }
-
-    this.mensajeExito = true;
-    this.cambiosPendientes = false;
-
-    setTimeout(() => {
-      this.mensajeExito = false;
-    }, 10000);
-  }
-  constructor(private router: Router) {}
-
 }
