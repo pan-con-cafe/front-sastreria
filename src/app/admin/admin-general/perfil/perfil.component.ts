@@ -12,7 +12,14 @@ import { NgIf } from '@angular/common';
   styleUrl: './perfil.component.css'
 })
 export class PerfilComponent implements OnInit {
-  perfil!: DatoSastreria;
+  perfil: DatoSastreria = {
+    idDatos: 0,
+    nombre: '',
+    telefono: '',
+    direccion: '',
+    descripcion: '',
+    logoSastreria: ''
+  };
 
   constructor(private datoService: DatoSastreriaService) {}
 

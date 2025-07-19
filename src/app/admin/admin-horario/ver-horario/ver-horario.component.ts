@@ -11,8 +11,8 @@ import { Horario } from '../models/horario.model';
   templateUrl: './ver-horario.component.html',
   styleUrl: './ver-horario.component.css'
 })
-export class VerHorarioComponent implements OnInit{
-  dias: string[] = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
+export class VerHorarioComponent implements OnInit {
+  dias: string[] = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
   horario: string[][] = [];
 
   constructor(private horarioService: HorarioService) {}
@@ -21,18 +21,23 @@ export class VerHorarioComponent implements OnInit{
     this.cargarHorario();
   }
 
+  private formatearHora(hora: string): string {
+    // Si la hora viene como "16:00:00", extraemos solo "16:00"
+    return hora ? hora.substring(0, 5) : '';
+  }
+
   cargarHorario(): void {
     this.horarioService.getHorarios().subscribe({
       next: (data) => {
         this.horario = this.dias.map(dia => {
-          const encontrado = data.find(h => h.dia === dia);
-          if (encontrado) {
-            return [`${encontrado.horaInicio} - ${encontrado.horaFin}`];
-          }
-          return ['Sin horario'];
+          const horariosDia = data
+            .filter(h => h.dia === dia && h.estado)
+            .map(h => `${this.formatearHora(h.horaInicio)} - ${this.formatearHora(h.horaFin)}`);
+          return horariosDia.length > 0 ? horariosDia : ['Sin horario disponible'];
         });
       },
       error: (err) => console.error('Error al cargar horario', err)
     });
   }
+
 }

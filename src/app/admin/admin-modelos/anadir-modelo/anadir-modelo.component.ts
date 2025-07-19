@@ -18,6 +18,7 @@ export class AnadirModeloComponent implements OnInit {
   nombre = '';
   descripcion = '';
   categoria1 = '';
+  categoria2 = '';  
   categorias: any[] = [];
   imagenes: File[] = [];
   imagenesPreview: string[] = [];
@@ -39,26 +40,49 @@ export class AnadirModeloComponent implements OnInit {
     });
   }
 
+  async subirImagenACloudinary(file: File): Promise<string> {
+    const url = 'https://api.cloudinary.com/v1_1/dirtw0neu/image/upload';
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('upload_preset', 'nombre-generico-para-upload-preset');
+
+    const response = await fetch(url, {
+      method: 'POST',
+      body: formData
+    });
+
+    if (!response.ok) throw new Error('Error al subir imagen');
+    const data = await response.json();
+    return data.secure_url;
+  }
+
+
   guardarModelo() {
     if (!this.nombre || !this.descripcion || !this.categoria1 || this.imagenes.length === 0) {
       this.intentoGuardar = true;
       return;
     }
 
-    const formData = new FormData();
-    formData.append('nombre', this.nombre);
-    formData.append('descripcion', this.descripcion);
-    formData.append('idCategoria', this.categoria1);
-    this.imagenes.forEach(img => formData.append('imagenes', img));
+    // Subir primero todas las imágenes a Cloudinary
+    Promise.all(this.imagenes.map(img => this.subirImagenACloudinary(img)))
+      .then(urls => {
+        const body = {
+          nombre: this.nombre,
+          descripcion: this.descripcion,
+          idCategoria: this.categoria1,
+          imagenes: urls
+        };
 
-    this.http.post('https://localhost:7057/api/Modelo', formData).subscribe({
-      next: () => {
-        this.mensajeExito = true;
-        this.cambiosPendientes = false;
-      },
-      error: () => this.mensajeError = 'Hubo un error al guardar el modelo.'
-    });
+        this.http.post('https://localhost:7057/api/Modelo', body).subscribe({
+          next: () => {
+            this.mensajeExito = true;
+            this.cambiosPendientes = false;
+          },
+          error: () => this.mensajeError = 'Hubo un error al guardar el modelo.'
+        });
+      });
   }
+
 
   cargarImagenes(event: any) {
     const files: File[] = Array.from(event.target.files);

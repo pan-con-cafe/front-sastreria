@@ -1,21 +1,19 @@
-import { Component, OnInit, ElementRef, ViewChild, HostListener } from '@angular/core';
-import { CommonModule, NgIf } from '@angular/common';
-import { RouterLink, Router } from '@angular/router';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { CommonModule, NgIf, NgFor } from '@angular/common';
+import { RouterLink, ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { ConfirmacionSalidaComponent } from '../../../shared/confirmacion-salida/confirmacion-salida.component';
-
 
 @Component({
   selector: 'app-editar-modelo',
   standalone: true,
-  imports: [CommonModule, RouterLink, NgIf, FormsModule, ConfirmacionSalidaComponent],
+  imports: [CommonModule, RouterLink, NgIf, NgFor, FormsModule, ConfirmacionSalidaComponent],
   templateUrl: './editar-modelo.component.html',
   styleUrl: './editar-modelo.component.css'
 })
 export class EditarModeloComponent implements OnInit {
-  modeloId = '';
+  modeloId = 0;
   nombre = '';
   descripcion = '';
   categoria1 = '';
@@ -26,20 +24,15 @@ export class EditarModeloComponent implements OnInit {
   mensajeExito = false;
   mostrarModal = false;
   cambiosPendientes = false;
+
   @ViewChild('inputImagen') inputImagen!: ElementRef<HTMLInputElement>;
 
   constructor(private route: ActivatedRoute, private http: HttpClient) {}
 
   ngOnInit() {
-    this.modeloId = this.route.snapshot.paramMap.get('id') || '';
-    this.http.get<any>('https://localhost:7057/api/Modelo/' + this.modeloId).subscribe({
-      next: (data) => {
-        this.nombre = data.nombre;
-        this.descripcion = data.descripcion;
-        this.categoria1 = data.idCategoria;
-        this.imagenes = data.imagenes.map((img: string) => 'https://localhost:7057/Uploads/' + img);
-        this.imagenPrincipal = this.imagenes[0];
-      }
+    this.route.paramMap.subscribe(params => {
+      this.modeloId = Number(params.get('id'));
+      this.cargarModelo();
     });
 
     this.http.get<any[]>('https://localhost:7057/api/Categoria').subscribe({
@@ -47,19 +40,30 @@ export class EditarModeloComponent implements OnInit {
     });
   }
 
+  cargarModelo() {
+    this.http.get<any>('https://localhost:7057/api/Modelo/' + this.modeloId).subscribe({
+      next: (data) => {
+        this.nombre = data.nombre;
+        this.descripcion = data.descripcion;
+        this.categoria1 = data.idCategoria;
+        this.imagenes = data.imagenes || [];
+        this.imagenPrincipal = this.imagenes[0] || '';
+        console.log('Imagenes cargadas:', this.imagenes);
+      }
+    });
+  }
+
   seleccionarImagen() {
     this.inputImagen.nativeElement.click();
   }
 
-  cargarImagen(event: any) {
+  async cargarImagen(event: any) {
     const file = event.target.files[0];
     if (!file || this.imagenes.length >= 4) return;
-    const reader = new FileReader();
-    reader.onload = e => {
-      this.imagenes.push(e.target?.result as string);
-      this.imagenPrincipal = this.imagenes[0];
-    };
-    reader.readAsDataURL(file);
+
+    const url = await this.subirImagenACloudinary(file);
+    this.imagenes.push(url);
+    this.imagenPrincipal = this.imagenes[0];
     this.cambiosPendientes = true;
   }
 
@@ -76,23 +80,26 @@ export class EditarModeloComponent implements OnInit {
     this.cambiosPendientes = true;
   }
 
-  guardarCambios() {
+  async guardarCambios() {
     if (!this.nombre || !this.descripcion || !this.categoria1 || this.imagenes.length === 0) {
       this.intentoGuardar = true;
       return;
     }
+
     const body = {
       idModelo: this.modeloId,
       nombre: this.nombre,
       descripcion: this.descripcion,
-      idCategoria: this.categoria1,
-      imagenes: this.imagenes.map(img => img.replace('https://localhost:7057/Uploads/', ''))
+      idCategoria: Number(this.categoria1),
+      imagenes: this.imagenes
     };
+
     this.http.put('https://localhost:7057/api/Modelo/' + this.modeloId, body).subscribe({
       next: () => {
         this.mensajeExito = true;
         this.cambiosPendientes = false;
-      }
+      },
+      error: (err) => console.error('Error al guardar modelo', err)
     });
   }
 
@@ -116,5 +123,21 @@ export class EditarModeloComponent implements OnInit {
 
   cerrarModal() {
     this.mostrarModal = false;
+  }
+
+  async subirImagenACloudinary(file: File): Promise<string> {
+    const url = 'https://api.cloudinary.com/v1_1/dirtw0neu/image/upload';
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('upload_preset', 'nombre-generico-para-upload-preset');
+
+    const response = await fetch(url, {
+      method: 'POST',
+      body: formData
+    });
+
+    if (!response.ok) throw new Error('Error al subir imagen');
+    const data = await response.json();
+    return data.secure_url;
   }
 }

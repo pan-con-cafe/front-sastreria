@@ -53,7 +53,7 @@ export const ADMIN_ROUTES: Routes = [
           import('./admin-pedidos/listado-pedidos/listado-pedidos.component').then(m => m.ListadoPedidosComponent),
       },
       {
-        path: 'ver-pedido',
+        path: 'ver-pedido/:id',
         loadComponent: () =>
           import('./admin-pedidos/ver-pedido/ver-pedido.component').then(m => m.VerPedidoComponent),
       },
@@ -103,7 +103,7 @@ export const ADMIN_ROUTES: Routes = [
       },
 
       {
-        path: 'editar-modelo',
+        path: 'editar-modelo/:id',
         loadComponent: () =>
           import('./admin-modelos/editar-modelo/editar-modelo.component').then(m => m.EditarModeloComponent),
       },

@@ -33,22 +33,22 @@
           <small *ngIf="descripcionRef.errors?.['minlength']">Debe tener al menos 10 caracteres.</small>
         </div>
 
-        <label>Categoría:</label>
+        <label>Categoría 1:</label>
         <select name="categoria1" [(ngModel)]="categoria1" required #cat1Ref="ngModel">
           <option value="" disabled selected>Elija una categoría</option>
-          <option value="Casual">Casual</option>
-          <option value="Formal">Formal</option>
+          <option *ngFor="let categoria of categorias" [value]="categoria.idCategoria">
+            {{ categoria.nombre }}
+          </option>
         </select>
-        <div class="error" *ngIf="cat1Ref.invalid && cat1Ref.touched">
-          <small>Debe elegir una categoría.</small>
-        </div>
 
-        <label>Categoría 2:</label>
+        <label>Categoría 2 (opcional):</label>
         <select name="categoria2" [(ngModel)]="categoria2">
           <option value="" disabled selected>Elija una categoría</option>
-          <option value="Verano">Verano</option>
-          <option value="Invierno">Invierno</option>
+          <option *ngFor="let categoria of categorias" [value]="categoria.idCategoria">
+            {{ categoria.nombre }}
+          </option>
         </select>
+
       </div>
 
       <div class="imagenes">

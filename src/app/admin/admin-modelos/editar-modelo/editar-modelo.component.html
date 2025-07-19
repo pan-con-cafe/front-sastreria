@@ -6,7 +6,7 @@
       <!-- Sección imágenes -->
       <div class="imagenes-section">
         <div class="imagen-principal">
-          <img [src]="imagenPrincipal || 'assets/placeholder.svg'" alt="Principal" />
+          <img *ngIf="imagenPrincipal" [src]="imagenPrincipal" alt="Principal" />
         </div>
 
         <div class="miniaturas">

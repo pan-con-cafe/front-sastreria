@@ -4,8 +4,13 @@
   <div class="horario-grid">
     <div *ngFor="let dia of dias; let i = index">
       <div class="dia-header">{{ dia }}</div>
-      <div *ngFor="let hora of horario[i]; let j = index" class="hora-input">
-        <input type="time" [(ngModel)]="horario[i][j]" (input)="onCambios()" />
+
+      <div *ngFor="let bloque of horario[i]; let j = index" class="hora-input">
+        <span>{{ bloque.horaInicio }} - {{ bloque.horaFin }}</span>
+        <label>
+          <input type="checkbox" [(ngModel)]="horario[i][j].estado" (change)="onCambios()" />
+          Disponible
+        </label>
       </div>
     </div>
   </div>
@@ -16,7 +21,6 @@
   </div>
 
   <p class="mensaje-exito" *ngIf="mensajeExito">Cambios guardados correctamente.</p>
-  
 </section>
 
 <app-confirmacion-salida

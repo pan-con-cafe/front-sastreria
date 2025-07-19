@@ -12,7 +12,6 @@
             id="nombre"
             type="text"
             name="nombre"
-            placeholder="Nombre de la sastrería"
             required
             minlength="3"
             [(ngModel)]="perfil.nombre"
@@ -31,7 +30,6 @@
             id="telefono"
             type="tel"
             name="telefono"
-            placeholder="Número de teléfono"
             required
             pattern="^[0-9]{9,}$"
             [(ngModel)]="perfil.telefono"
@@ -50,7 +48,6 @@
             id="direccion"
             type="text"
             name="direccion"
-            placeholder="Dirección"
             required
             [(ngModel)]="perfil.direccion"
             #direccionRef="ngModel"
@@ -67,7 +64,6 @@
             id="descripcion"
             type="text"
             name="descripcion"
-            placeholder="Descripción"
             [(ngModel)]="perfil.descripcion"
             (input)="onCambios()"
           />
@@ -75,7 +71,7 @@
       </div>
 
       <div class="perfil-logo">
-        <label>Logo de la sastrería:</label>
+        <label for="logoInput">Logo de la sastrería:</label>
         <div
           class="logo-placeholder"
           (click)="logoInput.click()"
@@ -87,14 +83,15 @@
           <img *ngIf="logoPreview" [src]="logoPreview" alt="Logo actual" />
           <img *ngIf="!logoPreview" src="/image.png" alt="Logo actual" />
           <input
+            id="logoInput"
             type="file"
+            name="logoInput"
             #logoInput
             accept="image/*"
             (change)="onFileSelected($event)"
-            style="display: none"
+            hidden
           />
         </div>
-
         <p class="logo-hint">Arrastre una imagen o haga click para escoger una</p>
       </div>
     </div>

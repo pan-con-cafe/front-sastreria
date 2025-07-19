@@ -1,39 +1,37 @@
-
-
 <section class="modelos">
-
-  <h2>LOS MÁS POPULARES</h2>
-  <div class="carousel">
-    <div class="arrow-left" (click)="scrollLeft('populares')">
-      <img src="/arrow-left.png" alt="izquierda" style="width: 30px; height: 30px;"/>
-    </div>
-    <div class="carousel-inner" #populares>
-      <div class="image-placeholder" *ngFor="let product of products">
-        <a [routerLink]="['/detalle', product.id]">
-          <img [src]="product.image" [alt]="product.title" />
-        </a>
+  <div *ngFor="let categoria of categoriasConModelos">
+    <h2>{{ categoria.categoria }}</h2>
+    <div class="carousel">
+      <div class="arrow-left" (click)="scrollLeft('populares')">
+        <img src="/arrow-left.png" alt="izquierda" style="width: 30px; height: 30px;" />
       </div>
-    </div>
-    <div class="arrow-right" (click)="scrollRight('populares')">
-      <img src="/arrow-right (1).png" alt="derecha" style="width: 30px; height: 30px;"/>
+      <div class="carousel-inner" #populares>
+        <div class="image-placeholder" *ngFor="let modelo of categoria.modelos">
+          <a [routerLink]="['/detalle', modelo.id]">
+            <img [src]="modelo.imagen" [alt]="modelo.nombre" />
+          </a>
+        </div>
+      </div>
+      <div class="arrow-right" (click)="scrollRight('populares')">
+        <img src="/arrow-right (1).png" alt="derecha" style="width: 30px; height: 30px;" />
+      </div>
     </div>
   </div>
 
-
-  <h2>PARA ELLA</h2>
+  <h2>Ver todo</h2>
   <div class="carousel">
     <div class="arrow-left" (click)="scrollLeft('paraElla')">
-      <img src="/arrow-left.png" alt="izquierda" style="width: 30px; height: 30px;"/>
+      <img src="/arrow-left.png" alt="izquierda" style="width: 30px; height: 30px;" />
     </div>
     <div class="carousel-inner" #paraElla>
-      <div class="image-placeholder" *ngFor="let product of products">
-        <a [routerLink]="['/detalle', product.id]">
-          <img [src]="product.image" [alt]="product.title" />
+      <div class="image-placeholder" *ngFor="let modelo of todosLosModelos">
+        <a [routerLink]="['/detalle', modelo.idModelo]">
+          <img [src]="modelo.imagenes[0]" [alt]="modelo.nombre" />
         </a>
       </div>
     </div>
     <div class="arrow-right" (click)="scrollRight('paraElla')">
-      <img src="/arrow-right (1).png" alt="derecha" style="width: 30px; height: 30px;"/>
+      <img src="/arrow-right (1).png" alt="derecha" style="width: 30px; height: 30px;" />
     </div>
   </div>
 </section>

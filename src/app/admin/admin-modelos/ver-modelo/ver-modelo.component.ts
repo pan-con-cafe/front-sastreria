@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 
 @Component({
@@ -21,7 +20,7 @@ export class VerModeloComponent implements OnInit {
       next: (data) => {
         this.modelos = data.map(m => ({
           ...m,
-          imagen: 'https://localhost:7057/Uploads/' + (m.imagenes[0] || 'placeholder.jpg')
+          imagen: m.imagenes?.length > 0 ? m.imagenes[0] : 'https://via.placeholder.com/150'
         }));
       }
     });

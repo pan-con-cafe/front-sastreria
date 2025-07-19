@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit, ViewChild, ElementRef  } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule, NgIf } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { Router } from '@angular/router';
@@ -6,8 +6,7 @@ import { ConfirmacionSalidaComponent } from '../../../shared/confirmacion-salida
 import { FormsModule } from '@angular/forms';
 import { DatoSastreriaService } from '../services/dato-sastreria.service';
 import { DatoSastreria } from '../models/dato-sastreria.model';
-
-
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-editar-perfil',
@@ -16,7 +15,6 @@ import { DatoSastreria } from '../models/dato-sastreria.model';
   templateUrl: './editar-perfil.component.html',
   styleUrl: './editar-perfil.component.css'
 })
-
 export class EditarPerfilComponent implements OnInit {
   perfil: DatoSastreria = {
     idDatos: 0,
@@ -27,7 +25,7 @@ export class EditarPerfilComponent implements OnInit {
     logoSastreria: ''
   };
 
-  logoPreview: string | ArrayBuffer | null = null;
+  logoPreview: string | null = null;
   isDragOver: boolean = false;
   mensajeExito: boolean = false;
   mostrarModal: boolean = false;
@@ -35,7 +33,11 @@ export class EditarPerfilComponent implements OnInit {
 
   @ViewChild('logoInput') logoInput!: ElementRef<HTMLInputElement>;
 
-  constructor(private datoService: DatoSastreriaService, private router: Router) {}
+  constructor(
+    private datoService: DatoSastreriaService,
+    private router: Router,
+    private http: HttpClient
+  ) {}
 
   ngOnInit(): void {
     this.datoService.getDato().subscribe({
@@ -52,15 +54,39 @@ export class EditarPerfilComponent implements OnInit {
   onFileSelected(event: Event): void {
     const file = (event.target as HTMLInputElement).files?.[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        this.logoPreview = reader.result;
-        this.perfil.logoSastreria = reader.result as string;
-        this.cambiosPendientes = true;
-      };
-      reader.readAsDataURL(file);
+      this.uploadToCloudinary(file);
     }
   }
+
+  onDrop(event: DragEvent): void {
+    event.preventDefault();
+    this.isDragOver = false;
+    const file = event.dataTransfer?.files?.[0];
+    if (file) {
+      this.uploadToCloudinary(file);
+    }
+  }
+
+  uploadToCloudinary(file: File): void {
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('upload_preset', 'nombre-generico-para-upload-preset');
+
+    this.http.post(
+      'https://api.cloudinary.com/v1_1/dirtw0neu/image/upload',
+      formData
+    )
+    .subscribe({
+      next: (res: any) => {
+        console.log('Imagen subida', res);
+        this.perfil.logoSastreria = res.secure_url;
+        this.logoPreview = res.secure_url;
+        this.cambiosPendientes = true;
+      },
+      error: (err) => console.error('Error al subir imagen a Cloudinary', err)
+    });
+  }
+
 
   onDragOver(event: DragEvent): void {
     event.preventDefault();
@@ -72,21 +98,6 @@ export class EditarPerfilComponent implements OnInit {
     this.isDragOver = false;
   }
 
-  onDrop(event: DragEvent): void {
-    event.preventDefault();
-    this.isDragOver = false;
-    const file = event.dataTransfer?.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        this.logoPreview = reader.result;
-        this.perfil.logoSastreria = reader.result as string;
-        this.cambiosPendientes = true;
-      };
-      reader.readAsDataURL(file);
-    }
-  }
-
   onCambios(): void {
     this.cambiosPendientes = true;
   }
@@ -96,7 +107,7 @@ export class EditarPerfilComponent implements OnInit {
       next: () => {
         this.mensajeExito = true;
         this.cambiosPendientes = false;
-        setTimeout(() => this.router.navigate(['/admin/general/perfil']), 1500);
+        setTimeout(() => this.router.navigate(['/admin/general/perfil']), 5000);
       },
       error: (err) => console.error('Error al guardar perfil', err)
     });
