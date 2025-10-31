@@ -1,9 +1,10 @@
-import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
+import { Component, ViewChild, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { ChatbotComponent } from '../chatbot/chatbot.component';
 import { HttpClient } from '@angular/common/http';
+import { CategoriaConModelos } from '../../interfaces/categoria-con-modelos';
 
 @Component({
   selector: 'app-cliente-modelo',
@@ -13,46 +14,32 @@ import { HttpClient } from '@angular/common/http';
   styleUrl: './cliente-modelo.component.css'
 })
 export class ClienteModeloComponent implements OnInit {
-  categoriasConModelos: any[] = [];
-  todosLosModelos: any[] = [];
+  categoriasConModelos: CategoriaConModelos[] = [];
+  verTodo: any[] = [];
 
-  @ViewChild('populares') populares!: ElementRef;
-  @ViewChild('paraElla') paraElla!: ElementRef;
-
-  private refs: Record<string, ElementRef> = {};
+  @ViewChildren('carousel') carousels!: QueryList<ElementRef>;
 
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
-    this.http.get<any[]>('https://localhost:7057/api/Modelo/categorias').subscribe({
-      next: (data) => this.categoriasConModelos = data,
-      error: (err) => console.error(err)
+    this.http.get<CategoriaConModelos[]>('https://localhost:7057/api/Categoria/con-modelos').subscribe({
+      next: (data) => {
+        this.verTodo = data.find(c => c.categoria === 'Ver todo')?.modelos || [];
+        this.categoriasConModelos = data.filter(c => c.categoria !== 'Ver todo');
+      },
+      error: (err) => {
+        console.error('Error al cargar categorías y modelos:', err);
+      }
     });
-
-    this.http.get<any[]>('https://localhost:7057/api/Modelo').subscribe({
-      next: (data) => this.todosLosModelos = data,
-      error: (err) => console.error(err)
-    });
   }
 
-  ngAfterViewInit(): void {
-    this.refs = {
-      populares: this.populares,
-      paraElla: this.paraElla,
-    };
+  scrollLeft(index: number): void {
+    const carousel = this.carousels.get(index);
+    carousel?.nativeElement.scrollBy({ left: -300, behavior: 'smooth' });
   }
 
-  scrollLeft(refName: string): void {
-    const element = this.refs[refName]?.nativeElement;
-    if (element) {
-      element.scrollBy({ left: -300, behavior: 'smooth' });
-    }
-  }
-
-  scrollRight(refName: string): void {
-    const element = this.refs[refName]?.nativeElement;
-    if (element) {
-      element.scrollBy({ left: 300, behavior: 'smooth' });
-    }
+  scrollRight(index: number): void {
+    const carousel = this.carousels.get(index);
+    carousel?.nativeElement.scrollBy({ left: 300, behavior: 'smooth' });
   }
 }

@@ -33,22 +33,16 @@
           <small *ngIf="descripcionRef.errors?.['minlength']">Debe tener al menos 10 caracteres.</small>
         </div>
 
-        <label>Categoría 1:</label>
-        <select name="categoria1" [(ngModel)]="categoria1" required #cat1Ref="ngModel">
+        <label>Categoría:</label>
+        <select name="categoriaId" [(ngModel)]="categoriaId" required #categoriaIdRef="ngModel">
           <option value="" disabled selected>Elija una categoría</option>
           <option *ngFor="let categoria of categorias" [value]="categoria.idCategoria">
             {{ categoria.nombre }}
           </option>
         </select>
-
-        <label>Categoría 2 (opcional):</label>
-        <select name="categoria2" [(ngModel)]="categoria2">
-          <option value="" disabled selected>Elija una categoría</option>
-          <option *ngFor="let categoria of categorias" [value]="categoria.idCategoria">
-            {{ categoria.nombre }}
-          </option>
-        </select>
-
+        <div class="error" *ngIf="categoriaIdRef.invalid && categoriaIdRef.touched">
+          <small>Debe seleccionar una categoría.</small>
+        </div>
       </div>
 
       <div class="imagenes">
@@ -83,13 +77,11 @@
       <div class="boton-container">
         <button type="button" class="btn-cancelar" (click)="cancelar()">Cancelar</button>
         <button class="btn-guardar" type="submit" [disabled]="formModelo.invalid">Guardar</button>
-
       </div>
-      
     </div>
   </form>
 
-  <p class="mensaje-exito" *ngIf="mensajeExito">Modelo guardado correctamente.</p>  
+  <p class="mensaje-exito" *ngIf="mensajeExito">Modelo guardado correctamente.</p>
 
   <div class="fondo-ampliado" *ngIf="imagenAmpliada" (click)="cerrarAmpliacion()">
     <img [src]="imagenAmpliada" alt="Vista ampliada" />

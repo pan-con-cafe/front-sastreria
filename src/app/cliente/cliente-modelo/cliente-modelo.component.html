@@ -1,18 +1,20 @@
 <section class="modelos">
-  <div *ngFor="let categoria of categoriasConModelos">
+  <div *ngFor="let categoria of categoriasConModelos; let i = index">
     <h2>{{ categoria.categoria }}</h2>
     <div class="carousel">
-      <div class="arrow-left" (click)="scrollLeft('populares')">
+      <div class="arrow-left" (click)="scrollLeft(i)">
         <img src="/arrow-left.png" alt="izquierda" style="width: 30px; height: 30px;" />
       </div>
-      <div class="carousel-inner" #populares>
+
+      <div class="carousel-inner" #carousel>
         <div class="image-placeholder" *ngFor="let modelo of categoria.modelos">
-          <a [routerLink]="['/detalle', modelo.id]">
-            <img [src]="modelo.imagen" [alt]="modelo.nombre" />
+          <a [routerLink]="['/detalle', modelo.idModelo]">
+            <img [src]="modelo.imagenes[0] || 'https://via.placeholder.com/150'" [alt]="modelo.nombre" />
           </a>
         </div>
       </div>
-      <div class="arrow-right" (click)="scrollRight('populares')">
+
+      <div class="arrow-right" (click)="scrollRight(i)">
         <img src="/arrow-right (1).png" alt="derecha" style="width: 30px; height: 30px;" />
       </div>
     </div>
@@ -20,17 +22,19 @@
 
   <h2>Ver todo</h2>
   <div class="carousel">
-    <div class="arrow-left" (click)="scrollLeft('paraElla')">
+    <div class="arrow-left" (click)="scrollLeft(categoriasConModelos.length)">
       <img src="/arrow-left.png" alt="izquierda" style="width: 30px; height: 30px;" />
     </div>
-    <div class="carousel-inner" #paraElla>
-      <div class="image-placeholder" *ngFor="let modelo of todosLosModelos">
+
+    <div class="carousel-inner" #carousel>
+      <div class="image-placeholder" *ngFor="let modelo of verTodo">
         <a [routerLink]="['/detalle', modelo.idModelo]">
-          <img [src]="modelo.imagenes[0]" [alt]="modelo.nombre" />
+          <img [src]="modelo.imagenes[0] || 'https://via.placeholder.com/150'" [alt]="modelo.nombre" />
         </a>
       </div>
     </div>
-    <div class="arrow-right" (click)="scrollRight('paraElla')">
+
+    <div class="arrow-right" (click)="scrollRight(categoriasConModelos.length)">
       <img src="/arrow-right (1).png" alt="derecha" style="width: 30px; height: 30px;" />
     </div>
   </div>

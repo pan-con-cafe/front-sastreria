@@ -1,5 +1,86 @@
 
 section {
-    padding-top: 80px; /* Ajusta esto según la altura de tu navbar */
+  padding-top: 80px; /* Ajusta esto según la altura de tu navbar */
 }
   
+.nosotros-container {
+  font-family: "Lexend Deca", sans-serif;
+  color: #000000;
+  line-height: 1.6;
+}
+
+.encabezado {
+  background-color: #e6e7ef;
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.encabezado h2 {
+  font-weight: 400;
+  font-family: "Kaisei HarunoUmi", sans-serif;
+  font-size: 3rem;
+  margin-bottom: 10px;
+}
+
+.encabezado p {
+  max-width: 700px;
+  font-weight: 200;
+  margin: 0 auto;
+  color: #000000;
+}
+
+.bloque {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  padding: 60px 20px;
+  flex-wrap: wrap;
+}
+
+.bloque img {
+  width: 380px;
+  height: 260px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.bloque .texto {
+  max-width: 500px;
+}
+
+.bloque .texto h3 {
+  font-weight: 500;
+  font-size: 1.6rem;
+  margin-bottom: 10px;
+}
+
+.bloque .texto p {
+  font-weight: 200;
+  color: #000000;
+}
+
+.bloque-vision {
+  flex-direction: row-reverse;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+  .bloque {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .bloque-vision {
+    flex-direction: column;
+  }
+
+  .bloque img {
+    width: 100%;
+    max-width: 350px;
+  }
+
+  .bloque .texto {
+    max-width: 90%;
+  }
+}

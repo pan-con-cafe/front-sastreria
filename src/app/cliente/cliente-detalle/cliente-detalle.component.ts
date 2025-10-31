@@ -4,6 +4,7 @@ import { NavbarComponent } from '../navbar/navbar.component';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { ModeloService } from '../services/modelo.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cliente-detalle',
@@ -16,7 +17,7 @@ export class ClienteDetalleComponent implements OnInit {
   product: any;
   selectedImage: string = '';
 
-  constructor(private route: ActivatedRoute, private modeloService: ModeloService) {}
+  constructor(private route: ActivatedRoute, private modeloService: ModeloService, private router: Router ) {}
 
   ngOnInit(): void {
     // Obtén el parámetro `id` de la URL
@@ -28,11 +29,19 @@ export class ClienteDetalleComponent implements OnInit {
           id: data.idModelo,
           title: data.nombre,
           description: data.descripcion,
-          image: data.imagenes?.[0]?.url || 'https://via.placeholder.com/150',
-          thumbnails: data.imagenes?.map((img: any) => img.url) || []
+          image: data.imagenes?.[0] || 'assets/no-image.png',
+          thumbnails: data.imagenes || []
         };
       },
       error: (err) => console.error('Error al obtener modelo', err)
     });
+  }
+
+  goToReserva() {
+    if (this.product?.id) {
+      this.router.navigate(['/reserva', this.product.id]);
+    } else {
+      console.error('No se encontró el ID del modelo');
+    }
   }
 }

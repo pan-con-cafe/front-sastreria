@@ -1,24 +1,21 @@
-import { Component, OnInit, ViewChild, ElementRef, HostListener } from '@angular/core';
-import { RouterLink, Router } from '@angular/router';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Router } from '@angular/router';
 import { NgIf, NgFor, CommonModule } from '@angular/common';
 import { ConfirmacionSalidaComponent } from '../../../shared/confirmacion-salida/confirmacion-salida.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 
-
-
 @Component({
   selector: 'app-anadir-modelo',
   standalone: true,
-  imports: [RouterLink, NgIf, NgFor, CommonModule, ConfirmacionSalidaComponent, FormsModule],
+  imports: [NgIf, NgFor, CommonModule, ConfirmacionSalidaComponent, FormsModule],
   templateUrl: './anadir-modelo.component.html',
   styleUrls: ['./anadir-modelo.component.css']
 })
 export class AnadirModeloComponent implements OnInit {
   nombre = '';
   descripcion = '';
-  categoria1 = '';
-  categoria2 = '';  
+  categoriaId = '';  // CORREGIDO: usamos esto ahora
   categorias: any[] = [];
   imagenes: File[] = [];
   imagenesPreview: string[] = [];
@@ -32,7 +29,7 @@ export class AnadirModeloComponent implements OnInit {
   cambiosPendientes = false;
   @ViewChild('inputImagenes') inputImagenes!: ElementRef<HTMLInputElement>;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   ngOnInit() {
     this.http.get<any[]>('https://localhost:7057/api/Categoria').subscribe({
@@ -56,20 +53,18 @@ export class AnadirModeloComponent implements OnInit {
     return data.secure_url;
   }
 
-
   guardarModelo() {
-    if (!this.nombre || !this.descripcion || !this.categoria1 || this.imagenes.length === 0) {
+    if (!this.nombre || !this.descripcion || !this.categoriaId || this.imagenes.length === 0) {
       this.intentoGuardar = true;
       return;
     }
 
-    // Subir primero todas las imágenes a Cloudinary
     Promise.all(this.imagenes.map(img => this.subirImagenACloudinary(img)))
       .then(urls => {
         const body = {
           nombre: this.nombre,
           descripcion: this.descripcion,
-          idCategoria: this.categoria1,
+          idCategoria: Number(this.categoriaId),
           imagenes: urls
         };
 
@@ -77,12 +72,16 @@ export class AnadirModeloComponent implements OnInit {
           next: () => {
             this.mensajeExito = true;
             this.cambiosPendientes = false;
+            this.nombre = '';
+            this.descripcion = '';
+            this.categoriaId = '';
+            this.imagenes = [];
+            this.imagenesPreview = [];
           },
           error: () => this.mensajeError = 'Hubo un error al guardar el modelo.'
         });
       });
   }
-
 
   cargarImagenes(event: any) {
     const files: File[] = Array.from(event.target.files);

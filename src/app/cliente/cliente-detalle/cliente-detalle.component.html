@@ -23,7 +23,8 @@
       <h1>{{ product.title }}</h1>
       <p>{{ product.description }}</p>
 
-      <button class="buy-button" [routerLink]="['/reserva', product.id]">Lo quiero</button>
+      <button class="buy-button" (click)="goToReserva()">Lo quiero</button>
+
     </div>
   </div>
 </section>

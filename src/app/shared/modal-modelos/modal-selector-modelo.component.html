@@ -1,0 +1,22 @@
+<div class="modal-background">
+  <div class="modal-content">
+    <input type="text" placeholder="Buscar modelo" class="input-buscar" />
+
+    <div class="grid">
+      <div *ngFor="let modelo of modelosDisponibles"
+           (click)="toggleSeleccion(modelo)"
+           class="modelo-card"
+           [class.seleccionado]="isSeleccionado(modelo)">
+           
+        <img [src]="modelo.imagen" alt="Imagen del modelo" class="imagen-modelo"/>
+        <p>{{ modelo.nombre }}</p>
+        
+      </div>
+    </div>
+
+    <div class="acciones">
+      <button class="btn-agregar" (click)="confirmarSeleccion()">Agregar</button>
+      <button class="btn-cancelar" (click)="cancelar()">Cancelar</button>
+    </div>
+  </div>
+</div>

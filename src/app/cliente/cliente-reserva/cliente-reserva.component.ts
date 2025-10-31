@@ -1,20 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import { NavbarComponent } from '../navbar/navbar.component';
-import { ActivatedRoute} from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
 import { NgIf } from '@angular/common';
+import { ModeloService } from '../services/modelo.service';
+import { CitaService } from '../services/cita.service';
+import { ReniecService } from '../services/reniec.service';
+import { ModalHorarioComponent } from '../../shared/modal-horario/modal-horario.component';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-cliente-reserva',
   standalone: true,
-  imports: [NavbarComponent, FormsModule, NgIf],
+  imports: [NavbarComponent, FormsModule, NgIf, ModalHorarioComponent],
   templateUrl: './cliente-reserva.component.html',
   styleUrl: './cliente-reserva.component.css'
 })
-export class ClienteReservaComponent implements OnInit{
-  
+export class ClienteReservaComponent implements OnInit {
+
   product: any | undefined;
   reservation = {
     dni: '',
@@ -26,69 +29,119 @@ export class ClienteReservaComponent implements OnInit{
     opcion: '',
   };
 
-  products = [
-    {
-      id: 1,
-      image: 'https://www.bananarepublic.com.pe/media/catalog/product/b/r/br580570_br00_1_1.jpg?optimize=medium&bg-color=255,255,255&height=1305&width=960&canvas=960:1305',
-      title: 'Producto 1',
-      description: 'Conjunto elegante de 2 piezas para mujer, traje de pantalón Formal para oficina, uniforme de trabajo de negocios, chaqueta y pantalones.',
-    },
-    {
-      id: 2,
-      image: 'https://imagedelivery.net/4fYuQyy-r8_rpBpcY7lH_A/falabellaPE/133245430_01/w=1500,h=1500,fit=pad',
-      title: 'Producto 2',
-      description: 'Traje de oficina clásico, ideal para eventos formales...',
-    },
-    {
-      id: 3,
-      image: 'https://ss525.liverpool.com.mx/xl/1146665043.jpg',
-      title: 'Producto 3',
-      description: 'Uniforme de negocios con un diseño moderno...',
-    },
-    {
-      id: 4,
-      image: 'https://i.pinimg.com/originals/93/a2/2a/93a22a7ea06a7969772fd08ced28ee36.jpg',
-      title: 'Producto 4',
-      description: 'Descripción del Producto 4',
-    },
-    {
-      id: 5,
-      image: 'https://i.pinimg.com/222x/7b/07/5d/7b075dc2ad092a280be4752645ce1542.jpg',
-      title: 'Producto 5',
-      description: 'Descripción del Producto 5',
-    },
-    {
-      id: 6,
-      image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSch2ZC-8IY-TH5bIn7AOyB0aSW0_1mbudYiQ&s',
-      title: 'Producto 6',
-      description: 'Descripción del Producto 6',
-    },
-    {
-      id: 7,
-      image: 'https://m.media-amazon.com/images/I/813Z6Vvc3FL._AC_UF894,1000_QL80_.jpg',
-      title: 'Producto 7',
-      description: 'Descripción del Producto 7',
-    },
-    {
-      id: 8,
-      image: 'https://img.ltwebstatic.com/images3_spmp/2025/01/03/ee/173591119885371fb2ff85c6dc850588044b7c981f_wk_1735957090_thumbnail_720x.jpg',
-      title: 'Producto 8',
-      description: 'Descripción del Producto 8',
-    },
-  ];
+  idCliente: number | null = null;
+  nombresDisabled: boolean = false;
+  apellidosDisabled: boolean = false;
+  selectedHorario: any = null; // Variable para guardar el horario
 
-  constructor(private route: ActivatedRoute, private router: Router) {}
+
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private modeloService: ModeloService,
+    private citaService: CitaService,
+    private reniecService: ReniecService,
+    private http: HttpClient,
+  ) {}
+
   ngOnInit(): void {
-    // Obtén el ID del producto de la URL
     const id = Number(this.route.snapshot.paramMap.get('id'));
+    this.modeloService.getModeloById(id).subscribe({
+      next: (data) => {
+        this.product = {
+          id: data.idModelo,
+          title: data.nombre,
+          description: data.descripcion,
+          image: data.imagenes?.[0] || 'https://via.placeholder.com/150',
+        };
+      },
+      error: (err) => console.error('Error al obtener modelo', err)
+    });
+  }
 
-    // Busca el producto correspondiente
-    this.product = this.products.find((p) => p.id === id);
+  onDniBlur(): void {
+    if (this.reservation.dni.length === 8) {
+      this.reniecService.buscarPorDni(this.reservation.dni).subscribe({
+        next: (data) => {
+          this.reservation.nombres = data.nombres;
+          this.reservation.apellidos = data.apellidos;
+          this.nombresDisabled = true;
+          this.apellidosDisabled = true;
+        },
+        error: () => {
+          console.error('No se pudo obtener datos de RENIEC');
+          this.reservation.nombres = '';
+          this.reservation.apellidos = '';
+          this.nombresDisabled = false;
+          this.apellidosDisabled = false;
+        }
+      });
+    }
   }
 
   submitReservation(): void {
-  // Si el formulario es válido, navegar
-  this.router.navigate(['/reservado']);
-}
+    if (!this.horarioElegido) {
+      return;
+    }
+
+    // Primero creamos la cita
+    const citaRequest = {
+      citaFecha: this.horarioElegido.dia + ' ' + this.horarioElegido.horaInicio,
+      estado: true,
+      notas: '',
+      idModelo: this.product.id, // ← Agregar idModelo aquí
+      cliente: {
+        idTipoDocumento: 1,
+        numeroDocumento: this.reservation.dni,
+        nombre: this.reservation.nombres,
+        apellido: this.reservation.apellidos,
+        correo: this.reservation.correo,
+        telefono: this.reservation.telefono
+      }
+    };
+
+    this.citaService.createCita(citaRequest).subscribe({
+      next: () => {
+        // Luego, actualizamos el estado del horario a ocupado (true)
+        this.http.put(`https://localhost:7057/api/Horario/${this.horarioElegido.idHorario}`, {
+          ...this.horarioElegido,
+          estado: true
+        }).subscribe({
+          next: () => {
+            alert('¡Reserva realizada con éxito!');
+            this.router.navigate(['/reservado']);
+          },
+          error: (err) => {
+            console.error('Error al actualizar el estado del horario', err);
+            alert('La cita se guardó, pero no se pudo actualizar el horario.');
+          }
+        });
+      },
+      error: (err) => {
+        console.error('Error al registrar cita', err);
+        alert('No se pudo registrar la cita.');
+      }
+    });
+  }
+
+  mostrarModal = false;
+  horarioElegido: any = null;
+
+  onHorarioSeleccionado(horario: any) {
+    this.horarioElegido = horario;
+    this.reservation.fecha = `${horario.dia} ${horario.horaInicio} - ${horario.horaFin}`;
+    this.mostrarModal = false; // cerrar modal automáticamente
+    console.log('Horario seleccionado:', this.reservation.fecha);
+  }
+
+  seleccionarHorario(horario: any) {
+    if (!horario.estado) { // Solo permite seleccionar si está disponible
+      this.selectedHorario = horario;
+    }
+  }
+
+  abrirModal() {
+    this.mostrarModal = true;
+  }
 
 }

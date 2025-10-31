@@ -1,0 +1,25 @@
+<div class="modal-overlay" *ngIf="visible">
+  <div class="modal-content">
+    <div class="dias-container">
+      <div *ngFor="let dia of dias" class="dia">
+        <div class="dia-title">{{ dia }}</div>
+        <div class="horas">
+          <div
+            *ngFor="let horario of getHorariosPorDia(dia)"
+            class="hora"
+            [class.ocupado]="!horario.estado"
+            [class.seleccionado]="horario.idHorario === seleccionado"
+            (click)="seleccionarHorario(horario)"
+          >
+            {{ horario.horaInicio }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="acciones">
+      <button class="cancelar" (click)="cancelar()">Cancelar</button>
+      <button class="confirmar" [disabled]="!seleccionado" (click)="confirmar()">Confirmar</button>
+    </div>
+  </div>
+</div>

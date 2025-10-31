@@ -15,8 +15,11 @@
       <div class="input-group">
         <div class="input-field">
           <label for="dni">Ingrese su DNI</label>
-          <input type="text" id="dni" name="dni" [(ngModel)]="reservation.dni"
-            required minlength="8" maxlength="8" pattern="[0-9]*" #dniRef="ngModel" />
+          <input type="text" id="dni" name="dni"
+            [(ngModel)]="reservation.dni"
+            (blur)="onDniBlur()" required minlength="8" maxlength="8" pattern="[0-9]*"
+            #dniRef="ngModel" />
+
           <small class="error" *ngIf="dniRef.invalid && dniRef.touched">
             <span *ngIf="dniRef.errors?.['required']">El DNI es obligatorio.</span>
             <span *ngIf="dniRef.errors?.['minlength'] || dniRef.errors?.['maxlength']">Debe tener 8 dígitos.</span>
@@ -25,25 +28,33 @@
         </div>
 
         <div class="input-field">
-          <label for="fecha">Elija la fecha de su cita</label>
-          <input type="date" id="fecha" name="fecha" [(ngModel)]="reservation.fecha" required #fechaRef="ngModel" />
-          <small class="error" *ngIf="fechaRef.invalid && fechaRef.touched">La fecha es obligatoria.</small>
+          <label>Elija la fecha de su cita</label>
+          <button id="horario" type="button" (click)="abrirModal()">
+            {{ horarioElegido ? (horarioElegido.dia + ' ' + horarioElegido.horaInicio + ' - ' + horarioElegido.horaFin) : 'Seleccione un horario' }}
+          </button>
+
+          <small class="error" *ngIf="!reservation.fecha && reservaForm.submitted">
+            Debe seleccionar un horario.
+          </small>
         </div>
       </div>
 
       <div class="input-group">
         <div class="input-field">
           <label for="nombres">Nombres</label>
-          <input type="text" id="nombres" name="nombres" [(ngModel)]="reservation.nombres" required minlength="2" #nombresRef="ngModel" />
+          <input type="text" id="nombres" name="nombres"
+            [(ngModel)]="reservation.nombres" required minlength="2"
+            [disabled]="nombresDisabled" #nombresRef="ngModel" />
           <small class="error" *ngIf="nombresRef.invalid && nombresRef.touched">
             <span *ngIf="nombresRef.errors?.['required']">Campo obligatorio.</span>
             <span *ngIf="nombresRef.errors?.['minlength']">Mínimo 2 caracteres.</span>
           </small>
         </div>
-
         <div class="input-field">
           <label for="apellidos">Apellidos</label>
-          <input type="text" id="apellidos" name="apellidos" [(ngModel)]="reservation.apellidos" required minlength="2" #apellidosRef="ngModel" />
+          <input type="text" id="apellidos" name="apellidos"
+            [(ngModel)]="reservation.apellidos" required minlength="2"
+            [disabled]="apellidosDisabled" #apellidosRef="ngModel" />
           <small class="error" *ngIf="apellidosRef.invalid && apellidosRef.touched">
             <span *ngIf="apellidosRef.errors?.['required']">Campo obligatorio.</span>
             <span *ngIf="apellidosRef.errors?.['minlength']">Mínimo 2 caracteres.</span>
@@ -89,3 +100,9 @@
 
   </div>
 </section>
+
+<app-modal-horario
+  [visible]="mostrarModal"
+  (close)="mostrarModal = false"
+  (horarioSeleccionado)="onHorarioSeleccionado($event)">
+</app-modal-horario>

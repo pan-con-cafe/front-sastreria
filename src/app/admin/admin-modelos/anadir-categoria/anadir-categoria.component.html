@@ -24,14 +24,18 @@
 
     <div class="form-group modelos">
       <label>Modelos seleccionados:</label>
-      <button type="button" class="boton-icono" (click)="agregarModelo()">
+      <button type="button" class="boton-icono" (click)="abrirModalSelector()">
         <span class="icono-mas">+</span>
       </button>
     </div>
 
     <ul class="lista-modelos" *ngIf="modelosSeleccionados.length > 0">
-      <li *ngFor="let modelo of modelosSeleccionados">{{ modelo }}</li>
+      <li *ngFor="let modelo of modelosSeleccionados" class="modelo-item">
+        <img [src]="modelo.imagen" alt="Imagen del modelo" class="miniatura" />
+        <span>{{ modelo.nombre }}</span>
+      </li>
     </ul>
+
 
     <div class="boton-container">
       <button type="button" class="btn-cancelar" (click)="cancelar()">Cancelar</button>
@@ -45,7 +49,14 @@
 <p class="mensaje-exito" *ngIf="mensajeExito">Cambios guardados correctamente.</p>
 
 <app-confirmacion-salida
-  *ngIf="mostrarModal"
-  (confirmar)="confirmarSalida()"
-  (cancelar)="cerrarModal()"
-></app-confirmacion-salida>
+    *ngIf="mostrarModalCancelar"
+    (confirmar)="confirmarSalida()"
+    (cancelar)="cerrarModalCancelar()">
+</app-confirmacion-salida>
+
+<app-modal-selector-modelo 
+    *ngIf="mostrarModalSelector"
+    [modelosDisponibles]="listaDeModelos"
+    (onSelect)="agregarModelos($event)"
+    (onClose)="mostrarModalSelector = false">
+</app-modal-selector-modelo>

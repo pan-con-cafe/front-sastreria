@@ -1,0 +1,117 @@
+/* Fondo oscuro */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+/* Caja del modal */
+.modal-content {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  width: 90%;
+  max-width: 800px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+/* Contenedor de días */
+.dias-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 10px;
+}
+
+/* Título de día */
+.dia-title {
+  background: #6c7ae0;
+  color: #fff;
+  text-align: center;
+  padding: 5px;
+  border-radius: 8px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+/* Horarios */
+.horas {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.hora {
+  background: #f0f0f0;
+  padding: 6px;
+  border-radius: 6px;
+  text-align: center;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.3s;
+}
+
+.hora:hover {
+  background: #d1ffd6;
+}
+
+.hora.ocupado {
+  background: #ccc;
+  color: #666;
+  cursor: not-allowed;
+}
+
+.hora.seleccionado {
+  background: #4CAF50;
+  color: #fff;
+  font-weight: bold;
+}
+
+/* Botones */
+.acciones {
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-between;
+}
+
+button {
+  border: none;
+  padding: 8px 15px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button.cancelar {
+  background: gray;
+  color: white;
+}
+
+button.confirmar {
+  background: #4CAF50;
+  color: white;
+}
+
+button.confirmar:disabled {
+  background: #a5d6a7;
+  cursor: not-allowed;
+}
+
+/* Responsivo */
+@media (max-width: 600px) {
+  .modal-content {
+    padding: 15px;
+    width: 95%;
+  }
+
+  .dias-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
