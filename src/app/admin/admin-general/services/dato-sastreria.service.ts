@@ -7,7 +7,7 @@ import { DatoSastreria } from '../models/dato-sastreria.model';
   providedIn: 'root'
 })
 export class DatoSastreriaService {
-  private apiUrl = 'https://localhost:7057/api/DatoSastreria';
+  private apiUrl = 'https://sastreria-estilo-ljge.onrender.com/api/DatoSastreria';
 
   constructor(private http: HttpClient) {}
 

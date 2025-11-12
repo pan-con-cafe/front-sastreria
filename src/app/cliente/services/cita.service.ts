@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class CitaService {
-  private apiUrl = 'https://localhost:7057/api/cita'; // Ajusta el puerto si es diferente
+  private apiUrl = 'https://sastreria-estilo-ljge.onrender.com/api/cita'; // Ajusta el puerto si es diferente
 
   constructor(private http: HttpClient) {}
 

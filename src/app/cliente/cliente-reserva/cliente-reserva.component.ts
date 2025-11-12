@@ -103,7 +103,7 @@ export class ClienteReservaComponent implements OnInit {
     this.citaService.createCita(citaRequest).subscribe({
       next: () => {
         // Luego, actualizamos el estado del horario a ocupado (true)
-        this.http.put(`https://localhost:7057/api/Horario/${this.horarioElegido.idHorario}`, {
+        this.http.put(`https://sastreria-estilo-ljge.onrender.com/api/Horario/${this.horarioElegido.idHorario}`, {
           ...this.horarioElegido,
           estado: true
         }).subscribe({

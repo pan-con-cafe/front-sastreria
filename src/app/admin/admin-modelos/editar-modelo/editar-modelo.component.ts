@@ -35,13 +35,13 @@ export class EditarModeloComponent implements OnInit {
       this.cargarModelo();
     });
 
-    this.http.get<any[]>('https://localhost:7057/api/Categoria').subscribe({
+    this.http.get<any[]>('https://sastreria-estilo-ljge.onrender.com/api/Categoria').subscribe({
       next: (data) => this.categorias = data
     });
   }
 
   cargarModelo() {
-    this.http.get<any>('https://localhost:7057/api/Modelo/' + this.modeloId).subscribe({
+    this.http.get<any>('https://sastreria-estilo-ljge.onrender.com/api/Modelo/' + this.modeloId).subscribe({
       next: (data) => {
         this.nombre = data.nombre;
         this.descripcion = data.descripcion;
@@ -94,7 +94,7 @@ export class EditarModeloComponent implements OnInit {
       imagenes: this.imagenes
     };
 
-    this.http.put('https://localhost:7057/api/Modelo/' + this.modeloId, body).subscribe({
+    this.http.put('https://sastreria-estilo-ljge.onrender.com/api/Modelo/' + this.modeloId, body).subscribe({
       next: () => {
         this.mensajeExito = true;
         this.cambiosPendientes = false;

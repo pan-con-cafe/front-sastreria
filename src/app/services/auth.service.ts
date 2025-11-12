@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 export class AuthService {
 
   //constructor() { }
-  private apiUrl = 'https://localhost:7057/api/Auth/login'; // Cambia la URL si es necesario.
+  private apiUrl = 'https://sastreria-estilo-ljge.onrender.com/api/Auth/login'; // Cambia la URL si es necesario.
 
   constructor(private http: HttpClient) {}
 

@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ReniecService {
-  private apiUrl = 'https://localhost:7057/api/cliente/buscar-por-dni/dni'; // La URL de tu backend
+  private apiUrl = 'https://sastreria-estilo-ljge.onrender.com/api/cliente/buscar-por-dni/dni'; // La URL de tu backend
 
   constructor(private http: HttpClient) {}
 

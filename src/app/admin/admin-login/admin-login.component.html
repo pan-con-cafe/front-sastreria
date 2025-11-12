@@ -1,21 +1,33 @@
-  <section class="login-container">
-    <img src="/logo.PNG" alt="Estilo Sastrería Logo" class="logo">
-    <h2>Inicie sesión como administrador</h2>
-  
-    <form class="login-form">
-      <label for="email">Correo electrónico:</label>
-      <input type="email" [(ngModel)]="correo" placeholder="Correo">
-  
-      <label for="password">Contraseña:</label>
-      <input type="password" [(ngModel)]="contrasenia" placeholder="Contraseña">
-  
-      <button (click)="onLogin()">Iniciar Sesión</button>
-    </form>
-  
-    <div *ngIf="errorMessage" class="error-message">
-      {{ errorMessage }}
-    </div>
-  
-    <a routerLink="/" class="back-link">&lt; Volver</a>
-  </section>
-  
+<section class="login-container">
+  <img src="/logo.png" alt="Estilo Sastrería Logo" class="logo" />
+
+  <h2>Inicie sesión como administrador</h2>
+
+  <form class="login-form" (ngSubmit)="onLogin()">
+    <label for="email">Correo electrónico:</label>
+    <input
+      id="email"
+      type="email"
+      name="email"
+      [(ngModel)]="correo"
+      required
+    />
+
+    <label for="password">Contraseña:</label>
+    <input
+      id="contrasenia"
+      type="password"
+      name="contrasenia"
+      [(ngModel)]="contrasenia"
+      required
+    />
+
+    <button type="submit" class="login-btn">Iniciar sesión</button>
+  </form>
+
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+
+  <a routerLink="/" class="back-link">&lt; Volver</a>
+</section>

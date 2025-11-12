@@ -7,7 +7,7 @@ import { Horario } from '../models/horario.model';
   providedIn: 'root'
 })
 export class HorarioService {
-  private apiUrl = 'https://localhost:7057/api/Horario'; //
+  private apiUrl = 'https://sastreria-estilo-ljge.onrender.com/api/Horario'; //
 
   constructor(private http: HttpClient) {}
 

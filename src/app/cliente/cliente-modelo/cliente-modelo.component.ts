@@ -22,11 +22,13 @@ export class ClienteModeloComponent implements OnInit {
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
-    this.http.get<CategoriaConModelos[]>('https://localhost:7057/api/Categoria/con-modelos').subscribe({
+    this.http.get<CategoriaConModelos[]>('https://sastreria-estilo-ljge.onrender.com/api/Categoria/con-modelos').subscribe({
       next: (data) => {
         this.verTodo = data.find(c => c.categoria === 'Ver todo')?.modelos || [];
         this.categoriasConModelos = data.filter(c => c.categoria !== 'Ver todo');
+
       },
+
       error: (err) => {
         console.error('Error al cargar categorías y modelos:', err);
       }

@@ -7,7 +7,7 @@ import { Categoria } from '../models/categoria.model';
   providedIn: 'root'
 })
 export class CategoriaService {
-  private apiUrl = 'https://localhost:7057/api/Categoria';
+  private apiUrl = 'https://sastreria-estilo-ljge.onrender.com/api/Categoria';
 
   constructor(private http: HttpClient) {}
 

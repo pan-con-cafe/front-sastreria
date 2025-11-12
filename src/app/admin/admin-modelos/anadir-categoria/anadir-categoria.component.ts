@@ -46,7 +46,7 @@ export class AnadirCategoriaComponent {
   }
 
   ngOnInit(): void {
-    this.http.get<any[]>('https://localhost:7057/api/Modelo').subscribe({
+    this.http.get<any[]>('https://sastreria-estilo-ljge.onrender.com/api/Modelo').subscribe({
       next: (data) => {
         this.listaDeModelos = data.map(m => ({
           ...m,
@@ -63,14 +63,14 @@ export class AnadirCategoriaComponent {
       return;
     }
 
-    const idsModelosSeleccionados = this.modelosSeleccionados.map(m => m.idModelo);
+    //const idsModelosSeleccionados = this.modelosSeleccionados.map(m => m.idModelo);
 
     const nuevaCategoria = {
       idCategoria: 0,
       nombre: this.nombreCategoria,
       descripcion: 'Sin descripción por ahora',
       estado: true,
-      idmodelos: idsModelosSeleccionados
+      IdsModelos: this.modelosSeleccionados.map(m => m.idModelo)
     };
 
     this.categoriaService.createCategoria(nuevaCategoria).subscribe({

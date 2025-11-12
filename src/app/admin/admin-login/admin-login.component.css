@@ -1,93 +1,91 @@
+/* Contenedor general centrado */
 .login-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    background-color: #f9f8f7;
-    font-family: 'Arial', sans-serif;
-    text-align: center;
-    padding: 20px;
-  }
-  
-  .logo {
-    width: 150px;
-    margin-bottom: 20px;
-  }
-  
-  h2 {
-    font-family: "Libre Franklin", serif;
-    font-weight: 300;
-    font-size: 17px;
-    color: #4d4d4d;
-    margin-bottom: 20px;
-  }
-  
-  .login-form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    width: 100%;
-    max-width: 400px;
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #fff;
+  font-family: "Libre Franflin", sans-serif;
+  text-align: center;
+}
 
-  label {
-    font-family: "Libre Franklin", serif;
-    font-weight: 300;
-    font-size: 18px;
-  }
+/* Logo */
+.logo {
+  width: 180px;
+  margin-bottom: 10px;
+}
+
+/* Título */
+h2 {
+  font-weight: 400;
+  color: #333;
+  margin-bottom: 25px;
+}
+
+/* Formulario */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+}
+
+label {
+  font-size: 14px;
+  color: #333;
+  margin: 6px 0 4px;
+}
+
+input {
+  width: 300px;
+  padding: 10px 15px;
+  border: none;
+  background-color: #E2D1CC;
+  border-radius: 20px;
+  outline: none;
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 12px;
+}
+
+/* Botón */
+.login-btn {
+  background-color: #b38b7a;
+  color: white;
+  font-weight: 500;
+  border: none;
+  border-radius: 25px;
+  padding: 10px 0;
+  margin-top: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 10rem;
   
-  .input-field {
-    padding: 10px;
-    border: 1px solid #c4c4c4;
-    border-radius: 5px;
-    font-size: 1rem;
-    font-family: "Libre Franklin", serif;
-    font-weight: 300;
-  }
-  
-  .input-field:focus {
-    outline: none;
-    border-color: #b5835a;
-  }
-  
-  .login-button {
-    background-color: #b5835a;
-    color: #fff;
-    border: none;
-    padding: 10px;
-    border-radius: 5px;
-    font-family: "Libre Franklin", serif;
-    font-weight: 500;
-    font-size: 20px;
-    margin-top: 15px;
-    cursor: pointer;
-  }
-  
-  .login-button:hover {
-    background-color: #9c6d49;
-  }
-  
-  .back-link {
-    color: #4d4d4d;
-    text-decoration: none;
-    margin-top: 20px;
-    font-size: 0.9rem;
-    font-family: "Libre Franklin", serif;
-    font-weight: 300;
-    font-size: 18px;
-  }
-  
-  .back-link:hover {
-    text-decoration: underline;
-    font-family: "Libre Franklin", serif;
-    font-weight: 300;
-    font-size: 18px;
-  }
-  
-  .error-message {
-    color: #e74c3c;
-    margin-top: 15px;
-    font-size: 0.9rem;
-  }
-  
+}
+
+.login-btn:hover {
+  background-color: #9e7766;
+}
+
+/* Enlace Volver */
+.back-link {
+  display: inline-block;
+  margin-top: 20px;
+  color: #333;
+  font-size: 14px;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.back-link:hover {
+  color: #9e7766;
+}
+
+/* Mensaje de error */
+.error-message {
+  color: red;
+  font-size: 13px;
+  margin-top: 10px;
+}

@@ -16,7 +16,7 @@ export class VerModeloComponent implements OnInit {
   constructor(private http: HttpClient) {}
 
   ngOnInit() {
-    this.http.get<any[]>('https://localhost:7057/api/Modelo').subscribe({
+    this.http.get<any[]>('https://sastreria-estilo-ljge.onrender.com/api/Modelo').subscribe({
       next: (data) => {
         this.modelos = data.map(m => ({
           ...m,

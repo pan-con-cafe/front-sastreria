@@ -32,7 +32,7 @@ export class AnadirModeloComponent implements OnInit {
   constructor(private http: HttpClient, private router: Router) {}
 
   ngOnInit() {
-    this.http.get<any[]>('https://localhost:7057/api/Categoria').subscribe({
+    this.http.get<any[]>('https://sastreria-estilo-ljge.onrender.com/api/Categoria').subscribe({
       next: (data) => this.categorias = data
     });
   }
@@ -64,11 +64,11 @@ export class AnadirModeloComponent implements OnInit {
         const body = {
           nombre: this.nombre,
           descripcion: this.descripcion,
-          idCategoria: Number(this.categoriaId),
+          CategoriasIds: [Number(this.categoriaId)],
           imagenes: urls
         };
 
-        this.http.post('https://localhost:7057/api/Modelo', body).subscribe({
+        this.http.post('https://sastreria-estilo-ljge.onrender.com/api/Modelo', body).subscribe({
           next: () => {
             this.mensajeExito = true;
             this.cambiosPendientes = false;

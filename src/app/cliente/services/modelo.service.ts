@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ModeloService {
-  private apiUrl = 'https://localhost:7057/api/Modelo';
+  private apiUrl = 'https://sastreria-estilo-ljge.onrender.com/api/Modelo';
 
   constructor(private http: HttpClient) {}
 
