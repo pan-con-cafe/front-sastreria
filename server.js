@@ -7,7 +7,7 @@ const app = express();
 app.use(express.static(path.join(__dirname, 'dist/angular-18-intento/browser')));
 
 // Todas las rutas deben redirigir al index.html para que Angular routing funcione
-app.get('/*', (req, res) => {
+app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist/angular-18-intento/browser/index.html'));
 });
 
