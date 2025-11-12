@@ -3,12 +3,14 @@ const path = require('path');
 
 const app = express();
 
-// Servir archivos estáticos desde la carpeta de build de Angular
-app.use(express.static(path.join(__dirname, 'dist/angular-18-intento/browser')));
+const distPath = path.join(__dirname, 'dist/angular-18-intento/browser');
 
-// Todas las rutas deben redirigir al index.html para que Angular routing funcione
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist/angular-18-intento/browser/index.html'));
+// Servir archivos estáticos
+app.use(express.static(distPath));
+
+// Middleware para manejar todas las rutas (debe ir después de static)
+app.use((req, res) => {
+  res.sendFile(path.join(distPath, 'index.html'));
 });
 
 // Puerto configurado por Render o 8080 por defecto
