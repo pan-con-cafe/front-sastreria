@@ -26,7 +26,7 @@ export class ModalHorarioComponent {
   dias: string[] = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'];
   seleccionado: number | null = null;
 
-  private apiUrl = 'https://localhost:7057/api/Horario';
+  private apiUrl = 'https://sastreria-estilo-ljge.onrender.com/api/Horario';
 
   constructor(private http: HttpClient) {}
 
