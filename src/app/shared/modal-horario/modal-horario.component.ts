@@ -23,7 +23,7 @@ export class ModalHorarioComponent {
   @Output() horarioSeleccionado = new EventEmitter<Horario>();
 
   horarios: Horario[] = [];
-  dias: string[] = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'];
+  dias: string[] = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
   seleccionado: number | null = null;
 
   private apiUrl = 'https://sastreria-estilo-ljge.onrender.com/api/Horario';
