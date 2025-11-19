@@ -86,7 +86,7 @@ export class ClienteReservaComponent implements OnInit {
 
     // Primero creamos la cita
     const citaRequest = {
-      citaFecha: this.horarioElegido.dia + ' ' + this.horarioElegido.horaInicio,
+      idHorario: this.horarioElegido.idHorario,
       estado: true,
       notas: '',
       idModelo: this.product.id, // ← Agregar idModelo aquí
@@ -108,12 +108,10 @@ export class ClienteReservaComponent implements OnInit {
           estado: true
         }).subscribe({
           next: () => {
-            alert('¡Reserva realizada con éxito!');
             this.router.navigate(['/reservado']);
           },
           error: (err) => {
             console.error('Error al actualizar el estado del horario', err);
-            alert('La cita se guardó, pero no se pudo actualizar el horario.');
           }
         });
       },
