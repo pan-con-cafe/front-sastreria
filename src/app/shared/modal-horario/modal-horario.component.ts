@@ -45,6 +45,10 @@ export class ModalHorarioComponent {
     });
   }
 
+  trackByHorario(index: number, item: Horario) {
+    return item.idHorario;
+  }
+
   /** Devuelve los horarios filtrados por día */
   getHorariosPorDia(dia: string): Horario[] {
     return this.horarios.filter(h => h.dia === dia);
