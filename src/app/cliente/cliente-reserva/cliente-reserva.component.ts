@@ -103,9 +103,9 @@ export class ClienteReservaComponent implements OnInit {
     this.citaService.createCita(citaRequest).subscribe({
       next: () => {
         // Luego, actualizamos el estado del horario a ocupado (true)
-        this.http.put(`https://sastreria-estilo-ljge.onrender.com/api/Horario/${this.horarioElegido.idHorario}`, {
+        this.http.put(`https://sastreria-estilo-ljge.onrender.com/api/Horario/${this.horarioElegido.idHorario}`,{
           ...this.horarioElegido,
-          estado: true
+          estado: false
         }).subscribe({
           next: () => {
             this.router.navigate(['/reservado']);
@@ -133,7 +133,7 @@ export class ClienteReservaComponent implements OnInit {
   }
 
   seleccionarHorario(horario: any) {
-    if (!horario.estado) { // Solo permite seleccionar si está disponible
+    if (horario.estado) { // Solo permite seleccionar si está disponible
       this.selectedHorario = horario;
     }
   }
