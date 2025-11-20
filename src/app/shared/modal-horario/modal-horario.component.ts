@@ -37,7 +37,16 @@ export class ModalHorarioComponent {
   cargarHorarios() {
     this.http.get<Horario[]>(this.apiUrl).subscribe({
       next: (data) => {
-        this.horarios = data;
+        this.horarios = data.sort((a, b) => {
+          const diasOrden = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
+          const diaA = diasOrden.indexOf(a.dia);
+          const diaB = diasOrden.indexOf(b.dia);
+
+          if (diaA === diaB) {
+            return a.horaInicio.localeCompare(b.horaInicio);
+          }
+          return diaA - diaB;
+        });
       },
       error: (err) => {
         console.error('Error al cargar horarios', err);
