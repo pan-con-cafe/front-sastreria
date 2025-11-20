@@ -86,10 +86,10 @@ export class ClienteReservaComponent implements OnInit {
 
     // Primero creamos la cita
     const citaRequest = {
-      idhorario: this.horarioElegido.idhorario,
+      IdHorario: this.horarioElegido.idHorario,
       estado: true,
       notas: '',
-      idModelo: this.product.id, // ← Agregar idModelo aquí
+      idModelo: this.product.idModelo, // ← Agregar idModelo aquí
       cliente: {
         idTipoDocumento: 1,
         numeroDocumento: this.reservation.dni,
