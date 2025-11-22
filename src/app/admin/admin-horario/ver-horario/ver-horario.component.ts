@@ -29,8 +29,21 @@ export class VerHorarioComponent implements OnInit {
   cargarHorario(): void {
     this.horarioService.getHorarios().subscribe({
       next: (data) => {
+
+        // Ordenar primero por día y luego por hora
+        const diasOrden = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
+        const horariosOrdenados = data.sort((a: Horario, b: Horario) => {
+          const diaA = diasOrden.indexOf(a.dia);
+          const diaB = diasOrden.indexOf(b.dia);
+
+          if (diaA === diaB) {
+            return a.horaInicio.localeCompare(b.horaInicio);
+          }
+          return diaA - diaB;
+        });
+
         this.horario = this.dias.map(dia => {
-          const horariosDia = data
+          const horariosDia = horariosOrdenados
             .filter(h => h.dia === dia && h.estado)
             .map(h => `${this.formatearHora(h.horaInicio)} - ${this.formatearHora(h.horaFin)}`);
           return horariosDia.length > 0 ? horariosDia : ['Sin horario disponible'];
