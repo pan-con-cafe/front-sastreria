@@ -27,9 +27,22 @@ export class EditarHorarioComponent implements OnInit {
   ngOnInit(): void {
     this.horarioService.getHorarios().subscribe({
       next: (data) => {
-        this.dataHorarios = data;
+
+        // ORDENAR primero todo el arreglo
+        const diasOrden = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
+        const dataOrdenada = data.sort((a, b) => {
+          const dA = diasOrden.indexOf(a.dia);
+          const dB = diasOrden.indexOf(b.dia);
+
+          if (dA === dB) {
+            return a.horaInicio.localeCompare(b.horaInicio);
+          }
+          return dA - dB;
+        });
+
+        this.dataHorarios = dataOrdenada;
         this.dias.forEach((dia, index) => {
-          this.horario[index] = data
+          this.horario[index] = dataOrdenada
             .filter(h => h.dia === dia)
             .map(b => ({
               idHorario: b.idHorario,
