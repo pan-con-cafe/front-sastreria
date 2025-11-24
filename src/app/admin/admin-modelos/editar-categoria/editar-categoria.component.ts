@@ -45,7 +45,8 @@ export class EditarCategoriaComponent implements OnInit {
         this.http.get<any[]>(`https://sastreria-estilo-ljge.onrender.com/api/Modelo`)
           .subscribe({
             next: (modelos) => {
-              const modelosCat = modelos.filter(m => m.idCategoria === this.idCategoria);
+              const modelosCat = modelos.filter(m => m.categoriaId == this.idCategoria);
+
               this.modelosSeleccionados = modelosCat.map(m => ({
                 ...m,
                 imagen: m.imagenes?.[0] || 'https://via.placeholder.com/150'
