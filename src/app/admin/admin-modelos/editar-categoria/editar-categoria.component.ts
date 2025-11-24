@@ -42,9 +42,10 @@ export class EditarCategoriaComponent implements OnInit {
       next: (categoria) => {
         this.nombreCategoria = categoria.nombre;
 
-        this.http.get<any[]>(`https://sastreria-estilo-ljge.onrender.com/api/Modelo/Categoria/${this.idCategoria}`)
+        this.http.get<any[]>(`https://sastreria-estilo-ljge.onrender.com/api/Modelo`)
           .subscribe({
-            next: (modelosCat) => {
+            next: (modelos) => {
+              const modelosCat = modelos.filter(m => m.idCategoria === this.idCategoria);
               this.modelosSeleccionados = modelosCat.map(m => ({
                 ...m,
                 imagen: m.imagenes?.[0] || 'https://via.placeholder.com/150'
