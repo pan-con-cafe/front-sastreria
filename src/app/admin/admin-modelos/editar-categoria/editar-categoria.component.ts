@@ -55,8 +55,8 @@ export class EditarCategoriaComponent implements OnInit {
             error: (err) => console.error('Error al obtener modelos de la categoría', err)
           });
 
-        this.modelosSeleccionados = [];
-        this.cargarModelosDisponibles();
+        //this.modelosSeleccionados = [];
+        //this.cargarModelosDisponibles();
       },
       error: (err) => console.error('Error al cargar la categoría', err)
     });
