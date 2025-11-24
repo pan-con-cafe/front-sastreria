@@ -20,7 +20,6 @@ import { ModalSelectorModeloComponent } from '../../../shared/modal-modelos/moda
 export class EditarCategoriaComponent implements OnInit {
   nombreCategoria: string = '';
   modelosSeleccionados: any[] = [];
-  listaDeModelos: any[] = [];
   modelosDisponibles: any[] = [];
   mensajeExito: boolean = false;
   mostrarModal: boolean = false;
@@ -52,7 +51,7 @@ export class EditarCategoriaComponent implements OnInit {
                 imagen: m.imagenes?.[0] || 'https://via.placeholder.com/150'
               }));
 
-              //this.cargarModelosDisponibles();
+              this.cargarModelosDisponibles();
             },
             error: (err) => console.error('Error al obtener modelos de la categoría', err)
           });
@@ -73,7 +72,7 @@ export class EditarCategoriaComponent implements OnInit {
           const idsActuales = this.modelosSeleccionados.map(m => m.idModelo);
 
           // Filtrar modelos para que NO aparezcan en el modal si ya están asignados
-          this.listaDeModelos = data
+          this.modelosDisponibles = data
             .filter(m => !idsActuales.includes(m.idModelo))
             .map(m => ({
               ...m,

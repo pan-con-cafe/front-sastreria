@@ -63,7 +63,7 @@
 
 <app-modal-selector-modelo
   *ngIf="mostrarModalAgregar"
-  [modelosDisponibles]="listaDeModelos"
+  [modelosDisponibles]="modelosDisponibles"
   (onSelect)="agregarModelosDesdeModal($event)"
   (onClose)="mostrarModalAgregar = false">
 </app-modal-selector-modelo>
