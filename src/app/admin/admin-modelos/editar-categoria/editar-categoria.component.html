@@ -60,3 +60,10 @@
   (confirmar)="eliminarCategoria()"
   (cancelar)="cerrarModalEliminar()"
 ></app-confirmacion-salida>
+
+<app-modal-selector-modelo
+  *ngIf="mostrarModalAgregar"
+  [modelosDisponibles]="modelosDisponibles"
+  (onSelect)="agregarModelosDesdeModal($event)"
+  (onClose)="mostrarModalAgregar = false">
+</app-modal-selector-modelo>

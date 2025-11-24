@@ -6,33 +6,79 @@ import { ConfirmacionSalidaComponent } from '../../../shared/confirmacion-salida
 import { ActivatedRoute, Router } from '@angular/router';
 import { CategoriaService } from '../services/categoria.service';
 import { Categoria } from '../models/categoria.model';
+import { HttpClient } from '@angular/common/http';
+import { ModalSelectorModeloComponent } from '../../../shared/modal-modelos/modal-selector-modelo.component';
+
 
 @Component({
   selector: 'app-editar-categoria',
   standalone: true,
-  imports: [FormsModule, CommonModule, RouterLink, NgIf, ConfirmacionSalidaComponent],
+  imports: [FormsModule, CommonModule, RouterLink, NgIf, ConfirmacionSalidaComponent, ModalSelectorModeloComponent],
   templateUrl: './editar-categoria.component.html',
   styleUrl: './editar-categoria.component.css'
 })
 export class EditarCategoriaComponent implements OnInit {
   nombreCategoria: string = '';
-  modelosSeleccionados: string[] = [];
+  modelosSeleccionados: any[] = [];
+  listaDeModelos: any[] = [];
+  modelosDisponibles: any[] = [];
   mensajeExito: boolean = false;
   mostrarModal: boolean = false;
+  mostrarModalAgregar = false;
   mostrarModalEliminar: boolean = false;
   cambiosPendientes: boolean = false;
   idCategoria!: number;
 
-  constructor(private categoriaService: CategoriaService, private router: Router, private route: ActivatedRoute) {}
+  constructor(
+    private categoriaService: CategoriaService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private http: HttpClient
+  ) {}
 
   ngOnInit(): void {
     this.idCategoria = this.route.snapshot.params['id'];
     this.categoriaService.getCategoriaById(this.idCategoria).subscribe({
       next: (categoria) => {
         this.nombreCategoria = categoria.nombre;
+
+        this.modelosSeleccionados = [];
+        this.cargarModelosDisponibles();
       },
       error: (err) => console.error('Error al cargar la categoría', err)
     });
+  }
+
+  cargarModelosDisponibles() {
+    this.http.get<any[]>('https://sastreria-estilo-ljge.onrender.com/api/Modelo')
+      .subscribe({
+        next: (data) => {
+
+          // Modelos ya agregados a esta categoría
+          const idsActuales = this.modelosSeleccionados.map(m => m.idModelo);
+
+          // Filtrar modelos para que NO aparezcan en el modal si ya están asignados
+          this.listaDeModelos = data
+            .filter(m => !idsActuales.includes(m.idModelo))
+            .map(m => ({
+              ...m,
+              imagen: m.imagenes?.[0] || 'https://via.placeholder.com/150'
+            }));
+        },
+        error: (err) => console.error('Error al obtener modelos', err)
+      });
+  }
+
+  agregarModelosDesdeModal(modelos: any[]) {
+    const idsActuales = this.modelosSeleccionados.map(m => m.idModelo);
+
+    const nuevos = modelos.filter(m => !idsActuales.includes(m.idModelo));
+
+    this.modelosSeleccionados.push(...nuevos);
+    this.cargarModelosDisponibles();
+
+    this.cambiosPendientes = true;
+    this.mostrarModalAgregar = false;
   }
 
   onCambios(): void {
@@ -40,8 +86,7 @@ export class EditarCategoriaComponent implements OnInit {
   }
 
   agregarModelo(): void {
-    this.modelosSeleccionados.push('Modelo ' + (this.modelosSeleccionados.length + 1));
-    this.cambiosPendientes = true;
+    this.mostrarModalAgregar = true;
   }
 
   eliminarModelo(index: number): void {
@@ -50,11 +95,12 @@ export class EditarCategoriaComponent implements OnInit {
   }
 
   guardarCambios(): void {
-    const categoriaActualizada: Categoria = {
+    const categoriaActualizada: any = {
       idCategoria: this.idCategoria,
       nombre: this.nombreCategoria,
       descripcion: 'Sin descripción por ahora',
-      estado: true
+      estado: true,
+      IdsModelos: this.modelosSeleccionados.map(m => m.idModelo)
     };
 
     this.categoriaService.updateCategoria(this.idCategoria, categoriaActualizada).subscribe({
