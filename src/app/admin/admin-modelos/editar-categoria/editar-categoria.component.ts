@@ -37,6 +37,7 @@ export class EditarCategoriaComponent implements OnInit {
 
   ngOnInit(): void {
     this.idCategoria = this.route.snapshot.params['id'];
+    
     this.categoriaService.getCategoriaById(this.idCategoria).subscribe({
       next: (categoria) => {
         this.nombreCategoria = categoria.nombre;
@@ -44,6 +45,7 @@ export class EditarCategoriaComponent implements OnInit {
         this.http.get<any[]>(`https://sastreria-estilo-ljge.onrender.com/api/Modelo`)
           .subscribe({
             next: (modelos) => {
+              // ✅ PRIMERO: Llenar modelosSeleccionados
               const modelosCat = modelos.filter(m => m.categoriaId == this.idCategoria);
 
               this.modelosSeleccionados = modelosCat.map(m => ({
@@ -51,13 +53,13 @@ export class EditarCategoriaComponent implements OnInit {
                 imagen: m.imagenes?.[0] || 'https://via.placeholder.com/150'
               }));
 
+              console.log('✅ Modelos cargados en la categoría:', this.modelosSeleccionados);
+
+              // ✅ SEGUNDO: Ahora sí cargar los disponibles (ya con modelosSeleccionados lleno)
               this.cargarModelosDisponibles();
             },
             error: (err) => console.error('Error al obtener modelos de la categoría', err)
           });
-
-        //this.modelosSeleccionados = [];
-        //this.cargarModelosDisponibles();
       },
       error: (err) => console.error('Error al cargar la categoría', err)
     });
