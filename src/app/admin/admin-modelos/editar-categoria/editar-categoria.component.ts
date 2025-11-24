@@ -52,7 +52,7 @@ export class EditarCategoriaComponent implements OnInit {
                 imagen: m.imagenes?.[0] || 'https://via.placeholder.com/150'
               }));
 
-              this.cargarModelosDisponibles();
+              //this.cargarModelosDisponibles();
             },
             error: (err) => console.error('Error al obtener modelos de la categoría', err)
           });
