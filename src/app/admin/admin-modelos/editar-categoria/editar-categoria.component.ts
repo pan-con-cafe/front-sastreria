@@ -42,6 +42,19 @@ export class EditarCategoriaComponent implements OnInit {
       next: (categoria) => {
         this.nombreCategoria = categoria.nombre;
 
+        this.http.get<any[]>(`https://sastreria-estilo-ljge.onrender.com/api/Modelo/Categoria/${this.idCategoria}`)
+          .subscribe({
+            next: (modelosCat) => {
+              this.modelosSeleccionados = modelosCat.map(m => ({
+                ...m,
+                imagen: m.imagenes?.[0] || 'https://via.placeholder.com/150'
+              }));
+
+              this.cargarModelosDisponibles();
+            },
+            error: (err) => console.error('Error al obtener modelos de la categoría', err)
+          });
+
         this.modelosSeleccionados = [];
         this.cargarModelosDisponibles();
       },
