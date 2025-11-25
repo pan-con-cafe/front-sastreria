@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { NavbarComponent } from '../navbar/navbar.component';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-cliente-servicios',
   standalone: true,
-  imports: [NavbarComponent],
+  imports: [NavbarComponent, CommonModule, RouterLink],
   templateUrl: './cliente-servicios.component.html',
   styleUrl: './cliente-servicios.component.css'
 })
