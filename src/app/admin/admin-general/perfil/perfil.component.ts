@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { DatoSastreriaService } from '../services/dato-sastreria.service';
-import { DatoSastreria } from '../models/dato-sastreria.model';
+import { DatoSastreriaService } from '../../../shared/services/dato-sastreria.service';
+import { DatoSastreria } from '../../../models/dato-sastreria.model';
 import { RouterLink } from '@angular/router';
 import { NgIf } from '@angular/common';
 

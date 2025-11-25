@@ -17,7 +17,7 @@ export class ClienteContactoComponent implements OnInit {
   constructor(private datoService: DatoSastreriaService) {}
 
   ngOnInit(): void {
-    this.datoService.obtenerDatos().subscribe({
+    this.datoService.getDato().subscribe({
       next: (res) => this.datos = res,
       error: (err) => console.log(err)
     });

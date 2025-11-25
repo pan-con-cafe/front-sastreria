@@ -4,8 +4,8 @@ import { RouterLink } from '@angular/router';
 import { Router } from '@angular/router';
 import { ConfirmacionSalidaComponent } from '../../../shared/confirmacion-salida/confirmacion-salida.component';
 import { FormsModule } from '@angular/forms';
-import { DatoSastreriaService } from '../services/dato-sastreria.service';
-import { DatoSastreria } from '../models/dato-sastreria.model';
+import { DatoSastreriaService } from '../../../shared/services/dato-sastreria.service';
+import { DatoSastreria } from '../../../models/dato-sastreria.model';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
