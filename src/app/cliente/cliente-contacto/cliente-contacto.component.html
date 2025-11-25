@@ -34,8 +34,8 @@
     <div class="info" *ngIf="datos">
       <div>
         <h3>Información de contacto</h3>
-        <p>{{ datos.address }}</p>
-        <p>{{ datos.phonenumber }}</p>
+        <p [value]="contacto.direccion"></p>
+        <p [value]="contacto.telefono"></p>
         <p>estilosastreriaarrobagmail.com</p>
       </div>
 
