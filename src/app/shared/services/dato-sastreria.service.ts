@@ -12,6 +12,6 @@ export class DatoSastreriaService {
   constructor(private http: HttpClient) {}
 
   obtenerDatos(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/obtener/2`);
+    return this.http.get(`${this.apiUrl}/obtener/1`);
   }
 }
