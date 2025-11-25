@@ -31,11 +31,11 @@
     </div>
 
     <!-- Información -->
-    <div class="info">
+    <div class="info" *ngIf="datos">
       <div>
         <h3>Información de contacto</h3>
-        <p>Av. José Olaya #0000</p>
-        <p>+51 987 654 321</p>
+        <p>{{ datos.address }}</p>
+        <p>{{ datos.phonenumber }}</p>
         <p>estilosastreriaarrobagmail.com</p>
       </div>
 
@@ -43,7 +43,6 @@
         <h3>Horario de atención</h3>
         <p>Lunes a Viernes: 8am – 8pm</p>
         <p>Sábados: 8am – 3pm</p>
-        <p>Domingos: Cerrado</p>
       </div>
     </div>
   </div>
