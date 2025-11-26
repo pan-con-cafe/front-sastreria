@@ -9,7 +9,7 @@
     </div>
 
     <!-- Formulario de reserva -->
-    <form #reservaForm="ngForm" (ngSubmit)="submitReservation()" class="reservation-form" novalidate>
+    <form #reservaForm="ngForm" class="reservation-form" novalidate>
       <h2>Reserve su cita</h2>
 
       <div class="input-group">
@@ -95,7 +95,7 @@
         <small class="error" *ngIf="opcionRef.invalid && opcionRef.touched">Debe seleccionar una opción.</small>
       </div>
 
-      <button type="submit" class="submit-button" [disabled]="reservaForm.invalid">Reservar</button>
+      <button type="button" class="submit-button" [disabled]="reservaForm.invalid" (click)="abrirModalReserva()">Reservar</button>
     </form>
 
   </div>
@@ -106,3 +106,9 @@
   (close)="mostrarModal = false"
   (horarioSeleccionado)="onHorarioSeleccionado($event)">
 </app-modal-horario>
+
+<app-confirmacion-reserva
+  [visible]="modalReservaVisible"
+  (onConfirm)="confirmarReserva()"
+  (onCancel)="cancelarReserva()">
+</app-confirmacion-reserva>

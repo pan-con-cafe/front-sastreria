@@ -8,11 +8,12 @@ import { CitaService } from '../services/cita.service';
 import { ReniecService } from '../services/reniec.service';
 import { ModalHorarioComponent } from '../../shared/modal-horario/modal-horario.component';
 import { HttpClient } from '@angular/common/http';
+import { ConfirmacionReservaComponent } from '../../shared/confirmacion-reserva/confirmacion-reserva.component';
 
 @Component({
   selector: 'app-cliente-reserva',
   standalone: true,
-  imports: [NavbarComponent, FormsModule, NgIf, ModalHorarioComponent],
+  imports: [NavbarComponent, FormsModule, NgIf, ModalHorarioComponent, ConfirmacionReservaComponent],
   templateUrl: './cliente-reserva.component.html',
   styleUrl: './cliente-reserva.component.css'
 })
@@ -79,6 +80,41 @@ export class ClienteReservaComponent implements OnInit {
     }
   }
 
+  mostrarModal = false;
+  horarioElegido: any = null;
+
+  onHorarioSeleccionado(horario: any) {
+    this.horarioElegido = horario;
+    this.reservation.fecha = `${horario.dia} ${horario.horaInicio} - ${horario.horaFin}`;
+    this.mostrarModal = false; // cerrar modal automáticamente
+    console.log('Horario seleccionado:', this.reservation.fecha);
+  }
+
+  seleccionarHorario(horario: any) {
+    if (horario.estado) { // Solo permite seleccionar si está disponible
+      this.selectedHorario = horario;
+    }
+  }
+
+  abrirModal() {
+    this.mostrarModal = true;
+  }
+
+  modalReservaVisible = false;
+
+  abrirModalReserva() {
+    this.modalReservaVisible = true;
+  }
+
+  confirmarReserva() {
+    this.modalReservaVisible = false;
+    this.submitReservation(); // ← Llama aquí tu método real
+  }
+
+  cancelarReserva() {
+    this.modalReservaVisible = false;
+  }
+
   submitReservation(): void {
     if (!this.horarioElegido) {
       return;
@@ -120,26 +156,6 @@ export class ClienteReservaComponent implements OnInit {
         alert('No se pudo registrar la cita.');
       }
     });
-  }
-
-  mostrarModal = false;
-  horarioElegido: any = null;
-
-  onHorarioSeleccionado(horario: any) {
-    this.horarioElegido = horario;
-    this.reservation.fecha = `${horario.dia} ${horario.horaInicio} - ${horario.horaFin}`;
-    this.mostrarModal = false; // cerrar modal automáticamente
-    console.log('Horario seleccionado:', this.reservation.fecha);
-  }
-
-  seleccionarHorario(horario: any) {
-    if (horario.estado) { // Solo permite seleccionar si está disponible
-      this.selectedHorario = horario;
-    }
-  }
-
-  abrirModal() {
-    this.mostrarModal = true;
   }
 
 }
