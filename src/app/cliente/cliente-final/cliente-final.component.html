@@ -1,10 +1,34 @@
-<app-navbar></app-navbar>
+<!--<app-navbar></app-navbar>
 <section class="cliente-final">
   <div class="confirmation-message">
     <h1>¡Su cita ha sido reservada con éxito!</h1>
     <p>Lo esperamos pronto en nuestro local.</p>
     <a href="modelo">
         <button class="navigate-button">Seguir navegando</button>
+    </a>
+  </div>
+</section>-->
+
+<app-navbar></app-navbar>
+
+<section class="cliente-final">
+  <div class="confirmation-container">
+    <h1>Su cita ha sido reservada con exito</h1>
+    <p class="subtitle">Lo esperamos pronto en nuestro local</p>
+
+    <p class="direccion">
+      {{ direccion }} <span class="sep">-</span> {{ telefono }}
+    </p>
+
+    <div class="info-box">
+      <p><strong>Cliente:</strong> {{ nombres }}</p>
+      <p><strong>Fecha:</strong> {{ fecha }}</p>
+      <p><strong>Hora:</strong> {{ hora }}</p>
+    </div>
+
+    <p class="correo-msg">Se han enviado los detalles a su correo</p>
+    <a href="modelo">
+      <button class="navigate-button">Seguir navegando</button>
     </a>
   </div>
 </section>

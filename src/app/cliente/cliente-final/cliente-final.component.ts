@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+/*import { Component } from '@angular/core';
 import { NavbarComponent } from '../navbar/navbar.component';
 
 @Component({
@@ -10,4 +10,50 @@ import { NavbarComponent } from '../navbar/navbar.component';
 })
 export class ClienteFinalComponent {
   
+}*/
+
+import { Component} from '@angular/core';
+import { NavbarComponent } from '../navbar/navbar.component';
+import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { DatoSastreriaService } from '../../shared/services/dato-sastreria.service';
+
+@Component({
+  selector: 'app-cliente-final',
+  standalone: true,
+  imports: [NavbarComponent, CommonModule],
+  templateUrl: './cliente-final.component.html',
+  styleUrls: ['./cliente-final.component.css']
+})
+export class ClienteFinalComponent {
+  nombres: string = '';
+  fecha: string = '';
+  hora: string = '';
+
+  direccion: string = '';
+  telefono: string = '';
+
+  constructor(private router: Router, private datoService: DatoSastreriaService) {
+    // Recoger los datos enviados desde cliente-reserva via navigation state
+    const nav = this.router.getCurrentNavigation();
+    const state = nav?.extras?.state as any;
+
+    this.nombres = state?.nombres ?? '';
+    this.fecha = state?.fecha ?? '';
+    this.hora = state?.hora ?? '';
+
+    // Obtener datos de la sastrería desde la API
+    this.datoService.getDato().subscribe({
+      next: (data) => {
+        if (data && data.length > 0) {
+          const dato = data[0]; // Siempre devolvías 1 solo registro
+          this.direccion = dato.direccion;
+          this.telefono = dato.telefono;
+        }
+      },
+      error: (err) => {
+        console.error('Error obteniendo datos de la sastrería', err);
+      }
+    });
+  }
 }

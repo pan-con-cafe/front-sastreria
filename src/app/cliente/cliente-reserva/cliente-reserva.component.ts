@@ -97,7 +97,7 @@ export class ClienteReservaComponent implements OnInit {
   }
 
   abrirModal() {
-    this.mostrarModal = true;
+   this.mostrarModal = true;
   }
 
   modalReservaVisible = false;
@@ -144,7 +144,16 @@ export class ClienteReservaComponent implements OnInit {
           estado: false
         }).subscribe({
           next: () => {
-            this.router.navigate(['/reservado']);
+            this.router.navigate(['/reservado'], {
+              state: {
+                nombres: this.reservation.nombres + ' ' + this.reservation.apellidos,
+                fecha: this.horarioElegido?.dia ?? '',
+                hora: this.horarioElegido?.horaInicio ?? '',
+                direccion: '',   // ← si quieres luego lo llenamos desde DatoSastreria
+                telefono: ''
+              }
+            });
+
           },
           error: (err) => {
             console.error('Error al actualizar el estado del horario', err);
