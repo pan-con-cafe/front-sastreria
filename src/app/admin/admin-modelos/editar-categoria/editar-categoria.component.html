@@ -31,7 +31,7 @@
           <button type="button" class="icono-eliminar" (click)="eliminarModelo(i)">
             <img src="/remove.png" alt="quitar" class="img-eliminar">
           </button>
-          <div class="imagen-modelo"></div>
+          <div class="imagen-modelo" [style.background-image]="'url(' + modelo.imagen + ')'"></div>
         </div>
         <button type="button" class="btn-agregar" (click)="agregarModelo()">
           <img src="add.png" alt="añadir" class="img-add">

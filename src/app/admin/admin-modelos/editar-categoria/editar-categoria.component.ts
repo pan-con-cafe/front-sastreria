@@ -53,6 +53,7 @@ export class EditarCategoriaComponent implements OnInit {
                 ...m,
                 imagen: m.imagenes?.[0] || 'https://via.placeholder.com/150'
               }));
+              console.log("📌 ModelosCat:", modelosCat);
 
               console.log('✅ Modelos cargados en la categoría:', this.modelosSeleccionados);
 
@@ -70,12 +71,8 @@ export class EditarCategoriaComponent implements OnInit {
     this.http.get<any[]>('https://sastreria-estilo-ljge.onrender.com/api/Modelo')
       .subscribe({
         next: (data) => {
-          console.log('📦 TODOS los modelos de la API:', data.length);
-          console.log('📦 Ver todos:', data);
 
           const idsActuales = this.modelosSeleccionados.map(m => m.idModelo);
-          console.log('🏷️ IDs ya asignados a esta categoría:', idsActuales);
-          console.log('🏷️ modelosSeleccionados completo:', this.modelosSeleccionados);
 
           this.modelosDisponibles = data
             .filter(m => !idsActuales.includes(m.idModelo))
@@ -84,8 +81,6 @@ export class EditarCategoriaComponent implements OnInit {
               imagen: m.imagenes?.[0] || 'https://via.placeholder.com/150'
             }));
 
-          console.log('✅ Modelos disponibles FILTRADOS:', this.modelosDisponibles.length);
-          console.log('✅ Ver filtrados:', this.modelosDisponibles);
 
         },
         error: (err) => console.error('Error al obtener modelos', err)
@@ -109,8 +104,6 @@ export class EditarCategoriaComponent implements OnInit {
   }
 
   agregarModelo(): void {
-    console.log('🔍 Al abrir modal, modelosDisponibles tiene:', this.modelosDisponibles.length);
-    console.log('🔍 Ver contenido:', this.modelosDisponibles);
     this.mostrarModalAgregar = true;
   }
 
@@ -123,7 +116,7 @@ export class EditarCategoriaComponent implements OnInit {
     const categoriaActualizada: any = {
       idCategoria: this.idCategoria,
       nombre: this.nombreCategoria,
-      descripcion: 'Sin descripción por ahora',
+      descripcion: 'Sin descripción',
       estado: true,
       IdsModelos: this.modelosSeleccionados.map(m => m.idModelo)
     };
