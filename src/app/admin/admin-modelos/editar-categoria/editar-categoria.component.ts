@@ -45,7 +45,7 @@ export class EditarCategoriaComponent implements OnInit {
         this.http.get<any[]>(`https://sastreria-estilo-ljge.onrender.com/api/Modelo`)
           .subscribe({
             next: (modelos) => {
-              console.log('🔍 VER ESTRUCTURA COMPLETA DEL PRIMER MODELO:', modelos[0]);
+
               // ✅ PRIMERO: Llenar modelosSeleccionados
               const modelosCat = modelos.filter(m => m.categorias && m.categorias.includes(this.nombreCategoria))
 
@@ -53,9 +53,6 @@ export class EditarCategoriaComponent implements OnInit {
                 ...m,
                 imagen: m.imagenes?.[0] || 'https://via.placeholder.com/150'
               }));
-              console.log("📌 ModelosCat:", modelosCat);
-
-              console.log('✅ Modelos cargados en la categoría:', this.modelosSeleccionados);
 
               // ✅ SEGUNDO: Ahora sí cargar los disponibles (ya con modelosSeleccionados lleno)
               this.cargarModelosDisponibles();

@@ -13,26 +13,26 @@
       <img src="../confeccion.png" alt="Confección" />
       <h3>Confección</h3>
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-      <a href="#">Haga click para saber más</a>
+      <a (click)="scrollTo('confeccion')">Haga click para saber más</a>
     </div>
 
     <div class="card">
       <img src="../arreglos.png" alt="Arreglos" />
       <h3>Arreglos</h3>
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-      <a href="#">Haga click para saber más</a>
+      <a (click)="scrollTo('arreglos')">Haga click para saber más</a>
     </div>
 
     <div class="card">
       <img src="../por-mayor.png" alt="Por mayor" />
       <h3>Por mayor</h3>
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-      <a href="#">Haga click para saber más</a>
+      <a (click)="scrollTo('por-mayor')">Haga click para saber más</a>
     </div>
   </div>
 
   <div class="detalle">
-    <div class="detalle-item">
+    <div class="detalle-item" id="confeccion">
       <h3>Confección</h3>
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc ante lectus,
@@ -42,7 +42,7 @@
       <button class="btn-primario" routerLink="/modelo">Ver catálogo</button>
     </div>
 
-    <div class="detalle-item">
+    <div class="detalle-item" id="arreglos">
       <h3>Arreglos</h3>
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc ante lectus,
@@ -52,7 +52,7 @@
       <button class="btn-primario" routerLink="/contacto">Contactar</button>
     </div>
 
-    <div class="detalle-item">
+    <div class="detalle-item" id="por-mayor" >
       <h3>Confección al por mayor</h3>
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc ante lectus,

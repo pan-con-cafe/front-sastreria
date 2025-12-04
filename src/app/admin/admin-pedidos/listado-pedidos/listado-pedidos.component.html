@@ -1,16 +1,18 @@
-<div class="contenedor">
-  <h2>Lista de pedidos:</h2>
+<section>
+  <div class="contenedor">
+    <h2>Lista de pedidos:</h2>
 
-  <div class="tarjeta" *ngFor="let pedido of pedidos">
-    <div class="contenido">
-      <div>
-        <p>Pedido ID: {{ pedido.idPedido }}</p>
-        <p class="descripcion">{{ pedido.detalle }}</p>
-      </div>
-      <div class="derecha">
-        <p class="date">{{ pedido.fechaEntrega | date: 'dd/MM/yyyy' }}</p>
-        <button (click)="verDetalle(pedido.idPedido)">Ver Detalle</button>
+    <div class="tarjeta" *ngFor="let pedido of pedidos">
+      <div class="contenido">
+        <div>
+          <p>Pedido ID: {{ pedido.idPedido }}</p>
+          <p class="descripcion">{{ pedido.detalle }}</p>
+        </div>
+        <div class="derecha">
+          <p class="date">{{ pedido.fechaEntrega | date: 'dd/MM/yyyy' }}</p>
+          <button (click)="verDetalle(pedido.idPedido)">Ver Detalle</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
+</section>
