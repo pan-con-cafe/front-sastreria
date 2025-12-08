@@ -7,6 +7,8 @@ import { FormsModule } from '@angular/forms';
 import { DatoSastreriaService } from '../../../shared/services/dato-sastreria.service';
 import { DatoSastreria } from '../../../models/dato-sastreria.model';
 import { HttpClient } from '@angular/common/http';
+import { LoaderService } from '../../../shared/loader/loader.service';
+
 
 @Component({
   selector: 'app-editar-perfil',
@@ -36,7 +38,8 @@ export class EditarPerfilComponent implements OnInit {
   constructor(
     private datoService: DatoSastreriaService,
     private router: Router,
-    private http: HttpClient
+    private http: HttpClient,
+    public loader: LoaderService,
   ) {}
 
   ngOnInit(): void {

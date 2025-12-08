@@ -8,6 +8,8 @@ import { CategoriaService } from '../services/categoria.service';
 import { Categoria } from '../models/categoria.model';
 import { HttpClient } from '@angular/common/http';
 import { ModalSelectorModeloComponent } from '../../../shared/modal-modelos/modal-selector-modelo.component';
+import { LoaderService } from '../../../shared/loader/loader.service';
+
 
 
 @Component({
@@ -32,7 +34,8 @@ export class EditarCategoriaComponent implements OnInit {
     private categoriaService: CategoriaService,
     private router: Router,
     private route: ActivatedRoute,
-    private http: HttpClient
+    private http: HttpClient,
+    public loader: LoaderService,
   ) {}
 
   ngOnInit(): void {

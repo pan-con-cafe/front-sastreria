@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from './cliente/navbar/navbar.component';
+import { LoaderComponent } from './shared/loader/loader.component';
 
 
 //import { UserComponent } from './user/user.component';
@@ -11,7 +12,7 @@ import { NavbarComponent } from './cliente/navbar/navbar.component';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, CommonModule, RouterLink],
+  imports: [RouterOutlet, CommonModule, RouterLink, LoaderComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

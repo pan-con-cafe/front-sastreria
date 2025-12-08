@@ -5,6 +5,8 @@ import { RouterLink, Router } from '@angular/router';
 import { ConfirmacionSalidaComponent } from '../../../shared/confirmacion-salida/confirmacion-salida.component';
 import { HorarioService } from '../services/horario.service';
 import { Horario } from '../models/horario.model';
+import { LoaderService } from '../../../shared/loader/loader.service';
+
 
 @Component({
   selector: 'app-editar-horario',
@@ -21,7 +23,11 @@ export class EditarHorarioComponent implements OnInit {
   mostrarModal: boolean = false;
   cambiosPendientes: boolean = false;
 
-  constructor(private horarioService: HorarioService, private router: Router) {}
+  constructor(
+    private horarioService: HorarioService,
+    private router: Router,
+    public loader: LoaderService,
+  ) {}
 
 
   ngOnInit(): void {

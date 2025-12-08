@@ -95,7 +95,7 @@
         <small class="error" *ngIf="opcionRef.invalid && opcionRef.touched">Debe seleccionar una opción.</small>
       </div>
 
-      <button type="button" class="submit-button" [disabled]="reservaForm.invalid" (click)="abrirModalReserva()">Reservar</button>
+      <button type="button" class="submit-button" [disabled]="reservaForm.invalid || loader.isLoading()" (click)="abrirModalReserva()">Reservar</button>
     </form>
 
   </div>
@@ -112,3 +112,4 @@
   (onConfirm)="confirmarReserva()"
   (onCancel)="cancelarReserva()">
 </app-confirmacion-reserva>
+

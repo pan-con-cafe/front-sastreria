@@ -9,6 +9,7 @@ import { ReniecService } from '../services/reniec.service';
 import { ModalHorarioComponent } from '../../shared/modal-horario/modal-horario.component';
 import { HttpClient } from '@angular/common/http';
 import { ConfirmacionReservaComponent } from '../../shared/confirmacion-reserva/confirmacion-reserva.component';
+import { LoaderService } from '../../shared/loader/loader.service';
 
 @Component({
   selector: 'app-cliente-reserva',
@@ -43,6 +44,7 @@ export class ClienteReservaComponent implements OnInit {
     private citaService: CitaService,
     private reniecService: ReniecService,
     private http: HttpClient,
+    public loader: LoaderService,
   ) {}
 
   ngOnInit(): void {
@@ -120,6 +122,8 @@ export class ClienteReservaComponent implements OnInit {
       return;
     }
 
+    this.loader.show();
+    
     // Primero creamos la cita
     const citaRequest = {
       IdHorario: this.horarioElegido.idHorario,
@@ -144,6 +148,7 @@ export class ClienteReservaComponent implements OnInit {
           estado: false
         }).subscribe({
           next: () => {
+            this.loader.hide();
             this.router.navigate(['/reservado'], {
               state: {
                 nombres: this.reservation.nombres + ' ' + this.reservation.apellidos,
@@ -156,11 +161,13 @@ export class ClienteReservaComponent implements OnInit {
 
           },
           error: (err) => {
+            this.loader.hide();
             console.error('Error al actualizar el estado del horario', err);
           }
         });
       },
       error: (err) => {
+        this.loader.hide();
         console.error('Error al registrar cita', err);
         alert('No se pudo registrar la cita.');
       }

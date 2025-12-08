@@ -7,7 +7,7 @@
           <div
             *ngFor="let horario of getHorariosPorDia(dia); trackBy: trackByHorario"
             class="hora"
-            [class.ocupado]="!horario.estado"
+            [class.ocupado]="!horario.estado || horario.pasado"
             [class.seleccionado]="horario.idHorario === seleccionado"
             (click)="seleccionarHorario(horario)"
           >

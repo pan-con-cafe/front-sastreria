@@ -4,6 +4,8 @@ import { RouterLink, ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { ConfirmacionSalidaComponent } from '../../../shared/confirmacion-salida/confirmacion-salida.component';
+import { LoaderService } from '../../../shared/loader/loader.service';
+
 
 @Component({
   selector: 'app-editar-modelo',
@@ -27,7 +29,11 @@ export class EditarModeloComponent implements OnInit {
 
   @ViewChild('inputImagen') inputImagen!: ElementRef<HTMLInputElement>;
 
-  constructor(private route: ActivatedRoute, private http: HttpClient) {}
+  constructor(
+    private route: ActivatedRoute,
+    private http: HttpClient,
+    public loader: LoaderService,
+  ) {}
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
