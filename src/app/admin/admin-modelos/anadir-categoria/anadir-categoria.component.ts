@@ -7,6 +7,8 @@ import { CategoriaService } from '../services/categoria.service';
 import { ModalSelectorModeloComponent } from '../../../shared/modal-modelos/modal-selector-modelo.component';
 import { HttpClient } from '@angular/common/http';
 import { OnInit } from '@angular/core';
+import { LoaderService } from '../../../shared/loader/loader.service';
+
 
 
 @Component({
@@ -31,7 +33,12 @@ export class AnadirCategoriaComponent {
   listaDeModelos: any[] = []; // Llenas esto desde tu servicio
 
 
-  constructor(private categoriaService: CategoriaService, private router: Router, private http: HttpClient) {}
+  constructor(
+    private categoriaService: CategoriaService, 
+    private router: Router, 
+    private http: HttpClient,
+    public loader: LoaderService,
+  ) {}
 
   onCambios(): void {
     this.cambiosPendientes = true;
@@ -63,7 +70,7 @@ export class AnadirCategoriaComponent {
       return;
     }
 
-    //const idsModelosSeleccionados = this.modelosSeleccionados.map(m => m.idModelo);
+    this.loader.show();
 
     const nuevaCategoria = {
       idCategoria: 0,
@@ -76,9 +83,16 @@ export class AnadirCategoriaComponent {
     this.categoriaService.createCategoria(nuevaCategoria).subscribe({
       next: () => {
         this.mensajeExito = true;
+        this.cambiosPendientes = false;
+
+        this.loader.hide();
+        
         setTimeout(() => this.router.navigate(['/admin/modelos/categorias']), 1500);
       },
-      error: (err) => console.error('Error al añadir categoría', err)
+      error: (err) => {
+        console.error('Error al añadir categoría', err);
+        this.loader.hide();
+      }
     });
   }
 

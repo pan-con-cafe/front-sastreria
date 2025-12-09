@@ -71,6 +71,8 @@ export class EditarPerfilComponent implements OnInit {
   }
 
   uploadToCloudinary(file: File): void {
+    this.loader.show();
+
     const formData = new FormData();
     formData.append('file', file);
     formData.append('upload_preset', 'nombre-generico-para-upload-preset');
@@ -85,8 +87,13 @@ export class EditarPerfilComponent implements OnInit {
         this.perfil.logoSastreria = res.secure_url;
         this.logoPreview = res.secure_url;
         this.cambiosPendientes = true;
+
+        this.loader.hide();
       },
-      error: (err) => console.error('Error al subir imagen a Cloudinary', err)
+      error: (err) => {
+        console.error('Error al subir imagen a Cloudinary', err);
+        this.loader.hide();
+      }
     });
   }
 
@@ -106,13 +113,21 @@ export class EditarPerfilComponent implements OnInit {
   }
 
   guardarCambios(): void {
+    this.loader.show();
+
     this.datoService.updateDato(this.perfil.idDatos, this.perfil).subscribe({
       next: () => {
         this.mensajeExito = true;
         this.cambiosPendientes = false;
+
+        this.loader.hide();
+
         setTimeout(() => this.router.navigate(['/admin/general/perfil']), 5000);
       },
-      error: (err) => console.error('Error al guardar perfil', err)
+      error: (err) => {
+        console.error('Error al guardar perfil', err);
+        this.loader.hide();
+      }
     });
   }
 

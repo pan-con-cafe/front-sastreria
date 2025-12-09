@@ -38,8 +38,8 @@
 
 
     <div class="boton-container">
-      <button type="button" class="btn-cancelar" (click)="cancelar()">Cancelar</button>
-      <button type="submit" class="boton-guardar" [disabled]="formCategoria.invalid || modelosSeleccionados.length === 0">Guardar</button>
+      <button type="button" class="btn-cancelar" (click)="cancelar()" [disabled]="loader.isLoading()">Cancelar</button>
+      <button type="submit" class="boton-guardar" [disabled]="formCategoria.invalid || modelosSeleccionados.length === 0 || loader.isLoading()">Guardar</button>
     </div>
 
     <p class="mensaje-error" *ngIf="mensajeError">{{ mensajeError }}</p>

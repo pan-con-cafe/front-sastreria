@@ -113,6 +113,9 @@ export class EditarCategoriaComponent implements OnInit {
   }
 
   guardarCambios(): void {
+
+    this.loader.show();
+
     const categoriaActualizada: any = {
       idCategoria: this.idCategoria,
       nombre: this.nombreCategoria,
@@ -125,9 +128,15 @@ export class EditarCategoriaComponent implements OnInit {
       next: () => {
         this.mensajeExito = true;
         this.cambiosPendientes = false;
+
+        this.loader.hide();
+
         setTimeout(() => this.router.navigate(['/admin/modelos/categorias']), 1500);
       },
-      error: (err) => console.error('Error al actualizar categoría', err)
+      error: (err) => {
+        console.error('Error al actualizar categoría', err);
+        this.loader.hide();
+      }
     });
   }
 
@@ -152,11 +161,17 @@ export class EditarCategoriaComponent implements OnInit {
   }
 
   eliminarCategoria(): void {
+    this.loader.show();
+
     this.categoriaService.deleteCategoria(this.idCategoria).subscribe({
       next: () => {
+        this.loader.hide();
         this.router.navigate(['/admin/modelos/categorias']);
       },
-      error: (err) => console.error('Error al eliminar categoría', err)
+      error: (err) => {
+        console.error('Error al eliminar categoría', err);
+        this.loader.hide();
+      }
     });
   }
 

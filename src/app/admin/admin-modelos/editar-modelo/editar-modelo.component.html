@@ -63,10 +63,10 @@
 
     <!-- Botones y validación final -->
     <div class="boton-container">
-      <button type="button" class="btn-cancelar" (click)="cancelar()">Cancelar</button>
+      <button type="button" class="btn-cancelar" (click)="cancelar()" [disabled]="loader.isLoading()">Cancelar</button>
       <button type="submit"
               class="btn-guardar"
-              [disabled]="formModelo.invalid">
+              [disabled]="formModelo.invalid || loader.isLoading()">
         Guardar
       </button>
     </div>

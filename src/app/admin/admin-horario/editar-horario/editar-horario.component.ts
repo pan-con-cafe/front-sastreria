@@ -31,6 +31,9 @@ export class EditarHorarioComponent implements OnInit {
 
 
   ngOnInit(): void {
+
+    this.loader.show();
+
     this.horarioService.getHorarios().subscribe({
       next: (data) => {
 
@@ -59,7 +62,8 @@ export class EditarHorarioComponent implements OnInit {
             }));
         });
       },
-      error: (err) => console.error('Error al cargar horario', err)
+      error: (err) => console.error('Error al cargar horario', err),
+      complete: () => this.loader.hide()
     });
   }
 
@@ -72,28 +76,60 @@ export class EditarHorarioComponent implements OnInit {
     this.cambiosPendientes = true;
   }
 
-  guardarHorario(): void {
-  const horaConSegundos = (hora: string) => hora.length === 5 ? `${hora}:00` : hora;
+  /*guardarHorario(): void {
+    const horaConSegundos = (hora: string) => hora.length === 5 ? `${hora}:00` : hora;
 
-  const peticiones = this.dias.flatMap((dia, index) =>
-    this.horario[index].map(bloque =>
-      this.horarioService.updateHorario(bloque.idHorario, {
-        ...bloque,
-        horaInicio: horaConSegundos(bloque.horaInicio),
-        horaFin: horaConSegundos(bloque.horaFin),
-        estado: bloque.estado
+    const peticiones = this.dias.flatMap((dia, index) =>
+      this.horario[index].map(bloque =>
+        this.horarioService.updateHorario(bloque.idHorario, {
+          ...bloque,
+          horaInicio: horaConSegundos(bloque.horaInicio),
+          horaFin: horaConSegundos(bloque.horaFin),
+          estado: bloque.estado
+        })
+      )
+    );
+
+    Promise.all(peticiones.map(p => p.toPromise()))
+      .then(() => {
+        this.mensajeExito = true;
+        this.cambiosPendientes = false;
+        setTimeout(() => this.router.navigate(['/admin/horario/ver-horario']), 1500);
       })
-    )
-  );
+      .catch(err => console.error('Error al guardar horario', err));
+  }*/
 
-  Promise.all(peticiones.map(p => p.toPromise()))
-    .then(() => {
+  async guardarHorario(): Promise<void> {
+    this.loader.show();
+
+    const horaConSegundos = (hora: string) =>
+      hora.length === 5 ? `${hora}:00` : hora;
+
+    try {
+      const peticiones = this.dias.flatMap((dia, index) =>
+        this.horario[index].map(bloque =>
+          this.horarioService.updateHorario(bloque.idHorario, {
+            ...bloque,
+            horaInicio: horaConSegundos(bloque.horaInicio),
+            horaFin: horaConSegundos(bloque.horaFin),
+            estado: bloque.estado
+          }).toPromise()
+        )
+      );
+
+      await Promise.all(peticiones);
+
       this.mensajeExito = true;
       this.cambiosPendientes = false;
+
       setTimeout(() => this.router.navigate(['/admin/horario/ver-horario']), 1500);
-    })
-    .catch(err => console.error('Error al guardar horario', err));
-}
+
+    } catch (err) {
+      console.error('Error al guardar horario', err);
+    } finally {
+      this.loader.hide();
+    }
+  }
 
 
   cancelar(): void {

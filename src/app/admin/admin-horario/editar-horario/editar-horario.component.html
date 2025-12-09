@@ -16,8 +16,8 @@
   </div>
 
   <div class="boton-container">
-    <button class="btn-cancelar" (click)="cancelar()">Cancelar</button>
-    <button class="btn-guardar" (click)="guardarHorario()">Guardar</button>
+    <button class="btn-cancelar" (click)="cancelar()" [disabled]="loader.isLoading()">Cancelar</button>
+    <button class="btn-guardar" (click)="guardarHorario()" [disabled]="loader.isLoading()">Guardar</button>
   </div>
 
   <p class="mensaje-exito" *ngIf="mensajeExito">Cambios guardados correctamente.</p>

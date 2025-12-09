@@ -97,8 +97,8 @@
     </div>
 
     <div class="btn-container">
-      <button type="button" class="cancelar" (click)="cancelar()">Cancelar</button>
-      <button type="submit" class="guardar-btn" [disabled]="formPerfil.invalid">Guardar</button>
+      <button type="button" class="cancelar" (click)="cancelar()" [disabled]="loader.isLoading()">Cancelar</button>
+      <button type="submit" class="guardar-btn" [disabled]="formPerfil.invalid || loader.isLoading()">Guardar</button>
     </div>
   </form>
 

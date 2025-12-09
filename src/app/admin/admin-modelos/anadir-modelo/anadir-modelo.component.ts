@@ -4,6 +4,8 @@ import { NgIf, NgFor, CommonModule } from '@angular/common';
 import { ConfirmacionSalidaComponent } from '../../../shared/confirmacion-salida/confirmacion-salida.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { LoaderService } from '../../../shared/loader/loader.service';
+
 
 @Component({
   selector: 'app-anadir-modelo',
@@ -29,7 +31,11 @@ export class AnadirModeloComponent implements OnInit {
   cambiosPendientes = false;
   @ViewChild('inputImagenes') inputImagenes!: ElementRef<HTMLInputElement>;
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    public loader: LoaderService,
+  ) {}
 
   ngOnInit() {
     this.http.get<any[]>('https://sastreria-estilo-ljge.onrender.com/api/Categoria').subscribe({
@@ -59,6 +65,8 @@ export class AnadirModeloComponent implements OnInit {
       return;
     }
 
+    this.loader.show();
+
     Promise.all(this.imagenes.map(img => this.subirImagenACloudinary(img)))
       .then(urls => {
         const body = {
@@ -77,8 +85,14 @@ export class AnadirModeloComponent implements OnInit {
             this.categoriaId = '';
             this.imagenes = [];
             this.imagenesPreview = [];
+
+            this.loader.hide();
+
           },
-          error: () => this.mensajeError = 'Hubo un error al guardar el modelo.'
+          error: () => {
+            this.mensajeError = 'Hubo un error al guardar el modelo.';
+            this.loader.hide();
+          }
         });
       });
   }

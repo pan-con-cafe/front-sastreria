@@ -18,7 +18,7 @@ export class EditarModeloComponent implements OnInit {
   modeloId = 0;
   nombre = '';
   descripcion = '';
-  categoria1 = '';
+  //categoria1 = '';
   categorias: any[] = [];
   imagenes: string[] = [];
   imagenPrincipal = '';
@@ -36,6 +36,8 @@ export class EditarModeloComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.loader.show();
+
     this.route.paramMap.subscribe(params => {
       this.modeloId = Number(params.get('id'));
       this.cargarModelo();
@@ -51,11 +53,11 @@ export class EditarModeloComponent implements OnInit {
       next: (data) => {
         this.nombre = data.nombre;
         this.descripcion = data.descripcion;
-        this.categoria1 = data.idCategoria;
+        //this.categoria1 = data.idCategoria;
         this.imagenes = data.imagenes || [];
         this.imagenPrincipal = this.imagenes[0] || '';
-        console.log('Imagenes cargadas:', this.imagenes);
-      }
+      },
+      complete: () => this.loader.hide()
     });
   }
 
@@ -67,7 +69,10 @@ export class EditarModeloComponent implements OnInit {
     const file = event.target.files[0];
     if (!file || this.imagenes.length >= 4) return;
 
+    this.loader.show();
     const url = await this.subirImagenACloudinary(file);
+    this.loader.hide();
+
     this.imagenes.push(url);
     this.imagenPrincipal = this.imagenes[0];
     this.cambiosPendientes = true;
@@ -87,16 +92,18 @@ export class EditarModeloComponent implements OnInit {
   }
 
   async guardarCambios() {
-    if (!this.nombre || !this.descripcion || !this.categoria1 || this.imagenes.length === 0) {
+    if (!this.nombre || !this.descripcion || this.imagenes.length === 0) {
       this.intentoGuardar = true;
       return;
     }
+
+    this.loader.show();
 
     const body = {
       idModelo: this.modeloId,
       nombre: this.nombre,
       descripcion: this.descripcion,
-      idCategoria: Number(this.categoria1),
+      //idCategoria: Number(this.categoria1),
       imagenes: this.imagenes
     };
 
@@ -105,7 +112,8 @@ export class EditarModeloComponent implements OnInit {
         this.mensajeExito = true;
         this.cambiosPendientes = false;
       },
-      error: (err) => console.error('Error al guardar modelo', err)
+      error: (err) => console.error('Error al guardar modelo', err),
+      complete: () => this.loader.hide()
     });
   }
 
