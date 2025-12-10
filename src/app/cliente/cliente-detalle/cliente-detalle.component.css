@@ -1,8 +1,3 @@
-  /*section {
-    
-    Ajusta esto según la altura de tu navbar
-  } */
-
   section {
     padding-top: 80px;
     margin-top: 45px;
@@ -118,6 +113,10 @@
     margin-bottom: 15px;
     margin: 10px 0;
   }
+  .descripcion-texto {
+    white-space: pre-line;
+  }
+
 
   .product-info ul {
     font-family: "Lexend Deca", sans-serif;

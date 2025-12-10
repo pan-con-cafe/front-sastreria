@@ -34,15 +34,12 @@
         </div>
 
         <label>Categoría:</label>
-        <select name="categoriaId" [(ngModel)]="categoriaId" required #categoriaIdRef="ngModel">
+        <select name="categoriaId" [(ngModel)]="categoriaId" #categoriaIdRef="ngModel">
           <option value="" disabled selected>Elija una categoría</option>
           <option *ngFor="let categoria of categorias" [value]="categoria.idCategoria">
             {{ categoria.nombre }}
           </option>
         </select>
-        <div class="error" *ngIf="categoriaIdRef.invalid && categoriaIdRef.touched">
-          <small>Debe seleccionar una categoría.</small>
-        </div>
       </div>
 
       <div class="imagenes">

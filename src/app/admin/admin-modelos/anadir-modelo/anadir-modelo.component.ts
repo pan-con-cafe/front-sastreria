@@ -60,7 +60,7 @@ export class AnadirModeloComponent implements OnInit {
   }
 
   guardarModelo() {
-    if (!this.nombre || !this.descripcion || !this.categoriaId || this.imagenes.length === 0) {
+    if (!this.nombre || !this.descripcion || this.imagenes.length === 0) {
       this.intentoGuardar = true;
       return;
     }
@@ -72,7 +72,7 @@ export class AnadirModeloComponent implements OnInit {
         const body = {
           nombre: this.nombre,
           descripcion: this.descripcion,
-          CategoriasIds: [Number(this.categoriaId)],
+          CategoriasIds: this.categoriaId ? [Number(this.categoriaId)] : [],
           imagenes: urls
         };
 
