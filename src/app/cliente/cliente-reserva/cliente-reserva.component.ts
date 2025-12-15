@@ -129,7 +129,7 @@ export class ClienteReservaComponent implements OnInit {
       IdHorario: this.horarioElegido.idHorario,
       estado: true,
       notas: '',
-      idModelo: this.product.idModelo, // ← Agregar idModelo aquí
+      idModelo: this.product.id,
       cliente: {
         idTipoDocumento: 1,
         numeroDocumento: this.reservation.dni,
