@@ -5,9 +5,9 @@
             <li><a href="contacto">CONTACTO</a></li>
             <li><a href="modelo">   MODELOS</a></li>
         </ul>
-        <a href="login">
+
             <h1>  ESTILO</h1>
-        </a>
+
         <ul>
             <li><a href="servicios">SERVICIOS</a></li>
             <li><a href="nosotros">NOSOTROS</a></li>
@@ -16,14 +16,76 @@
     <h2>SASTRERIA</h2>
 </header>
 
-<main>
-    <section class="hero">
-        <img src="/index1.PNG" alt="Sastrería">
-        <div class="overlay">
-            <h3>Elegancia y moda a su medida</h3>
-            <p>SASTRERÍA EN HUANCAYO</p>
-            <div class="arrow"></div>
-        </div>
-    </section>
-</main>
+<!-- HERO / BANNER -->
+<section class="hero">
+    <div class="hero-overlay">
+        <h1>Elegancia y moda a su medida</h1>
+        <p>Sastrería en Huancayo</p>
+    </div>
+</section>
+
+<!-- NUEVO EN NUESTRO CATÁLOGO -->
+<section class="catalogo">
+  <h2>Nuevo en nuestro catálogo</h2>
+
+  <div class="carousel">
+    <button class="nav left">‹</button>
+
+    <div class="items">
+      <div class="item" *ngFor="let modelo of modelos">
+        <img [src]="modelo.imagen" alt="Modelo" />
+      </div>
+    </div>
+
+    <button class="nav right">›</button>
+  </div>
+
+  <button class="btn-primary">Explorar más</button>
+</section>
+
+<!-- QUIÉNES SOMOS -->
+<section class="info">
+  <div class="text">
+    <h3>¿Quiénes somos?</h3>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc ante lectus,
+      commodo eu orci non, auctor sollicitudin erat.
+    </p>
+  </div>
+
+  <button class="btn-secondary">Saber más</button>
+</section>
+
+<!-- CONTACTO -->
+<section class="info">
+  <div class="text">
+    <h3>Contacte con nosotros</h3>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc ante lectus,
+      commodo eu orci non, auctor sollicitudin erat.
+    </p>
+  </div>
+
+  <button class="btn-secondary">Saber más</button>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-links">
+    <div>
+      <strong>¿Problemas con la web?</strong>
+      <p>pansiedopan"&#64;"gmail.com</p>
+    </div>
+
+    <div>
+      <strong>¿Es usted administrador?</strong>
+      <p>Inicie sesión aquí</p>
+    </div>
+  </div>
+
+  <p class="copyright">
+    Copyright © 2025 Sastrería Estilo. All Rights Reserved.
+  </p>
+</footer>
+
 <app-chatbot></app-chatbot>
