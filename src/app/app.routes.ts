@@ -26,7 +26,7 @@ export const appRoutes: Routes = [
 
 
   //modulo cliente
-  { path: '', loadChildren: () => import('./cliente/cliente.routes').then(m => m.CLIENTE_ROUTES), },
+  { path: 'cliente', loadChildren: () => import('./cliente/cliente.routes').then(m => m.CLIENTE_ROUTES), },
 
   //modulo administrador
   { path: 'admin', loadChildren: () => import('./admin/admin.routes').then(m => m.ADMIN_ROUTES) },

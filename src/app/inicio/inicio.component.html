@@ -2,15 +2,15 @@
 <header>
     <nav>
         <ul>
-            <li><a href="contacto">CONTACTO</a></li>
-            <li><a href="modelo">   MODELOS</a></li>
+            <li><a href="/cliente/contacto">CONTACTO</a></li>
+            <li><a href="/cliente/modelo">   MODELOS</a></li>
         </ul>
 
             <h1>  ESTILO</h1>
 
         <ul>
-            <li><a href="servicios">SERVICIOS</a></li>
-            <li><a href="nosotros">NOSOTROS</a></li>
+            <li><a href="/cliente/servicios">SERVICIOS</a></li>
+            <li><a href="/cliente/nosotros">NOSOTROS</a></li>
         </ul>
     </nav>
     <h2>SASTRERIA</h2>
@@ -20,7 +20,7 @@
 <section class="hero">
     <div class="hero-overlay">
         <h1>Elegancia y moda a su medida</h1>
-        <p>Sastrería en Huancayo</p>
+        <p>SASTRERIA EN HUANCAYO</p>
     </div>
 </section>
 
@@ -28,19 +28,28 @@
 <section class="catalogo">
   <h2>Nuevo en nuestro catálogo</h2>
 
-  <div class="carousel">
-    <button class="nav left">‹</button>
+    <div class="carousel">
+        <button class="nav left">‹</button>
 
-    <div class="items">
-      <div class="item" *ngFor="let modelo of modelos">
-        <img [src]="modelo.imagen" alt="Modelo" />
-      </div>
+        <div class="items">
+            <a
+                class="item"
+                *ngFor="let modelo of modelos"
+                [routerLink]="['/cliente/modelo', modelo.idModelo]"
+            >
+                <img
+                    *ngIf="modelo.imagenCarrusel"
+                    [src]="modelo.imagenCarrusel"
+                    alt="{{ modelo.nombre }}"
+                />
+            </a>
+        </div>
+
+        <button class="nav right">›</button>
     </div>
 
-    <button class="nav right">›</button>
-  </div>
 
-  <button class="btn-primary">Explorar más</button>
+  <button class="btn-primary" routerLink="/cliente/modelo">Explorar más</button>
 </section>
 
 <!-- QUIÉNES SOMOS -->
@@ -53,7 +62,7 @@
     </p>
   </div>
 
-  <button class="btn-secondary">Saber más</button>
+  <button class="btn-secondary" routerLink="/cliente/nosotros">Saber más</button>
 </section>
 
 <!-- CONTACTO -->
@@ -66,7 +75,7 @@
     </p>
   </div>
 
-  <button class="btn-secondary">Saber más</button>
+  <button class="btn-secondary" routerLink="/cliente/contacto">Saber más</button>
 </section>
 
 <!-- FOOTER -->
@@ -74,12 +83,14 @@
   <div class="footer-links">
     <div>
       <strong>¿Problemas con la web?</strong>
-      <p>pansiedopan"&#64;"gmail.com</p>
+      <p>pansiedopan&#64;gmail.com</p>
     </div>
 
     <div>
       <strong>¿Es usted administrador?</strong>
-      <p>Inicie sesión aquí</p>
+      <a href="login">
+        <p>Inicie sesión aquí</p>
+      </a>
     </div>
   </div>
 

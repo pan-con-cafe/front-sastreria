@@ -13,4 +13,9 @@ export class ModeloService {
   getModeloById(id: number): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/${id}`);
   }
+
+  getModelos(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl);
+  }
+
 }
