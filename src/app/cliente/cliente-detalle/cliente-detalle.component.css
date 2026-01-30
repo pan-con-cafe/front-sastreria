@@ -46,6 +46,23 @@
     color: #333;
     font-weight: 500;
     font-size: 16px;
+    position: relative;
+    padding-bottom: 2px;
+  }
+
+  .back-link a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    background-color: #2f3460;
+    transition: width 0.3s ease;
+  }
+
+  .back-link a:hover::after {
+    width: 100%;
   }
 
   .product-container {
@@ -55,6 +72,10 @@
     align-items: flex-start;
     max-width: 1200px;
     margin: auto;
+    background: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
   }
 
   .product-image {
@@ -68,6 +89,12 @@
     border-radius: 4px;
     margin-bottom: 10px;
     object-fit: cover;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+  }
+
+  .product-image img:hover {
+    transform: scale(1.03);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.25);
   }
 
   .thumbnail-container {
@@ -84,11 +111,14 @@
     border: 1px solid #ccc;
     border-radius: 4px;
     cursor: pointer;
-    transition: transform 0.2s;
+    opacity: 0.8;
+    transition: transform 0.25s ease, opacity 0.25s ease, box-shadow 0.25s ease;
   }
 
   .thumbnail-container img:hover {
-    transform: scale(1.05);
+    transform: translateY(-3px) scale(1.05);
+    opacity: 1;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
   }
 
   .product-info {
@@ -97,21 +127,32 @@
     max-width: 600px;
   }
 
+  .product-info::before {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background-color: #2f3460;
+    margin-bottom: 18px;
+    border-radius: 3px;
+  }
+
   .product-info h1 {
-    font-size: 24px;
+    font-size: 28px;
     font-weight: 600;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
     font-family: "Lora", serif;
     font-weight: 400;
   }
 
   .product-info p {
     font-family: "Lexend Deca", sans-serif;
-    font-weight: 200;
+    font-weight: 300;
     font-size: 16px;
-    line-height: 1.5;
+    line-height: 1.6;
     margin-bottom: 15px;
     margin: 10px 0;
+    color: #444;
   }
   .descripcion-texto {
     white-space: pre-line;
@@ -130,15 +171,22 @@
     background-color: #2f3460;
     color: white;
     font-size: 18px;
-    font-family: "Lora", serif;
-    font-weight: 400;
+    font-family: "Lexend Deca", serif;
+    font-weight: 300;
     padding: 12px 24px;
     border-radius: 12px;
     border: none;
     cursor: pointer;
-    transition: background 0.3s ease;
+    margin-top: 20px;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
   }
 
   .buy-button:hover {
     background-color: #1e223f;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(47, 52, 96, 0.4);
+  }
+
+  .buy-button:active {
+    transform: scale(0.96);
   }

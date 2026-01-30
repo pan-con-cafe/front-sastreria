@@ -117,23 +117,57 @@ header h2 {
 
 .items {
   display: flex;
+  width: 760px;
   gap: 1rem;
   overflow: hidden;
 }
 
+.item {
+  min-width: 120px;
+  height: 180px;
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+
 .item img {
-  width: 140px;
+  width: 140px; 
   height: 200px;
   object-fit: cover;
   display: block;
   border-radius: 4px;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
+
+/* Hover imagen */
+.item:hover img {
+  transform: scale(1.08);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+}
+
+/* Hover item */
+.item:hover {
+  transform: translateY(-4px);
+}   
 
 .nav {
   background: none;
   border: none;
-  font-size: 2rem;
+  font-size: 2.2rem;
   cursor: pointer;
+  padding: 0.5rem 0.8rem;
+  border-radius: 50%;
+  transition: all 0.25s ease;
+}
+
+/* Hover */
+.nav:hover {
+  background: rgba(0, 0, 0, 0.15);
+  transform: scale(1.15);
+}
+
+/* Click */
+.nav:active {
+  transform: scale(0.95);
 }
 
 /* SECCIONES INFO */
@@ -165,6 +199,28 @@ header h2 {
   padding: 0.5rem 1.4rem;
   border-radius: 20px;
   cursor: pointer;
+  white-space: nowrap;
+  display: inline-flex;
+  transition: 
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    background-color 0.25s ease;
+}
+
+
+/* Hover */
+.btn-primary:hover,
+.btn-secondary:hover {
+  background-color: #3b3b8f;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(46, 46, 114, 0.35);
+}
+
+/* Click */
+.btn-primary:active,
+.btn-secondary:active {
+  transform: translateY(0) scale(0.96);
+  box-shadow: 0 3px 8px rgba(46, 46, 114, 0.25);
 }
 
 /* FOOTER */
@@ -180,12 +236,28 @@ footer {
   display: flex;
   justify-content: space-around;
   margin-bottom: 0.9rem;
+  position: relative;
+  transition: color 0.2s ease;
 }
+
 
 a{
     text-decoration: none;
     color: black;
     cursor: pointer;
+}
+
+a.btn-primary,
+a.btn-secondary {
+  display: inline-block;
+}
+
+.footer-links a:hover {
+  color: #2e2e72;
+}
+
+.footer-links a:hover::after {
+  width: 100%;
 }
 
 footer p {

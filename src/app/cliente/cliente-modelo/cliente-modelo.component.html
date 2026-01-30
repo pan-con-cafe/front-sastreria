@@ -8,7 +8,7 @@
 
       <div class="carousel-inner" #carousel>
         <div class="image-placeholder" *ngFor="let modelo of categoria.modelos">
-          <a [routerLink]="['/detalle', modelo.idModelo]">
+          <a [routerLink]="['/cliente/detalle', modelo.idModelo]">
             <img [src]="modelo.imagenes[0] || 'https://via.placeholder.com/150'" [alt]="modelo.nombre" />
           </a>
         </div>
@@ -28,7 +28,7 @@
 
     <div class="carousel-inner" #carousel>
       <div class="image-placeholder" *ngFor="let modelo of verTodo">
-        <a [routerLink]="['/detalle', modelo.idModelo]">
+        <a [routerLink]="['/cliente/detalle', modelo.idModelo]">
           <img [src]="modelo.imagenes[0] || 'https://via.placeholder.com/150'" [alt]="modelo.nombre" />
         </a>
       </div>

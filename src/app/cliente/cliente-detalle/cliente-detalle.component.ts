@@ -39,7 +39,7 @@ export class ClienteDetalleComponent implements OnInit {
 
   goToReserva() {
     if (this.product?.id) {
-      this.router.navigate(['/reserva', this.product.id]);
+      this.router.navigate(['/cliente/reserva', this.product.id]);
     } else {
       console.error('No se encontró el ID del modelo');
     }

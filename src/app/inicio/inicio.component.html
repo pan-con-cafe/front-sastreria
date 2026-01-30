@@ -35,11 +35,11 @@
             <a
                 class="item"
                 *ngFor="let modelo of modelos"
-                [routerLink]="['/cliente/modelo', modelo.idModelo]"
+                [routerLink]="['/cliente/detalle', modelo.idModelo]"
             >
                 <img
-                    *ngIf="modelo.imagenCarrusel"
-                    [src]="modelo.imagenCarrusel"
+                    *ngIf="modelo.imagenes?.length"
+                    [src]="modelo.imagenes[0]"
                     alt="{{ modelo.nombre }}"
                 />
             </a>
@@ -47,7 +47,7 @@
 
         <button class="nav right">›</button>
     </div>
-
+    
 
   <button class="btn-primary" routerLink="/cliente/modelo">Explorar más</button>
 </section>

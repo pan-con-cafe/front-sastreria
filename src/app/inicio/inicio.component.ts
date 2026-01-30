@@ -23,21 +23,19 @@ export class InicioComponent implements OnInit {
   cargarModelos() {
     this.modeloService.getModelos().subscribe({
       next: (data) => {
-        console.log('Modelos recibidos:', data);
-        console.log('Modelo completo:', data[0]);
-        console.log('Primera imagen:', data[0].imagenes[0]);
-        
-        this.modelos = data.slice(0, 5).map(m => ({
-        ...m,
-          imagenCarrusel: m.imagenes && m.imagenes.length > 0
-          ? m.imagenes[0]
-          : null
-        }));
+        console.log('DATA RAW:', data);
+        console.log('ES ARRAY?', Array.isArray(data));
+        this.modelos = data
+        .sort(
+          (a, b) =>
+            new Date(b.fechaCreacion).getTime() -
+            new Date(a.fechaCreacion).getTime()
+        ) 
+        .slice(0, 5);
       },
       error: (err) => {
         console.error('Error al cargar modelos', err);
       }
     });
   }
-
 }

@@ -47,10 +47,14 @@ section {
     margin-bottom: 20px;
     margin-left: 6.5rem;
     text-align: left;
-    font-family: "Kaisei HarunoUmi", serif;
-    font-weight: 300;
-    text-decoration: underline;
+    font-family: "Lexend Deca", serif;
+    font-weight: 400;
+    /*transition: letter-spacing 0.3s ease;*/
   }
+
+  /*h2:hover {
+    letter-spacing: 1px;
+  }*/
   
   /* Carousel */
   .carousel {
@@ -78,7 +82,54 @@ section {
   border-radius: 5px;
   background-color: #f0f0f0;
   border: 1px solid #ccc;
+  overflow: hidden;
   display: inline-block;
+  transition: transform 0.3s ease;
+  position: relative;
+}
+
+.image-placeholder img {
+  width: 150;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 6px;
+
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+/* Hover imagen */
+.image-placeholder:hover img {
+  transform: scale(1.08);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+}
+
+/* Hover contenedor */
+.image-placeholder:hover {
+  transform: translateY(-4px);
+}
+
+.image-placeholder::after {
+  content: "Ver detalle";
+  white-space: nowrap;
+  display: inline-flex;
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
+  opacity: 0;
+  font-size: 0.9rem;
+  font-family: "Lexend Deca", serif;
+  background: #000000;
+  color: white;
+  padding: 0.5rem 6rem;
+  border-radius: 12px;
+
+  transition: all 0.3s ease;
+}
+
+.image-placeholder:hover::after {
+  opacity: 0.7;
+  transform: translateX(-50%) translateY(0);
 }
 
 img {
@@ -94,4 +145,19 @@ img {
   user-select: none;
   display: flex;
   align-items: center;
+  border-radius: 50%;
+  transition: transform 0.25s ease, background-color 0.25s ease;
+}
+
+/* Hover */
+.arrow-left:hover,
+.arrow-right:hover {
+  background-color: rgba(0, 0, 0, 0.08);
+  transform: scale(1.2);
+}
+
+/* Click */
+.arrow-left:active,
+.arrow-right:active {
+  transform: scale(0.95);
 }
