@@ -12,6 +12,10 @@
     max-width: 1200px;
     margin: auto;
     font-family: "Lexend Deca", sans-serif;
+
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
   }
   
   .image-container {
@@ -24,14 +28,20 @@
     width: 100%;
     max-height: 500px;
     object-fit: cover;
-    border-radius: 8px;
-    margin-bottom: 15px;
+    border-radius: 14px;
+    margin-bottom: 18px;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+  }
+
+  .image-container img:hover {
+    transform: scale(1.03);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.25);
   }
   
   .image-container p {
     font-weight: 300;
     font-size: 14px;
-    color: #333;
+    color: #444;
   }
   
   .reservation-form {
@@ -40,26 +50,36 @@
     flex-direction: column;
     gap: 20px;
   }
-  
-  .reservation-form p{
-    font-family: "Libre Franklin", serif;
-    font-weight: 200;
-    font-size: 17px;
-    margin: 0;
-    margin-top: 10px;
-  }
 
   .reservation-form h2 {
     font-family: "Lora", serif;
     font-weight: 400;
-    font-size: 32px;
-    margin-bottom: 10px;
+    font-size: 34px;
+    margin-bottom: 6px;
+  }
+
+.reservation-form h2::after {
+  content: '';
+  display: block;
+  width: 70px;
+  height: 3px;
+  background-color: #36377d;
+  margin-top: 10px;
+  border-radius: 3px;
+}
+
+  
+  .reservation-form p{
+    font-weight: 200;
+    font-size: 17px;
+    line-height: 1.5;
+    margin: 0;
+    margin-top: 10px;
   }
 
   .reservation-form input,
   .reservation-form select,
   .reservation-form textarea {
-    font-family: "Libre Franklin", sans-serif;
     font-weight: 200;
   }
   
@@ -75,7 +95,6 @@
   }
   
   .input-field label {
-    font-family: "Libre Franklin", serif;
     font-weight: 200;
     margin-bottom: 5px;
     font-size: 17px;
@@ -84,30 +103,51 @@
   .input-field input,
   .input-field button,
   .horario {
-    padding: 12px;
+    padding: 14px 18px;
     font-size: 14px;
-    border: 1px solid #ccc;
+    border: 1px solid #ddd;
     border-radius: 999px;
-    background-color: #eee;
+    background-color: #f2f2f2;
     outline: none;
     text-align: left;
     cursor: pointer;
+    transition: 
+      border-color 0.25s ease,
+      background-color 0.25s ease,
+      box-shadow 0.25s ease;
   }
 
   .input-field button::after {
+    font-size: 14px;
     content: "Seleccionar horario";
     color: #555;
     font-weight: 300;
   }
+
+.input-field input:focus,
+.input-field button:hover,
+.horario:hover {
+  background-color: #fff;
+  border-color: #36377d;
+  box-shadow: 0 0 0 3px rgba(54, 55, 125, 0.15);
+}
   
   .radio-options {
     display: flex;
     flex-direction: column;
     gap: 10px;
     font-size: 17px;
-    font-family: "Libre Franklin", serif;
     font-weight: 200;
   }
+
+.radio-options label {
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.radio-options label:hover {
+  transform: translateX(4px);
+}
   
   .radio-options input[type="radio"] {
     margin-right: 10px;
@@ -117,24 +157,30 @@
     padding: 12px 30px;
     background-color: #36377d;
     color: white;
-    font-family: "Lora", serif;
+    font-family: "Lexend Deca", serif;
     font-size: 22px;
-    font-weight: 400;
+    font-weight: 300;
     border: none;
     border-radius: 999px;
     cursor: pointer;
     align-self: start;
-    margin-top: 10px;
-    transition: background 0.3s ease;
+    margin-top: 20px;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
   }
   
-  .submit-button:hover {
-    background-color: #2b2d66;
-  }
+.submit-button:hover {
+  background-color: #2b2d66;
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(54, 55, 125, 0.4);
+}
+
+.submit-button:active {
+  transform: scale(0.96);
+}
   
-  small.error {
+small.error {
   color: #d10000;
   font-size: 13px;
-  margin-top: 4px;
+  margin-top: 6px;
   font-weight: 300;
 }

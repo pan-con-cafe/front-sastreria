@@ -2,7 +2,6 @@
     padding-top: 80px;
     margin-top: 45px;
     padding: 40px 20px;
-    font-family: 'Georgia', serif;
     color: #222;
   }
 
@@ -36,6 +35,7 @@
   }
 
   .back-link {
+    
     margin-bottom: 20px;
     margin-top: 19px;
     margin-left: 4rem;
@@ -44,8 +44,9 @@
   .back-link a {
     text-decoration: none;
     color: #333;
+    font-family: "Lora", serif;
     font-weight: 500;
-    font-size: 16px;
+    font-size: 17px;
     position: relative;
     padding-bottom: 2px;
   }

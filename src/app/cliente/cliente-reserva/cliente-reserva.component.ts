@@ -149,7 +149,7 @@ export class ClienteReservaComponent implements OnInit {
         }).subscribe({
           next: () => {
             this.loader.hide();
-            this.router.navigate(['/reservado'], {
+            this.router.navigate(['/cliente/reservado'], {
               state: {
                 nombres: this.reservation.nombres + ' ' + this.reservation.apellidos,
                 fecha: this.horarioElegido?.dia ?? '',

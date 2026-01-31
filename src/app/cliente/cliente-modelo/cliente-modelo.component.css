@@ -73,7 +73,15 @@ section {
   gap: 10px;
   padding: 10px 0;
   max-width: 80%;
+  overflow-x: auto;
+  scrollbar-width: none; /* Firefox */
 }
+
+
+.carousel-inner::-webkit-scrollbar {
+  display: none; /* Chrome, Edge, Safari */
+}
+
   
 .image-placeholder {
   min-width: 150px;
