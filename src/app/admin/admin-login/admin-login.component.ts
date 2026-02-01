@@ -18,9 +18,22 @@ export class AdminLoginComponent {
 
   errorMessage: string | null = null;
 
+  loading = false;
+
   constructor(private authService: AuthService, private router: Router) {}
 
+  showPassword = false;
+
+  togglePassword() {
+    this.showPassword = !this.showPassword;
+  }
+
   onLogin(): void {
+
+    if (!this.correo || !this.contrasenia) return;
+
+    this.loading = true;
+    
     this.authService.login({ correo: this.correo, contrasenia: this.contrasenia })
       .subscribe({
         next: () => {

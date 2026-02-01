@@ -1,4 +1,5 @@
 <section class="login-container">
+  <div class="login-card">
   <img src="/logo.PNG" alt="Estilo Sastrería Logo" class="logo" />
 
   <h2>Inicie sesión como administrador</h2>
@@ -14,15 +15,33 @@
     />
 
     <label for="password">Contraseña:</label>
+    <div class="password-field">
     <input
       id="contrasenia"
-      type="password"
+      [type]="showPassword ? 'text' : 'password'"
       name="contrasenia"
       [(ngModel)]="contrasenia"
       required
     />
 
-    <button type="submit" class="login-btn">Iniciar sesión</button>
+    <img
+      class="toggle-eye"
+      [src]="showPassword ? 'visibilidad.png' : '/ojo.png'"
+      alt="Mostrar contraseña"
+      (click)="togglePassword()"
+    />
+    </div>
+
+    <button type="submit" class="login-btn" [disabled]="loading">
+      <ng-container *ngIf="!loading; else loadingTpl">
+        Iniciar sesión
+      </ng-container>
+
+      <ng-template #loadingTpl>
+        <span class="spinner"></span>
+        Cargando...
+      </ng-template>
+    </button>
   </form>
 
   <div *ngIf="errorMessage" class="error-message">
@@ -30,4 +49,5 @@
   </div>
 
   <a routerLink="/" class="back-link">&lt; Volver</a>
+  </div>
 </section>
