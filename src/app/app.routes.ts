@@ -31,6 +31,7 @@ export const appRoutes: Routes = [
   //modulo administrador
   { path: 'admin', loadChildren: () => import('./admin/admin.routes').then(m => m.ADMIN_ROUTES) },
 
+
   //login y chatbot
   { path: 'login', component: AdminLoginComponent },
   { path: 'chatbot', component: ChatbotComponent },

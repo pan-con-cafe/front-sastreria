@@ -17,5 +17,4 @@ export class AdminPedidosComponent {
     this.authService.logout();
     this.router.navigate(['/login']);
   }
-
 }

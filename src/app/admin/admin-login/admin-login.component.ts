@@ -45,6 +45,12 @@ export class AdminLoginComponent {
       });
   }
 
+  ngOnInit(): void {
+    if (this.authService.isAuthenticated()) {
+      this.router.navigate(['/admin/general']); // o /panel-admin
+    }
+  }
+
   onLogout(): void {
     this.authService.logout();
     this.router.navigate(['/login']);
