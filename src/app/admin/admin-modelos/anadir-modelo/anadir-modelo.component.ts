@@ -17,7 +17,7 @@ import { LoaderService } from '../../../shared/loader/loader.service';
 export class AnadirModeloComponent implements OnInit {
   nombre = '';
   descripcion = '';
-  categoriaId = '';  // CORREGIDO: usamos esto ahora
+  categoriaId = ''; 
   categorias: any[] = [];
   imagenes: File[] = [];
   imagenesPreview: string[] = [];

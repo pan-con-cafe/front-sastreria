@@ -10,8 +10,17 @@
 }
 
 h2 {
-  font-size: 22px;
-  font-weight: 300;
+  font-size: 25px;
+  font-weight: 400;
+  margin-bottom: 1rem;
+}
+
+button,
+.modelo,
+.input,
+.icono-eliminar
+.btn-eliminar {
+  transition: all 0.25s ease;
 }
 
 .btn-eliminar {
@@ -27,10 +36,22 @@ h2 {
   font-family: "Lexend Deca", serif;
 }
 
+.btn-eliminar:hover {
+  background-color: #d6b6b0;
+  color: #4a2f2f;
+  transform: scale(1.05);
+}
+
+.btn-eliminar:active {
+  transform: scale(0.95);
+}
+
 .form-group {
   margin-top: 1.5rem;
   font-size: 18px;
   font-weight: 300;
+  flex-direction: column;
+  display: flex;
 }
 
 .input {
@@ -44,6 +65,11 @@ h2 {
   font-weight: 300;
   font-family: "Libre Franklin", serif;
   font-size: 16px;
+}
+
+.input:focus {
+  background-color: #f0f0f0;
+  box-shadow: 0 0 0 2px rgba(176, 122, 106, 0.4);
 }
 
 .modelos-container {
@@ -62,6 +88,11 @@ h2 {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.modelo:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
 .imagen-modelo {
@@ -83,6 +114,13 @@ h2 {
   align-items: center;
   border: none;
   border-radius: 50%;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  background-color: #ffffff;
+}
+
+.icono-eliminar:hover {
+  transform: scale(1.2);
+  background-color: #f8d7da;
 }
 
 .img-eliminar{
@@ -100,6 +138,15 @@ h2 {
   width: 32px;
   height: 32px;
   cursor: pointer;
+}
+
+.btn-agregar:hover {
+  transform: scale(1.15);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.btn-agregar:active {
+  transform: scale(0.95);
 }
 
 .img-add{
@@ -132,6 +179,13 @@ h2 {
 
 .btn-guardar:hover {
   background-color: #b07a6a;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(176, 122, 106, 0.35);
+}
+
+.btn-guardar:active {
+  transform: scale(0.96);
+  box-shadow: none;
 }
 
 .btn-cancelar {
@@ -149,6 +203,11 @@ h2 {
 .btn-cancelar:hover {
   background-color: #c6c6c6;
   color: white;
+  transform: translateY(-1px);
+}
+
+.btn-cancelar:active {
+  transform: scale(0.95);
 }
 
 .mensaje-exito {
@@ -164,10 +223,23 @@ h2 {
   padding: 0.8rem 1.2rem;
   border-radius: 10px;
   max-width: 400px;
+  animation: fadeInUp 0.4s ease;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .error {
   color: red;
   font-size: 0.85rem;
   margin-top: 0.3rem;
+  animation: fadeInUp 0.4s ease;
 }

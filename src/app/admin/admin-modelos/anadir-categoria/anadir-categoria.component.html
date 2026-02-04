@@ -1,6 +1,9 @@
 <form #formCategoria="ngForm" (ngSubmit)="guardarCategoria()" novalidate>
   <div class="form-container">
-    <h2 class="titulo">Añadir categoría:</h2>
+    <div class="header">
+      <h2 class="titulo">Añadir categoría:</h2>
+    </div>
+    
 
     <div class="form-group">
       <label for="nombre">Nombre:</label>
@@ -22,19 +25,20 @@
       </div>
     </div>
 
-    <div class="form-group modelos">
+    <div class="form-group">
       <label>Modelos seleccionados:</label>
-      <button type="button" class="boton-icono" (click)="abrirModalSelector()">
-        <span class="icono-mas">+</span>
-      </button>
+      <div class="modelos-container">
+        <div class="modelo" *ngFor="let modelo of modelosSeleccionados; let i = index">
+          <button type="button" class="icono-eliminar" (click)="eliminarModelo(i)">
+            <img src="/remove.png" alt="quitar" class="img-eliminar">
+          </button>
+          <div class="imagen-modelo" [style.background-image]="'url(' + modelo.imagen + ')'"></div>
+        </div>
+        <button type="button" class="btn-agregar" (click)="abrirModalSelector()">
+          <img src="add.png" alt="añadir" class="img-add">
+        </button>
+      </div>
     </div>
-
-    <ul class="lista-modelos" *ngIf="modelosSeleccionados.length > 0">
-      <li *ngFor="let modelo of modelosSeleccionados" class="modelo-item">
-        <img [src]="modelo.imagen" alt="Imagen del modelo" class="miniatura" />
-        <span>{{ modelo.nombre }}</span>
-      </li>
-    </ul>
 
 
     <div class="boton-container">
@@ -53,6 +57,8 @@
     (confirmar)="confirmarSalida()"
     (cancelar)="cerrarModalCancelar()">
 </app-confirmacion-salida>
+
+
 
 <app-modal-selector-modelo 
     *ngIf="mostrarModalSelector"

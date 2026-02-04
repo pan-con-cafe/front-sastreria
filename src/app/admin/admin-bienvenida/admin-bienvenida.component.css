@@ -1,10 +1,12 @@
-section {
+
+.welcome {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
   color: gray;
-  text-align: center;
+  margin-top: 50%;
 }
 
 h1 {

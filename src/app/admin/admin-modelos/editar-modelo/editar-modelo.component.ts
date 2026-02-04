@@ -1,5 +1,6 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { CommonModule, NgIf, NgFor } from '@angular/common';
+import { Router } from '@angular/router';
 import { RouterLink, ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
@@ -21,16 +22,20 @@ export class EditarModeloComponent implements OnInit {
   //categoria1 = '';
   categorias: any[] = [];
   imagenes: string[] = [];
-  imagenPrincipal = '';
+  imagenesFile: File[] = []; 
+  imagenesPreview: string[] = [];
+  imagenAmpliada = '';
   intentoGuardar = false;
   mensajeExito = false;
   mostrarModal = false;
   cambiosPendientes = false;
-
-  @ViewChild('inputImagen') inputImagen!: ElementRef<HTMLInputElement>;
+  dragging = false;
+  errorImagen = false;
+  @ViewChild('inputImagenes') inputImagenes!: ElementRef<HTMLInputElement>;
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private http: HttpClient,
     public loader: LoaderService,
   ) {}
@@ -48,20 +53,87 @@ export class EditarModeloComponent implements OnInit {
     });
   }
 
+  cargarImagenes(event: any) {
+    const files: File[] = Array.from(event.target.files);
+    if (this.imagenes.length + files.length > 4) {
+      this.errorImagen = true;
+      return;
+    }
+    this.errorImagen = false;
+    files.forEach(file => {
+      this.imagenesFile.push(file);
+      const reader = new FileReader();
+      reader.onload = e => this.imagenesPreview.push(e.target?.result as string);
+      reader.readAsDataURL(file);
+    });
+    this.cambiosPendientes = true;
+  }
+
+  eliminarImagen(index: number, event?: Event) {
+    event?.stopPropagation();
+
+    this.imagenesPreview.splice(index, 1);
+    if (index < this.imagenes.length) {
+      this.imagenes.splice(index, 1);
+    } else {
+      this.imagenesFile.splice(index - this.imagenes.length, 1);
+    }
+    
+    this.cambiosPendientes = true;
+  }
+
+  clickEnContenedor(event: Event) {
+    this.inputImagenes.nativeElement.click();
+  }
+
+  evitarComportamientoPorDefecto(event: DragEvent) {
+    event.preventDefault();
+    this.dragging = event.type === 'dragover';
+  }
+
+  manejarDrop(event: DragEvent) {
+    this.evitarComportamientoPorDefecto(event);
+    if (!event.dataTransfer?.files) return;
+    const files = Array.from(event.dataTransfer.files);
+    if (this.imagenesPreview.length + files.length > 4) {
+      this.errorImagen = true;
+      return;
+    }
+    this.errorImagen = false;
+
+    files.forEach(file => {
+      this.imagenesFile.push(file);
+      const reader = new FileReader();
+      reader.onload = e => this.imagenesPreview.push(e.target?.result as string);
+      reader.readAsDataURL(file);
+    });
+    this.cambiosPendientes = true;
+  }
+
+  ampliarImagen(img: string, event?: Event) {
+    event?.stopPropagation();
+    
+    this.imagenAmpliada = img;
+  }
+
+  cerrarAmpliacion() {
+    this.imagenAmpliada = '';
+  }
+
   cargarModelo() {
     this.http.get<any>('https://sastreria-estilo-ljge.onrender.com/api/Modelo/' + this.modeloId).subscribe({
       next: (data) => {
         this.nombre = data.nombre;
         this.descripcion = data.descripcion;
-        //this.categoria1 = data.idCategoria;
         this.imagenes = data.imagenes || [];
-        this.imagenPrincipal = this.imagenes[0] || '';
+        this.imagenesPreview = [...this.imagenes];
+        this.imagenesFile = [];
       },
       complete: () => this.loader.hide()
     });
   }
 
-  seleccionarImagen() {
+  /*seleccionarImagen() {
     this.inputImagen.nativeElement.click();
   }
 
@@ -76,20 +148,8 @@ export class EditarModeloComponent implements OnInit {
     this.imagenes.push(url);
     this.imagenPrincipal = this.imagenes[0];
     this.cambiosPendientes = true;
-  }
+  }*/
 
-  eliminarImagen(index: number, event: Event) {
-    event.stopPropagation();
-    this.imagenes.splice(index, 1);
-    this.imagenPrincipal = this.imagenes[0] || '';
-    this.cambiosPendientes = true;
-  }
-
-  cambiarPrincipal(index: number) {
-    const selected = this.imagenes[index];
-    this.imagenPrincipal = selected;
-    this.cambiosPendientes = true;
-  }
 
   async guardarCambios() {
     if (!this.nombre || !this.descripcion || this.imagenes.length === 0) {
@@ -99,11 +159,15 @@ export class EditarModeloComponent implements OnInit {
 
     this.loader.show();
 
+    for (const file of this.imagenesFile) {
+      const url = await this.subirImagenACloudinary(file);
+      this.imagenes.push(url);
+    }
+
     const body = {
       idModelo: this.modeloId,
       nombre: this.nombre,
       descripcion: this.descripcion,
-      //idCategoria: Number(this.categoria1),
       imagenes: this.imagenes
     };
 
@@ -111,6 +175,7 @@ export class EditarModeloComponent implements OnInit {
       next: () => {
         this.mensajeExito = true;
         this.cambiosPendientes = false;
+        this.imagenesFile = [];
       },
       error: (err) => console.error('Error al guardar modelo', err),
       complete: () => this.loader.hide()

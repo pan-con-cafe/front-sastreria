@@ -1,12 +1,8 @@
-section {
-  padding-top: 80px; /* Ajusta esto según la altura de tu navbar */
-}
 
 .contenedor {
   font-family: "Libre Franklin", serfi;
   width: 1000px;
   height: 800px;
-  padding-top: 80px;
 }
 
 .contenedor h2{

@@ -57,7 +57,7 @@
           </ng-container>
           <ng-container *ngFor="let img of imagenesPreview; let i = index">
             <div class="img-contenedor">
-              <img [src]="img" alt="Vista previa" (click)="ampliarImagen(img)" />
+              <img [src]="img" alt="Vista previa" (click)="ampliarImagen(img)"/>
               <span class="eliminar" (click)="eliminarImagen(i)">X</span>
             </div>
           </ng-container>

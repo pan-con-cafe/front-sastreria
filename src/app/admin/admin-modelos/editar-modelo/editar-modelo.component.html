@@ -3,7 +3,7 @@
 
   <form #formModelo="ngForm" (ngSubmit)="guardarCambios()" novalidate>
     <div class="editar-grid">
-      <!-- Sección imágenes -->
+      <!-- Sección imágenes
       <div class="imagenes-section">
         <div class="imagen-principal">
           <img *ngIf="imagenPrincipal" [src]="imagenPrincipal" alt="Principal" />
@@ -28,7 +28,7 @@
                accept="image/*"
                (change)="cargarImagen($event)"
                (input)="onCambios()" />
-      </div>
+      </div> -->
 
       <!-- Formulario -->
       <div class="formulario-section">
@@ -59,6 +59,32 @@
           <small *ngIf="descripcionRef.errors?.['minlength']">Mínimo 10 caracteres.</small>
         </div>
       </div>
+
+      <div class="imagenes">
+        <label>Imágenes:</label>
+        <div
+          class="imagen-placeholder"
+          [class.drag-over]="dragging"
+          (click)="clickEnContenedor($event)"
+          (dragover)="evitarComportamientoPorDefecto($event)"
+          (dragleave)="evitarComportamientoPorDefecto($event)"
+          (drop)="manejarDrop($event)"
+        >
+          <ng-container *ngIf="imagenesPreview.length === 0">
+            <img src="assets/icono-imagen-placeholder.svg" alt="placeholder" />
+          </ng-container>
+          <ng-container *ngFor="let img of imagenesPreview; let i = index">
+            <div class="img-contenedor">
+              <img [src]="img" alt="Vista previa" (click)="ampliarImagen(img, $event)"/>
+              <span class="eliminar" (click)="eliminarImagen(i, $event)">X</span>
+            </div>
+          </ng-container>
+        </div>
+        <input type="file" #inputImagenes multiple accept="image/*" hidden (change)="cargarImagenes($event)" />
+        <p class="info">Añada de 1 a 4 imágenes, arrastre o haga click para agregar una</p>
+        <p class="error" *ngIf="errorImagen">Solo se permiten hasta 4 imágenes.</p>
+        <p class="error" *ngIf="intentoGuardar && imagenesPreview.length === 0">Debe añadir al menos una imagen.</p>
+      </div>
     </div>
 
     <!-- Botones y validación final -->
@@ -74,6 +100,10 @@
   </form>
 
   <p class="mensaje-exito" *ngIf="mensajeExito">Cambios guardados correctamente.</p>
+
+  <div class="fondo-ampliado" *ngIf="imagenAmpliada" (click)="cerrarAmpliacion()">
+    <img [src]="imagenAmpliada" alt="Vista ampliada" />
+  </div>
 </div>
 
 <app-confirmacion-salida
