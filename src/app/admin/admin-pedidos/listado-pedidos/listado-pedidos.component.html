@@ -14,5 +14,14 @@
         </div>
       </div>
     </div>
+
+    <div class="paginacion">
+    <button (click)="paginaAnterior()" [disabled]="page === 1">←</button>
+
+    <span>Página {{ page }}</span>
+
+    <button (click)="paginaSiguiente()" [disabled]="pedidosAmpliados.length < pageSize">→</button>
+  </div>
+
   </div>
 </section>

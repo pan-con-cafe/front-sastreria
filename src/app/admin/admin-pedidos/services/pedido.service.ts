@@ -7,12 +7,18 @@ import { Pedido } from '../models/pedido.model';
   providedIn: 'root'
 })
 export class PedidoService {
-  private apiUrl = 'https://sastreria-estilo-ljge.onrender.com/api/Pedido';
+  private apiUrl = 'https://sastreria-estilo-ljge.onrender.com/api/Pedido/';
 
   constructor(private http: HttpClient) {}
 
   getPedidos(): Observable<Pedido[]> {
     return this.http.get<Pedido[]>(this.apiUrl);
+  }
+
+  getPedidosPaged(page: number, pageSize: number): Observable<Pedido[]> {
+    return this.http.get<Pedido[]>(
+      `${this.apiUrl}/paged?page=${page}&pageSize=${pageSize}`
+    );
   }
 
   getPedidoById(id: number): Observable<Pedido> {

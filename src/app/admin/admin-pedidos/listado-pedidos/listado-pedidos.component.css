@@ -44,3 +44,37 @@ p{
   font-weight: 500;
   font-family: "Lexend Deca", serif;
 }
+
+
+.paginacion {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 30px;
+}
+
+.paginacion button {
+  border: none;
+  background-color: #f1e7e4;
+  color: #333;
+  padding: 8px 14px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-family: "Lexend Deca", serif;
+}
+
+.paginacion button:hover {
+  background-color: #d3a58f;
+  color: white;
+}
+
+.paginacion button.activa {
+  background-color: #b07a6a;
+  color: white;
+  font-weight: 500;
+}
+
+.paginacion button:disabled {
+  background-color: #e0e0e0;
+  cursor: not-allowed;
+}

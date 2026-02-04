@@ -13,7 +13,7 @@ import { Horario } from '../models/horario.model';
 })
 export class VerHorarioComponent implements OnInit {
   dias: string[] = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
-  horario: string[][] = [];
+  horario: { texto: string; activo: boolean }[][] = [];
 
   constructor(private horarioService: HorarioService) {}
 
@@ -44,12 +44,12 @@ export class VerHorarioComponent implements OnInit {
 
         this.horario = this.dias.map(dia => {
           const horariosDia = horariosOrdenados
-            .filter(h => h.dia === dia && h.estado)
-            .map(h => `${this.formatearHora(h.horaInicio)} - ${this.formatearHora(h.horaFin)}`);
-          return horariosDia.length > 0 ? horariosDia : ['Sin horario disponible'];
-        });
-      },
-      error: (err) => console.error('Error al cargar horario', err)
+            .filter(h => h.dia === dia)
+            .map(h => ({ texto: `${this.formatearHora(h.horaInicio)} - ${this.formatearHora(h.horaFin)}`, activo: h.estado }));
+          return horariosDia.length > 0 ? horariosDia : [{ texto: 'Sin horario disponible', activo: false }];
+        })
+      }
+      //error: (err) => console.error('Error al cargar horario', err),
     });
   }
 

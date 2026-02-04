@@ -5,7 +5,7 @@
     <div *ngFor="let dia of dias; let i = index">
       <div class="dia-header">{{ dia }}</div>
       <div *ngFor="let hora of horario[i]" class="hora-input">
-        <input [value]="hora" readonly />
+        <input [value]="hora.texto" readonly [class.inactivo]="!hora.activo"/>
       </div>
     </div>
   </div>

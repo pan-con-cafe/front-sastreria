@@ -23,7 +23,13 @@ interface PedidoListado {
 })
 export class ListadoPedidosComponent implements OnInit {
   //pedidos: Pedido[] = [];
+
+  page: number = 1;
+  pageSize: number = 10;
   pedidosAmpliados: PedidoListado[] = [];
+  totalPages = 1;
+
+  cachePaginas = new Map<number, PedidoListado[]>();
 
   private apiPedidos = 'https://sastreria-estilo-ljge.onrender.com/api/Pedido';
   private apiClientes = 'https://sastreria-estilo-ljge.onrender.com/api/Cliente';
@@ -47,7 +53,13 @@ export class ListadoPedidosComponent implements OnInit {
   }
 
   async cargarPedidos() {
-    const pedidos = await firstValueFrom(this.http.get<any[]>(this.apiPedidos));
+
+    if (this.cachePaginas.has(this.page)) {
+      this.pedidosAmpliados = this.cachePaginas.get(this.page)!;
+      return;
+    }
+
+    const pedidos = await firstValueFrom(this.http.get<any[]>(`${this.apiPedidos}/paged?page=${this.page}&pageSize=${this.pageSize}`));
     const citas = await firstValueFrom(this.http.get<any[]>(this.apiCitas));
 
       
@@ -80,9 +92,26 @@ export class ListadoPedidosComponent implements OnInit {
           };
         })
       );
+
+      // 🔹 guardar en cache
+      this.cachePaginas.set(this.page, this.pedidosAmpliados);
+      this.pedidosAmpliados = this.pedidosAmpliados;
   }
 
   verDetalle(id: number): void {
     this.router.navigate(['/admin/pedidos/ver-pedido', id]);
   }
+
+  paginaSiguiente(): void {
+    this.page++;
+    this.cargarPedidos();
+  }
+
+  paginaAnterior(): void {
+    if (this.page > 1) {
+      this.page--;
+      this.cargarPedidos();
+    }
+  }
+
 }

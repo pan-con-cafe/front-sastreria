@@ -5,12 +5,8 @@
     <div *ngFor="let dia of dias; let i = index">
       <div class="dia-header">{{ dia }}</div>
 
-      <div *ngFor="let bloque of horario[i]; let j = index" class="hora-input">
-        <span>{{ bloque.horaInicio }} - {{ bloque.horaFin }}</span>
-        <label>
-          <input type="checkbox" [(ngModel)]="horario[i][j].estado" (change)="onCambios()" />
-          Disponible
-        </label>
+      <div *ngFor="let bloque of horario[i]; let j = index" class="bloque-horario" [class.activo]="bloque.estado" [class.inactivo]="!bloque.estado" (click)="toggleHorario(i, j)">
+        {{ bloque.horaInicio }} - {{ bloque.horaFin }}
       </div>
     </div>
   </div>

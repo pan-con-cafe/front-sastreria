@@ -61,11 +61,45 @@ export class EditarHorarioComponent implements OnInit {
               estado: b.estado
             }));
         });
+
+        this.verificarResetSemanal();
+
+        if (this.cambiosPendientes) {
+          this.guardarHorario(); // guarda el reset automáticamente
+        }
+
       },
       error: (err) => console.error('Error al cargar horario', err),
       complete: () => this.loader.hide()
     });
   }
+
+  private obtenerSemanaActual(): string {
+    const hoy = new Date();
+    const inicioAnio = new Date(hoy.getFullYear(), 0, 1);
+    const dias = Math.floor(
+      (hoy.getTime() - inicioAnio.getTime()) / (1000 * 60 * 60 * 24)
+    );
+    const semana = Math.ceil((dias + inicioAnio.getDay() + 1) / 7);
+    return `${hoy.getFullYear()}-${semana}`;
+  }
+
+  private verificarResetSemanal(): void {
+    const semanaActual = this.obtenerSemanaActual();
+    const ultimaSemana = localStorage.getItem('horario_last_reset');
+
+    if (ultimaSemana !== semanaActual) {
+      console.log('🔄 Nueva semana detectada, reseteando horarios');
+
+      this.horario.forEach(dia =>
+        dia.forEach(bloque => bloque.estado = true)
+      );
+
+      localStorage.setItem('horario_last_reset', semanaActual);
+      this.cambiosPendientes = true;
+    }
+  }
+
 
 
   formatearHora(hora: string): string {
@@ -129,6 +163,12 @@ export class EditarHorarioComponent implements OnInit {
     } finally {
       this.loader.hide();
     }
+  }
+
+  toggleHorario(diaIndex: number, bloqueIndex: number) {
+    const bloque = this.horario[diaIndex][bloqueIndex];
+    bloque.estado = !bloque.estado;
+    this.onCambios();
   }
 
 
