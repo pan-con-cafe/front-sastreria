@@ -122,6 +122,11 @@
   transform: translateY(-2px);
 }
 
+.btn-agregar:disabled {
+  background-color: #b7e1c2;
+  cursor: not-allowed;
+}
+
 .btn-cancelar {
   background-color: transparent;
   color: #777;
@@ -145,4 +150,10 @@
   object-fit: cover;
   border-radius: 10px;
   margin-bottom: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }

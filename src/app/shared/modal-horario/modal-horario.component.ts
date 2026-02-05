@@ -133,7 +133,7 @@ export class ModalHorarioComponent {
   }
 
   seleccionarHorario(horario: Horario) {
-    if (!horario.estado) return;
+    if (!horario.estado || horario.pasado) return;
     this.seleccionado = horario.idHorario;
   }
 

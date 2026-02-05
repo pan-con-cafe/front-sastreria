@@ -19,7 +19,7 @@
     </p>
 
     <div class="acciones">
-      <button class="btn-agregar" (click)="confirmarSeleccion()">Agregar</button>
+      <button class="btn-agregar" [disabled]="modelosSeleccionados.length === 0" (click)="confirmarSeleccion()">Agregar</button>
       <button class="btn-cancelar" (click)="cancelar()">Cancelar</button>
     </div>
   </div>
