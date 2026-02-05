@@ -7,7 +7,7 @@ import { Pedido } from '../models/pedido.model';
   providedIn: 'root'
 })
 export class PedidoService {
-  private apiUrl = 'https://sastreria-estilo-ljge.onrender.com/api/Pedido/';
+  private apiUrl = 'https://sastreria-estilo-ljge.onrender.com/api/Pedido';
 
   constructor(private http: HttpClient) {}
 

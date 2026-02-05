@@ -8,8 +8,8 @@
   <h2>Detalle del pedido:</h2>
 
   <div class="encabezado">
-    <p>ID Pedido: {{ pedido.idPedido }}</p>
-    <p>{{ pedido.fechaEntrega | date: 'dd/MM/yyyy' }}</p>
+    <p class="cliente-nombre">{{ nombreCliente }}</p>
+
   </div>
 
   <p class="detalle">
@@ -17,9 +17,18 @@
   </p>
 
   <div class="cita">
-    <p>Citas (muestra estática de prueba):</p>
-    <pre>---------------------------------------------------------------------------------------</pre>
-    <pre>---------------------------------------------------------------------------------------</pre>
-    <pre>-----------------------------------------------</pre>
+    <p>Citas:</p>
+    <div *ngFor="let grupo of citasAgrupadas">
+      <h4>{{ grupo.fecha | date:'dd/MM/yyyy' }}</h4>
+
+      <div *ngFor="let cita of grupo.citas" class="cita-detalle">
+        <p>{{ cita.notas }}</p>
+        <hr />
+      </div>
+    </div>
+
+    <p *ngIf="citasAgrupadas.length === 0">
+      No hay citas registradas para este pedido.
+    </p>
   </div>
 </div>

@@ -10,8 +10,8 @@ import { firstValueFrom } from 'rxjs';
 interface PedidoListado {
   idPedido: number;
   nombreCliente: string;
-  detalle: string;
-  fechaCita: string | null;
+  descripcionCita: string;
+  fechaUltimaCita: string | null;
 }
 
 @Component({
@@ -66,29 +66,38 @@ export class ListadoPedidosComponent implements OnInit {
       this.pedidosAmpliados = await Promise.all(
         pedidos.map(async p => {
 
-          // 1. Obtener cliente
+          // Obtener cliente
           const cliente = await firstValueFrom(
             this.http.get<any>(`${this.apiClientes}/${p.idCliente}`)
           );
 
-          // 2. Obtener modelo (solo si quieres mostrarlo)
-          let modeloDescripcion = '';
-          if (p.idModelo) {
-            const modelo = await firstValueFrom(
-              this.http.get<any>(`${this.apiModelos}/${p.idModelo}`)
-            );
-            modeloDescripcion = modelo?.descripcion ?? '';
-          }
+          // Obtener citas del pedido
+          let fechaUltimaCita: string | null = null;
+          let descripcionCita = 'Sin citas registradas';
 
-          // 3. Obtener fecha de CITA
-          const cita = citas.find(c => c.pedidoId === p.idPedido);
-          const fechaCita = cita?.fechaCita ?? null;
+          try {
+            const citas = await firstValueFrom(
+              this.http.get<any[]>(`${this.apiCitas}/por-pedido/${p.idPedido}`)
+            );
+
+            if (citas.length > 0) {
+              const ultimaCita = citas
+                .sort((a, b) =>
+                  new Date(b.fechaCita).getTime() - new Date(a.fechaCita).getTime()
+                )[0];
+
+              fechaUltimaCita = ultimaCita.fechaCita;
+              descripcionCita = ultimaCita.notas || 'Sin notas';
+            }
+          } catch {
+            // si falla, no rompemos la lista
+          }
 
           return {
             idPedido: p.idPedido,
             nombreCliente: `${cliente.nombre} ${cliente.apellido}`,
-            detalle: modeloDescripcion || p.detalle || "Sin descripción",
-            fechaCita
+            descripcionCita,
+            fechaUltimaCita
           };
         })
       );

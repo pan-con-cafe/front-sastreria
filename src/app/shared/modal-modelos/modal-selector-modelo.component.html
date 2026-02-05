@@ -1,9 +1,9 @@
 <div class="modal-background">
   <div class="modal-content">
-    <input type="text" placeholder="Buscar modelo" class="input-buscar" />
+    <input type="text" placeholder="Buscar modelo" class="input-buscar" [(ngModel)]="textoBusqueda" (input)="filtrarModelos()" />
 
     <div class="grid">
-      <div *ngFor="let modelo of modelosDisponibles"
+      <div *ngFor="let modelo of modelosFiltrados"
            (click)="toggleSeleccion(modelo)"
            class="modelo-card"
            [class.seleccionado]="isSeleccionado(modelo)">
@@ -13,6 +13,10 @@
         
       </div>
     </div>
+
+    <p *ngIf="modelosFiltrados.length === 0" class="sin-resultados">
+        No se encontraron modelos
+    </p>
 
     <div class="acciones">
       <button class="btn-agregar" (click)="confirmarSeleccion()">Agregar</button>

@@ -1,10 +1,12 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+
 
 @Component({
   selector: 'app-modal-selector-modelo',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './modal-selector-modelo.component.html',
   styleUrl: './modal-selector-modelo.component.css'
 })
@@ -15,11 +17,30 @@ export class ModalSelectorModeloComponent {
 
   modelosSeleccionados: any[] = [];
 
-  seleccionarModelo(modelo: any): void {
-  if (!this.modelosSeleccionados.includes(modelo)) {
-    this.modelosSeleccionados.push(modelo);
+
+
+  textoBusqueda: string = '';
+  modelosFiltrados: any[] = [];
+
+  ngOnInit() {
+    this.modelosFiltrados = [...this.modelosDisponibles];
   }
-}
+
+  filtrarModelos() {
+    const texto = this.textoBusqueda.toLowerCase().trim();
+
+    this.modelosFiltrados = this.modelosDisponibles.filter(m =>
+      m.nombre.toLowerCase().includes(texto)
+    );
+  }
+
+
+
+  seleccionarModelo(modelo: any): void {
+    if (!this.modelosSeleccionados.includes(modelo)) {
+      this.modelosSeleccionados.push(modelo);
+    }
+  }
 
   toggleSeleccion(modelo: any) {
     const index = this.modelosSeleccionados.findIndex(m => m.idModelo === modelo.idModelo);

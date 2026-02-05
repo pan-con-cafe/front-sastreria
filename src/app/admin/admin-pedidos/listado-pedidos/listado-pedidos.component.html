@@ -5,11 +5,13 @@
     <div class="tarjeta" *ngFor="let pedido of pedidosAmpliados">
       <div class="contenido">
         <div>
-          <div class="cliente-nombre">{{ pedido.nombreCliente }}</div>
-          <div class="detalle-preview">{{ pedido.detalle }}</div>
+          <div class="izquierda">
+            <div class="cliente-nombre">{{ pedido.nombreCliente }}</div>
+            <div class="detalle-preview">{{ pedido.descripcionCita }}</div>
+          </div>
         </div>
         <div class="derecha">
-          <div class="fecha">{{ pedido.fechaCita || '--/--/----' }}</div>
+          <div class="fecha">{{ pedido.fechaUltimaCita ? (pedido.fechaUltimaCita | date:'dd/MM/yyyy') : '--/--/----' }}</div>
           <button (click)="verDetalle(pedido.idPedido)">Ver Detalle</button>
         </div>
       </div>

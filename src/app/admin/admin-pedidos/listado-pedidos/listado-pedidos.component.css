@@ -13,17 +13,43 @@
   padding: 1.2rem;
   margin-bottom: 1rem;
   border-radius: 1rem;
+  height: 7%;
+  display: flex;
+  align-items: center;
 }
 
 .contenido {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
+  gap: 1rem;
+}
+
+.izquierda {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 
 .derecha {
-  flex-direction: row ;
-  text-align: right;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-between;
+  height: 100%;
+  min-width: 160px;
+}
+
+.fecha {
+  font-size: 0.85rem;
+  color: #6b5b57;
+  margin-right: 0.3rem;
+}
+
+.cliente-nombre {
+  font-weight: 500;
+  font-size: 1rem;
 }
 
 p{
@@ -32,19 +58,29 @@ p{
 
 .descripcion{
   font-weight: 300;
+  max-width: 600px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; /* … */
 }
 
 .derecha button {
   background-color: #d1b1a9;
   color: white;
   border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 1rem;
+  padding: 0.6rem 1.2rem;
+  margin-top: 0.5rem;
+  border-radius: 1.2rem;
   cursor: pointer;
   font-weight: 500;
   font-family: "Lexend Deca", serif;
+  transition: transform 0.2s ease, background-color 0.2s ease;
 }
 
+.derecha button:hover {
+  background-color: #b07a6a;
+  transform: translateY(-1px);
+}
 
 .paginacion {
   display: flex;
