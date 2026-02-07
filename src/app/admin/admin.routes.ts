@@ -33,6 +33,11 @@ export const ADMIN_ROUTES: Routes = [
         loadComponent: () =>
           import('./admin-general/editar-perfil/editar-perfil.component').then(m => m.EditarPerfilComponent),
       },
+      {
+        path: 'mensajes-contacto',
+        loadComponent: () =>
+          import('./admin-general/mensajes-contacto/mensajes-contacto.component').then(m => m.MensajesContactoComponent),
+      },
     ]
   },
 

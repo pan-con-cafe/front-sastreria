@@ -12,21 +12,59 @@
     <!-- Formulario -->
     <div class="formulario">
       <h3>Deje un mensaje</h3>
-      <form>
-        <input type="text" placeholder="Nombre completo" />
-        <input type="email" placeholder="Correo electrónico" />
+
+      <form (ngSubmit)="enviarMensaje()">
+        <input
+          type="text"
+          placeholder="Nombre completo"
+          [(ngModel)]="mensaje.nombre"
+          name="nombre"
+          required
+        />
+
+        <input
+          type="email"
+          placeholder="Correo electrónico"
+          [(ngModel)]="mensaje.email"
+          name="email"
+          required
+        />
+
         <div class="fila">
-          <input type="tel" placeholder="Número de teléfono" />
-          <select>
-            <option value="">Motivo</option>
-            <option value="confeccion">Confección</option>
-            <option value="arreglos">Arreglos</option>
-            <option value="mayor">Por mayor</option>
-            <option value="otros">Otros</option>
+          <!-- Teléfono NO se envía, solo visual 
+          <input
+            type="tel"
+            placeholder="Número de teléfono"
+            disabled
+          />-->
+
+          <select
+            [(ngModel)]="mensaje.asunto"
+            name="asunto"
+          >
+            <option value="">Asunto</option>
+            <option value="Confección">Confección</option>
+            <option value="Arreglos">Arreglos</option>
+            <option value="Por mayor">Por mayor</option>
+            <option value="Otros">Otros</option>
           </select>
         </div>
-        <textarea rows="5" placeholder="Escriba su mensaje aquí"></textarea>
-        <button type="submit" class="btn-primario">Enviar</button>
+
+        <textarea
+          rows="5"
+          placeholder="Escriba su mensaje aquí"
+          [(ngModel)]="mensaje.mensaje"
+          name="mensaje"
+          required
+        ></textarea>
+
+        <button
+          type="submit"
+          class="btn-primario"
+          [disabled]="enviando"
+        >
+          {{ enviando ? 'Enviando...' : 'Enviar' }}
+        </button>
       </form>
     </div>
 
@@ -41,7 +79,7 @@
 
       <div class="horario">
         <h3>Horario de atención</h3>
-        <p>Lunes a Sabados: 8am – 8pm</p>
+        <p>Lunes a Sábados: 8am – 8pm</p>
       </div>
     </div>
   </div>
@@ -50,15 +88,16 @@
   <div class="mapa">
     <h3>Visítanos</h3>
     <div class="map-container">
-  <iframe src="https://www.google.com/maps/embed?pb=!3m2!1ses-419!2spe!4v1761870190026!5m2!1ses-419!2spe!6m8!1m7!1swy32TbNDuYHRax7R2AnP6g!2m2!1d-12.07255613194695!2d-75.19916346364639!3f242.7109734749278!4f7.67800083970333!5f0.7820865974627469" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
-    width="65%"
-    height="400"
-    style="border:0;"
-    allowfullscreen=""
-    loading="lazy"
-    referrerpolicy="no-referrer-when-downgrade">
-  </iframe>
-</div>
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!3m2!1ses-419!2spe!4v1761870190026!5m2!1ses-419!2spe!6m8!1m7!1swy32TbNDuYHRax7R2AnP6g!2m2!1d-12.07255613194695!2d-75.19916346364639!3f242.7109734749278!4f7.67800083970333!5f0.7820865974627469"
+        width="65%"
+        height="400"
+        style="border:0;"
+        allowfullscreen
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+    </div>
   </div>
 </section>
 

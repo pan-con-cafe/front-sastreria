@@ -1,0 +1,38 @@
+<div class="mensajes-container">
+  <h2>Mensajes de contacto</h2>
+
+  <div class="mensaje-card"
+       *ngFor="let msg of mensajes"
+       [class.no-leido]="!msg.leido"
+       (click)="verMensaje(msg)">
+
+    <div class="mensaje-header">
+      <span class="nombre">{{ msg.nombre }}</span>
+      <span class="fecha">{{ msg.fecha | date:'short' }}</span>
+    </div>
+
+    <p class="preview">
+      {{ msg.mensaje | slice:0:80 }}{{ msg.mensaje.length > 80 ? '...' : '' }}
+    </p>
+
+    <button
+      class="btn-leido"
+      *ngIf="!msg.leido"
+      (click)="marcarComoLeido(msg); $event.stopPropagation()">
+      Marcar como leído
+    </button>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" *ngIf="mensajeSeleccionado">
+  <div class="modal">
+    <h3>{{ mensajeSeleccionado.nombre }}</h3>
+    <span class="email">{{ mensajeSeleccionado.email }}</span>
+    <p class="mensaje-completo">
+      {{ mensajeSeleccionado.mensaje }}
+    </p>
+
+    <button class="cerrar" (click)="cerrarModal()">Cerrar</button>
+  </div>
+</div>
