@@ -6,6 +6,8 @@ import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { ConfirmacionSalidaComponent } from '../../../shared/confirmacion-salida/confirmacion-salida.component';
 import { LoaderService } from '../../../shared/loader/loader.service';
+import { Title } from '@angular/platform-browser';
+
 
 
 @Component({
@@ -39,9 +41,12 @@ export class EditarModeloComponent implements OnInit {
     private router: Router,
     private http: HttpClient,
     public loader: LoaderService,
+    private titleService: Title
   ) {}
 
   ngOnInit() {
+    this.titleService.setTitle('Editando modelo | Sastrería Estilo');
+
     this.loader.show();
 
     this.route.paramMap.subscribe(params => {

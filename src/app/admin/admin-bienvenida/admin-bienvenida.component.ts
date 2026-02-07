@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { Title } from '@angular/platform-browser';
+import { OnInit } from '@angular/core';
+
 
 @Component({
   selector: 'app-admin-bienvenida',
@@ -7,6 +10,11 @@ import { Component } from '@angular/core';
   templateUrl: './admin-bienvenida.component.html',
   styleUrl: './admin-bienvenida.component.css'
 })
-export class AdminBienvenidaComponent {
+export class AdminBienvenidaComponent implements OnInit {
+  constructor(private titleService: Title){}
+
+  ngOnInit(){
+    this.titleService.setTitle('Administrador | Sastrería Estilo');
+  }
 
 }

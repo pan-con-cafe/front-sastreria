@@ -5,6 +5,8 @@ import { PedidoService } from '../services/pedido.service';
 import { Pedido } from '../models/pedido.model';
 import { HttpClient } from '@angular/common/http';
 import { RouterLink } from '@angular/router';
+import { Title } from '@angular/platform-browser';
+
 
 
 interface Cita {
@@ -35,10 +37,12 @@ export class VerPedidoComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private pedidoService: PedidoService,
-    private http: HttpClient
+    private http: HttpClient,
+    private titleService: Title
   ) {}
 
   ngOnInit(): void {
+    this.titleService.setTitle('Ver detalle | Sastrería Estilo');
     const id = this.route.snapshot.params['id'];
     this.pedidoService.getPedidoById(id).subscribe({
       next: (data) => {

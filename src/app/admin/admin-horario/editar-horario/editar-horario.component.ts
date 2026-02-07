@@ -6,6 +6,8 @@ import { ConfirmacionSalidaComponent } from '../../../shared/confirmacion-salida
 import { HorarioService } from '../services/horario.service';
 import { Horario } from '../models/horario.model';
 import { LoaderService } from '../../../shared/loader/loader.service';
+import { Title } from '@angular/platform-browser';
+
 
 
 @Component({
@@ -27,10 +29,12 @@ export class EditarHorarioComponent implements OnInit {
     private horarioService: HorarioService,
     private router: Router,
     public loader: LoaderService,
+    private titleService: Title
   ) {}
 
 
   ngOnInit(): void {
+    this.titleService.setTitle('Editando horario | Sastrería Estilo');
 
     this.loader.show();
 

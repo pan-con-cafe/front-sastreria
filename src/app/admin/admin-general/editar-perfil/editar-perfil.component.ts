@@ -8,6 +8,8 @@ import { DatoSastreriaService } from '../../../shared/services/dato-sastreria.se
 import { DatoSastreria } from '../../../models/dato-sastreria.model';
 import { HttpClient } from '@angular/common/http';
 import { LoaderService } from '../../../shared/loader/loader.service';
+import { Title } from '@angular/platform-browser';
+
 
 
 @Component({
@@ -40,9 +42,12 @@ export class EditarPerfilComponent implements OnInit {
     private router: Router,
     private http: HttpClient,
     public loader: LoaderService,
+    private titleService: Title
   ) {}
 
   ngOnInit(): void {
+    this.titleService.setTitle('Editando perfil | Sastrería Estilo');
+
     this.datoService.getDato().subscribe({
       next: (data) => {
         if (data.length > 0) {

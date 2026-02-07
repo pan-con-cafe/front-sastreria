@@ -8,6 +8,8 @@ import { ModalSelectorModeloComponent } from '../../../shared/modal-modelos/moda
 import { HttpClient } from '@angular/common/http';
 import { OnInit } from '@angular/core';
 import { LoaderService } from '../../../shared/loader/loader.service';
+import { Title } from '@angular/platform-browser';
+
 
 
 
@@ -37,6 +39,7 @@ export class AnadirCategoriaComponent {
     private router: Router,
     private http: HttpClient,
     public loader: LoaderService,
+    private titleService: Title
   ) {}
 
   onCambios(): void {
@@ -54,6 +57,7 @@ export class AnadirCategoriaComponent {
   }
 
   ngOnInit(): void {
+    this.titleService.setTitle('Creando categoría | Sastrería Estilo');
     this.http.get<any[]>('https://sastreria-estilo-ljge.onrender.com/api/Modelo').subscribe({
       next: (data) => {
         this.listaDeModelos = data.map(m => ({

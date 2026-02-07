@@ -9,6 +9,8 @@ import { Categoria } from '../models/categoria.model';
 import { HttpClient } from '@angular/common/http';
 import { ModalSelectorModeloComponent } from '../../../shared/modal-modelos/modal-selector-modelo.component';
 import { LoaderService } from '../../../shared/loader/loader.service';
+import { Title } from '@angular/platform-browser';
+
 
 
 
@@ -36,9 +38,12 @@ export class EditarCategoriaComponent implements OnInit {
     private route: ActivatedRoute,
     private http: HttpClient,
     public loader: LoaderService,
+    private titleService: Title
   ) {}
 
   ngOnInit(): void {
+    this.titleService.setTitle('Editando categoría | Sastrería Estilo');
+
     this.idCategoria = this.route.snapshot.params['id'];
     
     this.categoriaService.getCategoriaById(this.idCategoria).subscribe({

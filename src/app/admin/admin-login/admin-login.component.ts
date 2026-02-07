@@ -4,6 +4,8 @@ import { RouterLink } from '@angular/router';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
+import { Title } from '@angular/platform-browser';
+
 
 @Component({
   selector: 'app-admin-login',
@@ -20,7 +22,7 @@ export class AdminLoginComponent {
 
   loading = false;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router, private titleService: Title) {}
 
   showPassword = false;
 
@@ -46,6 +48,8 @@ export class AdminLoginComponent {
   }
 
   ngOnInit(): void {
+    this.titleService.setTitle('Iniciar sesión');
+
     if (this.authService.isAuthenticated()) {
       this.router.navigate(['/admin/general']); // o /panel-admin
     }

@@ -5,6 +5,8 @@ import { ConfirmacionSalidaComponent } from '../../../shared/confirmacion-salida
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { LoaderService } from '../../../shared/loader/loader.service';
+import { Title } from '@angular/platform-browser';
+
 
 
 @Component({
@@ -35,9 +37,11 @@ export class AnadirModeloComponent implements OnInit {
     private http: HttpClient,
     private router: Router,
     public loader: LoaderService,
+    private titleService: Title
   ) {}
 
   ngOnInit() {
+    this.titleService.setTitle('Creando modelo | Sastrería Estilo');
     this.http.get<any[]>('https://sastreria-estilo-ljge.onrender.com/api/Categoria').subscribe({
       next: (data) => this.categorias = data
     });
