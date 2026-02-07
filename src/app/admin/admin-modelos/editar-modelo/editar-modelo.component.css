@@ -232,7 +232,13 @@
 .boton-container {
   display: flex;
   margin-top: 2rem;
-  justify-content: flex-end;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.botones-derecha {
+  display: flex;
   gap: 15px;
 }
 
@@ -277,6 +283,26 @@
 .btn-cancelar:active {
   transform: scale(0.96);
 }
+
+.btn-eliminar {
+  background-color: #c0392b;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.4rem;
+  border-radius: 1rem;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 14px;
+  font-family: "Lexend Deca", serif;
+  display: inline-block;
+  opacity: 0.9;
+}
+
+.btn-eliminar:hover {
+  background-color: #a93226;
+  opacity: 1;
+}
+
 
 .mensaje-exito {
   color: green;

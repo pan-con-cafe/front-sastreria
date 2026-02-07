@@ -89,21 +89,28 @@
   gap: 14px;
 }
 
-.logo-placeholder img{
-  width: 180px;
-  height: 180px;
+.logo-placeholder{
+  width: 200px;
+  height: 200px;
   object-fit: cover;
   border-radius: 16px;
-  border: 2px solid #aaa;
+  border: 1px solid #aaa;
   cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 0 auto;
+  overflow: hidden;
   transition: transform 0.25s ease, border-color 0.25s ease;
 }
 
-.logo-placeholder img:hover {
-  transform: scale(1.03);
-  border-color: #2f3460;
+.logo-placeholder img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.logo-placeholder:hover {
+  transform: scale(1.02);
+  border-color: #b07a6a;
 }

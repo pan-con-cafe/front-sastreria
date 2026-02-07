@@ -1,1 +1,75 @@
-<p>panel-de-control works!</p>
+<div class="dashboard-cards">
+  <div class="card">
+    <h3>Pedidos</h3>
+    <p>{{ totalPedidos }}</p>
+  </div>
+
+  <div class="card">
+    <h3>Modelos</h3>
+    <p>{{ totalModelos }}</p>
+  </div>
+</div>
+
+<div class="dashboard-section">
+  <h2>Pedidos por estado</h2>
+
+  <div class="estado-cards">
+    <div class="estado-card reservado">
+      <span class="estado-numero">{{ pedidosEstado.reservado }}</span>
+      <span class="estado-texto">Reservados</span>
+    </div>
+
+    <div class="estado-card proceso">
+      <span class="estado-numero">{{ pedidosEstado.proceso }}</span>
+      <span class="estado-texto">En proceso</span>
+    </div>
+
+    <div class="estado-card completado">
+      <span class="estado-numero">{{ pedidosEstado.completado }}</span>
+      <span class="estado-texto">Completados</span>
+    </div>
+  </div>
+</div>
+
+<div class="dashboard-section">
+  <h2>Horario más solicitado esta semana</h2>
+
+  <div class="horario-top" *ngIf="horarioMasSolicitado; else sinDatos">
+    <span class="horario-icon">⏰</span>
+
+    <div class="horario-info">
+      <span class="horario-rango">
+        {{ horarioMasSolicitado.rango }}
+      </span>
+      <span class="horario-total">
+        {{ horarioMasSolicitado.total }} reservas
+      </span>
+    </div>
+  </div>
+
+  <ng-template #sinDatos>
+    <p class="sin-datos">No hay horarios activos registrados.</p>
+  </ng-template>
+</div>
+
+
+<div class="dashboard-section-container">
+    <div class="dashboard-section">
+    <h2>Modelos más solicitados</h2>
+
+    <ul>
+        <li *ngFor="let modelo of modelosMasSolicitados">
+        {{ modelo.nombre }} – {{ modelo.total }} pedidos
+        </li>
+    </ul>
+    </div>
+
+    <div class="dashboard-section">
+    <h2>Días más ocupados</h2>
+
+    <div *ngFor="let d of diasMasOcupados">
+        <strong>{{ d.dia }}</strong>
+        <div class="bar" [style.width.%]="d.total * 10"></div>
+    </div>
+    </div>
+</div>

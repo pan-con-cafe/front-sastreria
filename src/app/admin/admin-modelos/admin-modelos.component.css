@@ -6,18 +6,21 @@ section {
 .admin-modelos-container {
   display: flex;
   flex-direction: row;
-  height: 100vh; 
 }
 
 .sidebar {
+  position: fixed;
+  top: 80px;
+  left: 0;
   width: 200px;
   background-color: #DCC8C2;
-  padding: 30px 20px;
+  padding: 10px 20px;
   box-shadow: 2px 0 8px rgba(0, 0, 0, 0.08);
-  height: 100vh;
+  height: calc(100vh - 100px);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  overflow: hidden;
 }
 
 .sidebar ul {
@@ -27,7 +30,7 @@ section {
 }
 
 .sidebar ul li {
-  margin-bottom: 15px;
+  margin: 15px 0px;
 }
 
 .sidebar ul li a {
@@ -52,7 +55,7 @@ section {
 }
 
 .logout-button {
-  margin-top: 20px;
+  margin: 15px 0px;
   padding: 10px;
   width: 100%;
   background-color: #d3a58f;
@@ -71,6 +74,9 @@ section {
 }
 
 main {
+  margin-left: 200px;
+  width: calc(100% - 200px);
+  overflow-y: auto; 
   flex: 1;
   padding: 20px;
   display: flex;

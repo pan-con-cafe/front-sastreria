@@ -28,6 +28,7 @@ export class EditarModeloComponent implements OnInit {
   intentoGuardar = false;
   mensajeExito = false;
   mostrarModal = false;
+  mostrarModalEliminar = false;
   cambiosPendientes = false;
   dragging = false;
   errorImagen = false;
@@ -133,24 +134,6 @@ export class EditarModeloComponent implements OnInit {
     });
   }
 
-  /*seleccionarImagen() {
-    this.inputImagen.nativeElement.click();
-  }
-
-  async cargarImagen(event: any) {
-    const file = event.target.files[0];
-    if (!file || this.imagenes.length >= 4) return;
-
-    this.loader.show();
-    const url = await this.subirImagenACloudinary(file);
-    this.loader.hide();
-
-    this.imagenes.push(url);
-    this.imagenPrincipal = this.imagenes[0];
-    this.cambiosPendientes = true;
-  }*/
-
-
   async guardarCambios() {
     if (!this.nombre || !this.descripcion || this.imagenes.length === 0) {
       this.intentoGuardar = true;
@@ -219,4 +202,33 @@ export class EditarModeloComponent implements OnInit {
     const data = await response.json();
     return data.secure_url;
   }
+
+  eliminarModelo(): void {
+    this.mostrarModalEliminar = true;
+  }
+
+  confirmarEliminar() {
+    this.mostrarModalEliminar = false;
+    this.loader.show();
+
+    this.http
+      .delete(`https://sastreria-estilo-ljge.onrender.com/api/Modelo/${this.modeloId}`)
+      .subscribe({
+        next: () => {
+          this.loader.hide();
+          this.router.navigate(['/admin/modelos/ver-modelo']);
+        },
+        error: (err) => {
+          console.error('Error al eliminar modelo', err);
+          this.loader.hide();
+        }
+      });
+  }
+
+  cancelarEliminar() {
+    this.mostrarModalEliminar = false;
+  }
+
+
+
 }

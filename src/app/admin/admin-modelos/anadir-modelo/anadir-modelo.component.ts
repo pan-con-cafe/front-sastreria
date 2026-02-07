@@ -113,7 +113,9 @@ export class AnadirModeloComponent implements OnInit {
     this.cambiosPendientes = true;
   }
 
-  eliminarImagen(index: number) {
+  eliminarImagen(index: number, event?: Event) {
+    event?.stopPropagation();
+
     this.imagenes.splice(index, 1);
     this.imagenesPreview.splice(index, 1);
     this.cambiosPendientes = true;
@@ -146,7 +148,9 @@ export class AnadirModeloComponent implements OnInit {
     this.cambiosPendientes = true;
   }
 
-  ampliarImagen(img: string) {
+  ampliarImagen(img: string, event?: Event) {
+    event?.stopPropagation();
+    
     this.imagenAmpliada = img;
   }
 

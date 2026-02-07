@@ -89,12 +89,16 @@
 
     <!-- Botones y validación final -->
     <div class="boton-container">
+      <button type="button" class="btn-eliminar" (click)="eliminarModelo()">Eliminar modelo</button>
+
+      <div class="botones-derecha">
       <button type="button" class="btn-cancelar" (click)="cancelar()" [disabled]="loader.isLoading()">Cancelar</button>
-      <button type="submit"
-              class="btn-guardar"
-              [disabled]="formModelo.invalid || loader.isLoading()">
-        Guardar
-      </button>
+        <button type="submit"
+                class="btn-guardar"
+                [disabled]="formModelo.invalid || loader.isLoading()">
+          Guardar
+        </button>
+      </div>
     </div>
     <p class="error" *ngIf="intentoGuardar && imagenes.length === 0">Debe añadir al menos una imagen.</p>
   </form>
@@ -105,6 +109,15 @@
     <img [src]="imagenAmpliada" alt="Vista ampliada" />
   </div>
 </div>
+
+<app-confirmacion-salida
+  *ngIf="mostrarModalEliminar"
+  titulo="Eliminar modelo"
+  mensaje="¿Está seguro de eliminar este modelo? Esta acción no se puede deshacer."
+  (confirmar)="confirmarEliminar()"
+  (cancelar)="cancelarEliminar()"
+>
+</app-confirmacion-salida>
 
 <app-confirmacion-salida
   *ngIf="mostrarModal"
