@@ -1,7 +1,7 @@
 import { bootstrapApplication } from '@angular/platform-browser';
 import { appConfig } from './app/app.config';
 import { AppComponent } from './app/app.component';
-import { provideRouter } from '@angular/router';
+import { provideRouter, withInMemoryScrolling  } from '@angular/router';
 import { enableProdMode } from '@angular/core';
 import { appRoutes } from './app/app.routes';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
@@ -10,7 +10,10 @@ enableProdMode();
 
 bootstrapApplication(AppComponent, {
   providers: [
-    provideRouter(appRoutes),
+    provideRouter(appRoutes, withInMemoryScrolling({
+        scrollPositionRestoration: 'top',
+        anchorScrolling: 'enabled'
+      })),
     provideHttpClient(withInterceptors([
       (req, next) => {
         const token = localStorage.getItem('token');
