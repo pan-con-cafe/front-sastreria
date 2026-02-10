@@ -89,7 +89,7 @@ export class ClienteReservaComponent implements OnInit {
     this.horarioElegido = horario;
     this.reservation.fecha = `${horario.dia} ${horario.horaInicio} - ${horario.horaFin}`;
     this.mostrarModal = false; // cerrar modal automáticamente
-    console.log('Horario seleccionado:', this.reservation.fecha);
+
   }
 
   seleccionarHorario(horario: any) {
@@ -97,6 +97,46 @@ export class ClienteReservaComponent implements OnInit {
       this.selectedHorario = horario;
     }
   }
+
+  getFechaDesdeDia(dia: string): string {
+    if (!dia) return '';
+
+    const dias = [
+      'domingo',
+      'lunes',
+      'martes',
+      'miercoles',
+      'jueves',
+      'viernes',
+      'sabado'
+    ];
+
+    const hoy = new Date();
+    const hoyIdx = hoy.getDay();
+
+    const idx = dias.indexOf(dia.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, ''));
+
+    if (idx === -1) return '';
+
+    let diff = idx - hoyIdx;
+    if (diff <= 0) diff += 7;
+
+    const fecha = new Date(hoy);
+    fecha.setDate(hoy.getDate() + diff);
+
+    return fecha.toLocaleDateString('es-PE');
+  }
+
+  formatearHora(hora: string): string {
+    if (!hora) return '';
+    return hora.substring(0, 5); // HH:mm
+  }
+
+  getFechaCita(): string {
+    if (!this.horarioElegido) return '';
+    return this.getFechaDesdeDia(this.horarioElegido.dia);
+  }
+
 
   abrirModal() {
    this.mostrarModal = true;
@@ -152,9 +192,9 @@ export class ClienteReservaComponent implements OnInit {
             this.router.navigate(['/cliente/reservado'], {
               state: {
                 nombres: this.reservation.nombres + ' ' + this.reservation.apellidos,
-                fecha: this.horarioElegido?.dia ?? '',
-                hora: this.horarioElegido?.horaInicio ?? '',
-                direccion: '',   // ← si quieres luego lo llenamos desde DatoSastreria
+                fecha: this.getFechaCita(),
+                hora: this.formatearHora(this.horarioElegido?.horaInicio),
+                direccion: '', 
                 telefono: ''
               }
             });

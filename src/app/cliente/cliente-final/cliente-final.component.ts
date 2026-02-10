@@ -1,17 +1,3 @@
-/*import { Component } from '@angular/core';
-import { NavbarComponent } from '../navbar/navbar.component';
-
-@Component({
-  selector: 'app-cliente-final',
-  standalone: true,
-  imports: [NavbarComponent],
-  templateUrl: './cliente-final.component.html',
-  styleUrl: './cliente-final.component.css'
-})
-export class ClienteFinalComponent {
-  
-}*/
-
 import { Component} from '@angular/core';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { Router } from '@angular/router';
@@ -34,7 +20,7 @@ export class ClienteFinalComponent {
   telefono: string = '';
 
   constructor(private router: Router, private datoService: DatoSastreriaService) {
-    // Recoger los datos enviados desde cliente-reserva via navigation state
+
     const nav = this.router.getCurrentNavigation();
     const state = nav?.extras?.state as any;
 
@@ -42,11 +28,10 @@ export class ClienteFinalComponent {
     this.fecha = state?.fecha ?? '';
     this.hora = state?.hora ?? '';
 
-    // Obtener datos de la sastrería desde la API
     this.datoService.getDato().subscribe({
       next: (data) => {
         if (data && data.length > 0) {
-          const dato = data[0]; // Siempre devolvías 1 solo registro
+          const dato = data[0];
           this.direccion = dato.direccion;
           this.telefono = dato.telefono;
         }

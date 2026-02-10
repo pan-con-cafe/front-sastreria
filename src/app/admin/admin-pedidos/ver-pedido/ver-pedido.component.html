@@ -1,4 +1,4 @@
-<div class="contenedor">
+<div class="contenedor" *ngIf="pedido">
   <div class="back-link">
     <a routerLink="/admin/pedidos/listado-pedidos">
       <img src="/back.png" alt="Volver" style="width: 15px; height: 15px;"> Volver
@@ -23,6 +23,14 @@
 
       <div *ngFor="let cita of grupo.citas" class="cita-detalle">
         <p>{{ cita.notas }}</p>
+        <div class="imagenes-cita" *ngIf="cita.imagenes?.length">
+          <img
+            *ngFor="let img of cita.imagenes"
+            [src]="img.url"
+            class="miniatura"
+            (click)="imagenSeleccionada = img.url"
+          />
+        </div>
         <hr />
       </div>
     </div>
@@ -31,4 +39,8 @@
       No hay citas registradas para este pedido.
     </p>
   </div>
+</div>
+
+<div class="modal" *ngIf="imagenSeleccionada" (click)="imagenSeleccionada = null">
+  <img [src]="imagenSeleccionada" class="imagen-grande" />
 </div>

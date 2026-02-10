@@ -137,6 +137,12 @@ export class ModalHorarioComponent {
     this.seleccionado = horario.idHorario;
   }
 
+  formatearHora(hora: string): string {
+    if (!hora) return '';
+    return hora.substring(0, 5); // HH:mm
+  }
+
+
   confirmar() {
     const horario = this.horarios.find(h => h.idHorario === this.seleccionado);
     if (horario) {

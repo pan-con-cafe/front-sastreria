@@ -119,7 +119,6 @@
 
   .input-field button::after {
     font-size: 14px;
-    content: "Seleccionar horario";
     color: #555;
     font-weight: 300;
   }

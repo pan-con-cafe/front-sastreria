@@ -30,7 +30,13 @@
         <div class="input-field">
           <label>Elija la fecha de su cita</label>
           <button id="horario" type="button" (click)="abrirModal()">
-            {{ horarioElegido ? (horarioElegido.dia + ' ' + horarioElegido.horaInicio + ' - ' + horarioElegido.horaFin) : '' }}
+            {{ horarioElegido 
+              ? horarioElegido.dia + ' ' 
+                + getFechaDesdeDia(horarioElegido.dia) + ' · ' 
+                + formatearHora(horarioElegido.horaInicio)
+              : 'Seleccione un horario' }}
+
+
           </button>
 
           <small class="error" *ngIf="!reservation.fecha && reservaForm.submitted">
@@ -82,18 +88,7 @@
         </div>
       </div>
 
-      <p>Elija una de las opciones:</p>
-      <div class="radio-options">
-        <label>
-          <input type="radio" name="opcion" [(ngModel)]="reservation.opcion" value="sastre" required #opcionRef="ngModel" />
-          Que el sastre compre la tela que crea conveniente
-        </label>
-        <label>
-          <input type="radio" name="opcion" [(ngModel)]="reservation.opcion" value="cliente" required />
-          Yo compraré la tela que crea conveniente
-        </label>
-        <small class="error" *ngIf="opcionRef.invalid && opcionRef.touched">Debe seleccionar una opción.</small>
-      </div>
+      <p style="color: #555; font-style: italic;">Si desea detalles sobre la tela, los tiempos de entrega o el precio, porfavor contacte con nosotros.</p>
 
       <button type="button" class="submit-button" [disabled]="reservaForm.invalid || loader.isLoading()" (click)="abrirModalReserva()">Reservar</button>
     </form>

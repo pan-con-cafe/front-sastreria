@@ -7,11 +7,17 @@ import { HttpClient } from '@angular/common/http';
 import { RouterLink } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 
-
+interface CitaImagen {
+  idCitaImagen: number;
+  idCita: number;
+  url: string;
+}
 
 interface Cita {
+  idCita: number;
   fechaCita: string;
   notas: string;
+  imagenes?: CitaImagen[];
 }
 
 @Component({
@@ -26,12 +32,14 @@ interface Cita {
 export class VerPedidoComponent implements OnInit {
   pedido!: Pedido;
   nombreCliente: string = '';
-
+  imagenSeleccionada: string | null = null;
 
   citasAgrupadas: { fecha: string; citas: Cita[] }[] = [];
 
   private apiCitas = 'https://sastreria-estilo-ljge.onrender.com/api/Cita';
   private apiClientes = 'https://sastreria-estilo-ljge.onrender.com/api/Cliente';
+  private apiCitaImagen = 'https://sastreria-estilo-ljge.onrender.com/api/CitaImagen';
+
 
 
   constructor(
@@ -68,7 +76,20 @@ export class VerPedidoComponent implements OnInit {
     this.http
       .get<Cita[]>(`${this.apiCitas}/por-pedido/${pedidoId}`)
       .subscribe(citas => {
+        citas.forEach(cita => {
+          this.cargarImagenesCita(cita);
+        });
+        
         this.citasAgrupadas = this.agruparPorFecha(citas);
+      });
+  }
+
+  cargarImagenesCita(cita: Cita): void {
+    this.http
+      .get<CitaImagen[]>(`${this.apiCitaImagen}/cita/${cita.idCita}`)
+      .subscribe(imagenes => {
+        console.log('IMAGENES CITA', cita.idCita, imagenes);
+        cita.imagenes = imagenes;
       });
   }
 
