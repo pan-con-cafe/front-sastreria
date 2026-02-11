@@ -6,6 +6,14 @@ import { PedidoService } from '../services/pedido.service';
 import { HorarioService } from '../services/horario.service';
 import { ModeloService } from '../services/modelo.service';
 
+
+interface DiaOcupado {
+  dia: string;
+  total: number;
+  widthEscalada: number;
+}
+
+
 @Component({
   selector: 'app-panel-de-control',
   standalone: true,
@@ -27,7 +35,7 @@ export class PanelDeControlComponent implements OnInit {
   pedidosPendientes = 0;
 
   modelosMasSolicitados: { nombre: string; total: number }[] = [];
-  diasMasOcupados: { dia: string; total: number }[] = [];
+  diasMasOcupados: DiaOcupado[] = [];
   horasMasUsadas: { hora: string; total: number }[] = [];
   horariosActivos = 0;
   horariosInactivos = 0;
@@ -44,6 +52,8 @@ export class PanelDeControlComponent implements OnInit {
     total: number;
   } | null = null;
 
+  pieChartStyle = '';
+  coloresModelos: string[] = ['#e7d7a5', '#b8c7e0', '#a9c8b9', '#f5a623', '#7ed321'];
 
 
   constructor(
@@ -92,7 +102,9 @@ export class PanelDeControlComponent implements OnInit {
           };
         })
         .sort((a, b) => b.total - a.total)
-        .slice(0, 5); // Top 5
+        .slice(0, 5);
+
+        this.actualizarPieChartModelos(); 
       });
     });
   }
@@ -112,29 +124,48 @@ export class PanelDeControlComponent implements OnInit {
         if (p.idEstado === 2) this.pedidosEstado.proceso++;
         if (p.idEstado === 3) this.pedidosEstado.completado++;
       });
-    });
+
+    }); 
+
   }
 
 
   cargarDiasMasOcupados() {
     this.horarioService.getHorarios().subscribe(horarios => {
 
-      const contador: any = {};
+      const contador: Record<string, number> = {};
 
+      // Contar horarios ocupados (estado === false)
       horarios
-        .filter(h => h.estado === true)
+        .filter(h => h.estado === false)
         .forEach(h => {
           contador[h.dia] = (contador[h.dia] || 0) + 1;
         });
 
-      this.diasMasOcupados = Object.keys(contador)
-        .map(dia => ({
-          dia,
-          total: contador[dia]
-        }))
-        .sort((a, b) => b.total - a.total);
+      const dias = Object.keys(contador).map(dia => ({
+        dia,
+        total: contador[dia],
+        widthEscalada: 0
+      }));
+
+      // Escalar barras según el máximo
+      const maxTotal = Math.max(...dias.map(d => d.total));
+
+      let diasMasOcupados = dias.map(d => ({
+        ...d,
+        widthEscalada: maxTotal > 0 ? (d.total / maxTotal) * 100 : 0
+      }));
+
+      // Ordenar según el orden de la semana
+      const ordenSemana = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
+
+      this.diasMasOcupados = diasMasOcupados.sort((a, b) => 
+        ordenSemana.indexOf(a.dia) - ordenSemana.indexOf(b.dia)
+      );
     });
   }
+
+
 
   cargarHorasMasUsadas() {
     this.horarioService.getHorarios().subscribe(horarios => {
@@ -156,7 +187,36 @@ export class PanelDeControlComponent implements OnInit {
         .sort((a, b) => b.total - a.total)
         .slice(0, 5);
     });
+
+
   }
+
+  actualizarPieChartModelos() {
+    if (!this.modelosMasSolicitados || this.modelosMasSolicitados.length === 0) {
+      this.pieChartStyle = '';
+      return;
+    }
+
+    const total = this.modelosMasSolicitados.reduce((sum, m) => sum + m.total, 0);
+    if (total === 0) {
+      this.pieChartStyle = '';
+      return;
+    }
+
+    const colors = ['#e7d7a5', '#b8c7e0', '#a9c8b9', '#f5a623', '#7ed321']; // max 5 colores
+    let currentPercent = 0;
+    let gradientParts: string[] = [];
+
+    this.modelosMasSolicitados.forEach((modelo, index) => {
+      const percent = (modelo.total / total) * 100;
+      const color = colors[index % colors.length];
+      gradientParts.push(`${color} ${currentPercent}% ${currentPercent + percent}%`);
+      currentPercent += percent;
+    });
+
+    this.pieChartStyle = `conic-gradient(${gradientParts.join(', ')})`;
+  }
+
 
   cargarEstadoHorarios() {
     this.horarioService.getHorarios().subscribe(horarios => {

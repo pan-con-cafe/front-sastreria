@@ -24,5 +24,9 @@ export class MensajeContactoService {
   marcarComoLeido(id: number): Observable<void> {
     return this.http.put<void>(`${this.apiUrl}/${id}/leido`, {});
   }
+
+  eliminarMensaje(id: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${id}`);
+  }
   
 }

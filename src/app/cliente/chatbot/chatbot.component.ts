@@ -59,6 +59,14 @@ export class ChatbotComponent implements OnInit, OnDestroy {
     this.texto = '';
   }
 
+  ngAfterViewChecked() {
+    const chat = document.getElementById('chat-mensajes');
+    if (chat) {
+      chat.scrollTop = chat.scrollHeight;
+    }
+  }
+
+
   toggleChat() {
     this.isChatOpen = !this.isChatOpen;
   }

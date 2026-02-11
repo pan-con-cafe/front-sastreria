@@ -48,4 +48,36 @@ export class MensajesContactoComponent implements OnInit {
     });
   }
 
+  mensajeAEliminar: any = null; // mensaje seleccionado para eliminar
+
+  // Click en botón eliminar de la card
+  eliminarMensaje(msg: any) {
+    this.mensajeAEliminar = msg; // abre el modal
+  }
+
+  // Cancelar eliminación
+  cancelarEliminar() {
+    this.mensajeAEliminar = null;
+  }
+
+  // Confirmar eliminación
+  confirmarEliminar() {
+    if (!this.mensajeAEliminar) return;
+
+    this.mensajeService.eliminarMensaje(this.mensajeAEliminar.id).subscribe({
+      next: () => {
+        // Eliminar de la lista local
+        this.mensajes = this.mensajes.filter(m => m.id !== this.mensajeAEliminar.id);
+        this.mensajeAEliminar = null; // cerrar modal
+      },
+      error: (err) => {
+        console.error('Error al eliminar mensaje', err);
+        alert('No se pudo eliminar el mensaje'); // opcional, mensaje de error simple
+        this.mensajeAEliminar = null;
+      }
+    });
+  }
+
+
+
 }

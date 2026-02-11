@@ -1,26 +1,20 @@
 <div class="mensajes-container">
-  <h2>Mensajes de contacto</h2>
+  <h2 class="titulo">Mensajes de contacto</h2>
 
-  <div class="mensaje-card"
-       *ngFor="let msg of mensajes"
-       [class.no-leido]="!msg.leido"
-       (click)="verMensaje(msg)">
-
-    <div class="mensaje-header">
-      <span class="nombre">{{ msg.nombre }}</span>
-      <span class="fecha">{{ msg.fecha | date:'short' }}</span>
+  <div class="grid-mensajes">
+    <div class="mensaje-card" *ngFor="let msg of mensajes" [class.no-leido]="!msg.leido" (click)="verMensaje(msg)">
+      <div class="contenido">
+        <div class="izquierda">
+          <span class="cliente-nombre">{{ msg.nombre }}</span>
+          <p class="descripcion">{{ msg.mensaje | slice:0:50 }}{{ msg.mensaje.length > 50 ? '...' : '' }}</p>
+        </div>
+        <div class="derecha">
+          <span class="fecha">{{ msg.fecha | date:'short' }}</span>
+          <button class="btn-leido" *ngIf="!msg.leido" (click)="marcarComoLeido(msg); $event.stopPropagation()">Marcar</button>
+          <button class="btn-eliminar" (click)="eliminarMensaje(msg); $event.stopPropagation()">🗑️</button>
+        </div>
+      </div>
     </div>
-
-    <p class="preview">
-      {{ msg.mensaje | slice:0:80 }}{{ msg.mensaje.length > 80 ? '...' : '' }}
-    </p>
-
-    <button
-      class="btn-leido"
-      *ngIf="!msg.leido"
-      (click)="marcarComoLeido(msg); $event.stopPropagation()">
-      Marcar como leído
-    </button>
   </div>
 </div>
 
@@ -29,10 +23,20 @@
   <div class="modal">
     <h3>{{ mensajeSeleccionado.nombre }}</h3>
     <span class="email">{{ mensajeSeleccionado.email }}</span>
-    <p class="mensaje-completo">
-      {{ mensajeSeleccionado.mensaje }}
-    </p>
-
+    <p class="mensaje-completo">{{ mensajeSeleccionado.mensaje }}</p>
     <button class="cerrar" (click)="cerrarModal()">Cerrar</button>
   </div>
 </div>
+
+<!-- MODAL DE CONFIRMACIÓN -->
+<div class="modal-overlay" *ngIf="mensajeAEliminar">
+  <div class="modal modal-confirm">
+    <h3>Eliminar mensaje</h3>
+    <p>¿Estás seguro de eliminar el mensaje de <strong>{{ mensajeAEliminar.nombre }}</strong>?</p>
+    <div class="modal-actions">
+      <button class="btn-cancel" (click)="cancelarEliminar()">Cancelar</button>
+      <button class="btn-confirm" (click)="confirmarEliminar()">Eliminar</button>
+    </div>
+  </div>
+</div>
+
